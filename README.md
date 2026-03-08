@@ -167,11 +167,19 @@ tail(ma, 6)
 ### How much are households borrowing?
 
 ```r
-# Total consumer credit, credit cards, and other lending
-cc <- boe_consumer_credit(from = "2020-01-01")
+# Total consumer credit outstanding
+cc <- boe_consumer_credit(type = "total", from = "2024-01-01")
+tail(cc, 6)
+#>         date  type amount_gbp_m
+#>   2024-01-31 total       476154
+#>   2024-02-29 total       479974
+#>   2024-03-31 total       484269
+#>   2024-04-30 total       490106
+#>   2024-05-31 total       494904
+#>   2024-06-30 total       498639
 
 # Credit card debt only
-boe_consumer_credit(type = "credit_card", from = "2020-01-01")
+boe_consumer_credit(type = "credit_card", from = "2024-01-01")
 ```
 
 ---
@@ -179,8 +187,16 @@ boe_consumer_credit(type = "credit_card", from = "2020-01-01")
 ### How much money is in the economy?
 
 ```r
-# M4 amounts outstanding since 2000
-m4 <- boe_money_supply(from = "2000-01-01")
+# M4 amounts outstanding
+m4 <- boe_money_supply(from = "2024-01-01")
+head(m4, 6)
+#>         date amount_gbp_m
+#>   2024-01-31      2986264
+#>   2024-02-29      2999033
+#>   2024-03-31      3025146
+#>   2024-04-30      3030412
+#>   2024-05-31      3028825
+#>   2024-06-30      3044464   # ← £3 trillion
 ```
 
 ---
@@ -189,7 +205,15 @@ m4 <- boe_money_supply(from = "2000-01-01")
 
 ```r
 # SONIA replaced LIBOR as the UK's benchmark interest rate
-sonia <- boe_sonia(from = "2020-01-01")
+sonia <- boe_sonia(from = "2024-01-01", to = "2024-01-31")
+head(sonia, 6)
+#>         date rate_pct
+#>   2024-01-02   5.1863
+#>   2024-01-03   5.1863
+#>   2024-01-04   5.1870
+#>   2024-01-05   5.1869
+#>   2024-01-08   5.1869
+#>   2024-01-09   5.1867
 
 # Monthly or annual average
 boe_sonia(from = "2020-01-01", frequency = "monthly")
@@ -201,14 +225,19 @@ boe_sonia(from = "2020-01-01", frequency = "monthly")
 
 ```r
 # If you know the BoE series code, use boe_get() directly
-# Series codes are listed at:
-# https://www.bankofengland.co.uk/boeapps/database/
+# Series codes: https://www.bankofengland.co.uk/boeapps/database/
 
-# Personal loan rate (£10K)
-boe_get("IUMHPTL", from = "2020-01-01")
-
-# Multiple series in one call
-boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01")
+# Multiple series in one call — Bank Rate vs SONIA
+boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
+#>          date    code  value
+#>    2024-01-02 IUDBEDR 5.2500
+#>    2024-01-03 IUDBEDR 5.2500
+#>    2024-01-04 IUDBEDR 5.2500
+#>    ...
+#>    2024-01-02 IUDSOIA 5.1863
+#>    2024-01-03 IUDSOIA 5.1863
+#>    2024-01-04 IUDSOIA 5.1870
+#>    ...
 ```
 
 ---
