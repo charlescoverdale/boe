@@ -4,11 +4,15 @@
 
 An R package for downloading data from the [Bank of England](https://www.bankofengland.co.uk) Statistical Database.
 
-## What is the Bank of England Statistical Database?
+## What is the Bank of England?
 
-The Bank of England publishes thousands of statistical time series covering interest rates, exchange rates, money and credit, gilt yields, and housing market indicators. This data underpins monetary policy analysis, financial research, and economic journalism in the UK.
+The Bank of England is the United Kingdom's central bank. Founded in 1694, it is responsible for setting monetary policy (including Bank Rate), issuing banknotes, supervising the banking system, and maintaining financial stability. Its Monetary Policy Committee meets eight times a year to set the interest rate that ripples through every mortgage, savings account, and bond in the UK economy.
 
-The data is freely available through the [Interactive Statistical Database](https://www.bankofengland.co.uk/boeapps/database/), but using it programmatically requires knowing obscure series codes (like `IUDBEDR` for Bank Rate), constructing query URLs with a non-standard date format (`DD/Mon/YYYY`), parsing CSV responses with irregular date formats, and handling HTML error pages returned with HTTP 200 status codes. Every analyst who works with this data writes the same boilerplate.
+The Bank publishes thousands of statistical time series through its [Interactive Statistical Database](https://www.bankofengland.co.uk/boeapps/database/) — covering interest rates, exchange rates, money and credit, gilt yields, and housing market indicators. This data underpins monetary policy analysis, financial research, and economic journalism in the UK.
+
+## Why does this package exist?
+
+The data is freely available, but using it programmatically requires knowing obscure series codes (like `IUDBEDR` for Bank Rate), constructing query URLs with a non-standard date format (`DD/Mon/YYYY`), parsing CSV responses with irregular date formats, and handling HTML error pages returned with HTTP 200 status codes. Every analyst who works with this data writes the same boilerplate.
 
 This package replaces all of that with named functions that return clean data frames.
 
