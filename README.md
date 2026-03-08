@@ -53,19 +53,19 @@ remotes::install_github("charlescoverdale/boe")
 
 ## Functions
 
-| Function | Description | From |
-|---|---|---|
-| `boe_get()` | Fetch any series by BoE series code | Any |
-| `boe_bank_rate()` | Official Bank Rate (daily or monthly) | 1975 |
-| `boe_sonia()` | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 |
-| `boe_yield_curve()` | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 |
-| `boe_exchange_rate()` | Daily sterling spot rates for 27 currencies | 1975 |
-| `list_exchange_rates()` | Catalogue of available currency codes | — |
-| `boe_mortgage_rates()` | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 |
-| `boe_mortgage_approvals()` | Monthly mortgage approvals for house purchase | 1993 |
-| `boe_consumer_credit()` | Consumer credit outstanding (total, cards, other) | 1993 |
-| `boe_money_supply()` | M4 broad money amounts outstanding | 1982 |
-| `clear_cache()` | Delete locally cached data files | — |
+| Function | Description | From | To |
+|---|---|---|---|
+| `boe_get()` | Fetch any series by BoE series code | Any | Present |
+| `boe_bank_rate()` | Official Bank Rate (daily or monthly) | 1975 | Present |
+| `boe_sonia()` | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
+| `boe_yield_curve()` | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
+| `boe_exchange_rate()` | Daily sterling spot rates for 27 currencies | 1975 | Present |
+| `list_exchange_rates()` | Catalogue of available currency codes | — | — |
+| `boe_mortgage_rates()` | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
+| `boe_mortgage_approvals()` | Monthly mortgage approvals for house purchase | 1993 | Present |
+| `boe_consumer_credit()` | Consumer credit outstanding (total, cards, other) | 1993 | Present |
+| `boe_money_supply()` | M4 broad money amounts outstanding | 1982 | Present |
+| `clear_cache()` | Delete locally cached data files | — | — |
 
 ---
 
