@@ -65,7 +65,7 @@ remotes::install_github("charlescoverdale/boe")
 
 ## Examples
 
-### `boe_bank_rate()` — Bank Rate history
+### What is Bank Rate today?
 
 ```r
 library(boe)
@@ -84,7 +84,7 @@ tail(br, 6)
 
 ---
 
-### `boe_exchange_rate()` — sterling FX rates
+### How has sterling moved against other currencies?
 
 ```r
 # GBP/USD and GBP/EUR
@@ -104,7 +104,7 @@ list_exchange_rates()
 
 ---
 
-### `boe_yield_curve()` — gilt yields
+### What are gilt yields doing?
 
 ```r
 # 10-year nominal gilt yield
@@ -126,7 +126,7 @@ boe_yield_curve(from = "2024-01-01", type = "real", measure = "zero_coupon")
 
 ---
 
-### `boe_mortgage_rates()` — quoted mortgage rates
+### What are mortgage rates right now?
 
 ```r
 # All mortgage rate types
@@ -141,7 +141,7 @@ mr <- boe_mortgage_rates(from = "2023-01-01")
 
 ---
 
-### `boe_mortgage_approvals()` — housing market activity
+### How active is the housing market?
 
 ```r
 # Monthly mortgage approvals — a leading indicator of housing activity
@@ -158,7 +158,7 @@ tail(ma, 6)
 
 ---
 
-### `boe_consumer_credit()` — consumer credit outstanding
+### How much are households borrowing?
 
 ```r
 # Total consumer credit, credit cards, and other lending
@@ -170,7 +170,7 @@ boe_consumer_credit(type = "credit_card", from = "2020-01-01")
 
 ---
 
-### `boe_money_supply()` — M4 broad money
+### How much money is in the economy?
 
 ```r
 # M4 amounts outstanding since 2000
@@ -179,7 +179,7 @@ m4 <- boe_money_supply(from = "2000-01-01")
 
 ---
 
-### `boe_sonia()` — risk-free reference rate
+### What is the risk-free rate?
 
 ```r
 # SONIA replaced LIBOR as the UK's benchmark interest rate
@@ -191,7 +191,7 @@ boe_sonia(from = "2020-01-01", frequency = "monthly")
 
 ---
 
-### `boe_get()` — fetch any series by code
+### Fetching any series by code
 
 ```r
 # If you know the BoE series code, use boe_get() directly
