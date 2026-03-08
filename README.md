@@ -10,9 +10,15 @@ The Bank of England is the United Kingdom's central bank. Founded in 1694, it is
 
 The Bank publishes thousands of statistical time series through its [Interactive Statistical Database](https://www.bankofengland.co.uk/boeapps/database/) — covering interest rates, exchange rates, money and credit, gilt yields, and housing market indicators. This data underpins monetary policy analysis, financial research, and economic journalism in the UK.
 
+## How is this different from existing packages?
+
+The [`bbk`](https://cran.r-project.org/package=bbk) package on CRAN provides a single generic function for Bank of England data (`bbk::boe_data()`), but it is primarily a Bundesbank client — the Bank of England is one of seven central banks it covers, and its BoE support amounts to a raw API wrapper. You still need to know the series codes, and the output requires further processing.
+
+This package is different. It is built specifically for the Bank of England and provides named, documented functions for the series people actually use — `boe_bank_rate()`, `boe_mortgage_rates()`, `boe_yield_curve()`, and so on. You don't need to know that Bank Rate is `IUDBEDR` or that a 2-year fixed mortgage rate is `IUMBV34`. The package handles series codes, date formatting, caching, and error handling internally.
+
 ## Why does this package exist?
 
-The data is freely available, but using it programmatically requires knowing obscure series codes (like `IUDBEDR` for Bank Rate), constructing query URLs with a non-standard date format (`DD/Mon/YYYY`), parsing CSV responses with irregular date formats, and handling HTML error pages returned with HTTP 200 status codes. Every analyst who works with this data writes the same boilerplate.
+The data is freely available, but using it programmatically requires knowing obscure series codes, constructing query URLs with a non-standard date format (`DD/Mon/YYYY`), parsing CSV responses with irregular date formats, and handling HTML error pages returned with HTTP 200 status codes. Every analyst who works with this data writes the same boilerplate.
 
 This package replaces all of that with named functions that return clean data frames.
 
