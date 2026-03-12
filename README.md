@@ -8,13 +8,13 @@ An R package for downloading data from the [Bank of England](https://www.bankofe
 
 The Bank of England is the United Kingdom's central bank. Founded in 1694, it is responsible for setting monetary policy (including Bank Rate), issuing banknotes, supervising the banking system, and maintaining financial stability. Its Monetary Policy Committee meets eight times a year to set the interest rate that ripples through every mortgage, savings account, and bond in the UK economy.
 
-The Bank publishes thousands of statistical time series through its [Interactive Statistical Database](https://www.bankofengland.co.uk/boeapps/database/) — covering interest rates, exchange rates, money and credit, gilt yields, and housing market indicators. This data underpins monetary policy analysis, financial research, and economic journalism in the UK.
+The Bank publishes thousands of statistical time series through its [Interactive Statistical Database](https://www.bankofengland.co.uk/boeapps/database/) - covering interest rates, exchange rates, money and credit, gilt yields, and housing market indicators. This data underpins monetary policy analysis, financial research, and economic journalism in the UK.
 
 ## How is this different from existing packages?
 
-The [`bbk`](https://cran.r-project.org/package=bbk) package on CRAN provides a single generic function for Bank of England data (`bbk::boe_data()`), but it is primarily a Bundesbank client — the Bank of England is one of seven central banks it covers, and its BoE support amounts to a raw API wrapper. You still need to know the series codes, and the output requires further processing.
+The [`bbk`](https://cran.r-project.org/package=bbk) package on CRAN provides a single generic function for Bank of England data (`bbk::boe_data()`), but it is primarily a Bundesbank client - the Bank of England is one of seven central banks it covers, and its BoE support amounts to a raw API wrapper. You still need to know the series codes, and the output requires further processing.
 
-This package is different. It is built specifically for the Bank of England and provides named, documented functions for the series people actually use — `boe_bank_rate()`, `boe_mortgage_rates()`, `boe_yield_curve()`, and so on. You don't need to know that Bank Rate is `IUDBEDR` or that a 2-year fixed mortgage rate is `IUMBV34`. The package handles series codes, date formatting, caching, and error handling internally.
+This package is different. It is built specifically for the Bank of England and provides named, documented functions for the series people actually use - `boe_bank_rate()`, `boe_mortgage_rates()`, `boe_yield_curve()`, and so on. You don't need to know that Bank Rate is `IUDBEDR` or that a 2-year fixed mortgage rate is `IUMBV34`. The package handles series codes, date formatting, caching, and error handling internally.
 
 ## Why does this package exist?
 
@@ -61,12 +61,12 @@ devtools::install_github("charlescoverdale/boe")
 | `boe_sonia()` | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
 | `boe_yield_curve()` | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
 | `boe_exchange_rate()` | Daily sterling spot rates for 27 currencies | 1975 | Present |
-| `list_exchange_rates()` | Catalogue of available currency codes | — | — |
+| `list_exchange_rates()` | Catalogue of available currency codes | - | -|
 | `boe_mortgage_rates()` | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | `boe_mortgage_approvals()` | Monthly mortgage approvals for house purchase | 1993 | Present |
 | `boe_consumer_credit()` | Consumer credit outstanding (total, cards, other) | 1993 | Present |
 | `boe_money_supply()` | M4 broad money amounts outstanding | 1982 | Present |
-| `clear_cache()` | Delete locally cached data files | — | — |
+| `clear_cache()` | Delete locally cached data files | - | -|
 
 ---
 
@@ -151,7 +151,7 @@ mr <- boe_mortgage_rates(from = "2023-01-01")
 ### How active is the housing market?
 
 ```r
-# Monthly mortgage approvals — a leading indicator of housing activity
+# Monthly mortgage approvals - a leading indicator of housing activity
 ma <- boe_mortgage_approvals(from = "2019-01-01")
 tail(ma, 6)
 #>         date approvals
@@ -228,7 +228,7 @@ boe_sonia(from = "2020-01-01", frequency = "monthly")
 # If you know the BoE series code, use boe_get() directly
 # Series codes: https://www.bankofengland.co.uk/boeapps/database/
 
-# Multiple series in one call — Bank Rate vs SONIA
+# Multiple series in one call - Bank Rate vs SONIA
 boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 #>          date    code  value
 #>    2024-01-02 IUDBEDR 5.2500
@@ -245,7 +245,7 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 
 ## Caching
 
-All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly — no network request is made.
+All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly - no network request is made.
 
 ```r
 # Force a fresh download
@@ -262,7 +262,7 @@ clear_cache()
 
 ## Related packages
 
-This package is part of a family of R packages for UK economic and fiscal data. They share a consistent interface — named functions, tidy data frames, local caching — and are designed to work together. All outputs join cleanly on date columns.
+This package is part of a family of R packages for UK economic and fiscal data. They share a consistent interface - named functions, tidy data frames, local caching - and are designed to work together. All outputs join cleanly on date columns.
 
 | Package | What it covers |
 |---|---|
