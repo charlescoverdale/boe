@@ -1,6 +1,6 @@
 # boe
 
-[![CRAN status](https://www.r-pkg.org/badges/version/boe)](https://CRAN.R-project.org/package=boe) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/boe)](https://cran.r-project.org/package=boe) [![R-CMD-check](https://github.com/charlescoverdale/boe/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/charlescoverdale/boe/actions/workflows/R-CMD-check.yaml) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CRAN status](https://www.r-pkg.org/badges/version/boe)](https://CRAN.R-project.org/package=boe) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/boe)](https://cran.r-project.org/package=boe) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 An R package for downloading data from the [Bank of England](https://www.bankofengland.co.uk) Statistical Database.
 
