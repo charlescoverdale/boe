@@ -1,0 +1,49 @@
+url: https://charlescoverdale.github.io/boe/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left:  [intro, reference, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/charlescoverdale/boe
+
+reference:
+  - title: "Interest Rates"
+    desc: "Bank Rate, SONIA, and gilt yields"
+    contents:
+      - boe_bank_rate
+      - boe_sonia
+      - boe_yield_curve
+
+  - title: "Exchange Rates"
+    desc: "Sterling spot exchange rates"
+    contents:
+      - boe_exchange_rate
+      - list_exchange_rates
+
+  - title: "Housing & Mortgages"
+    desc: "Mortgage rates and approvals"
+    contents:
+      - boe_mortgage_rates
+      - boe_mortgage_approvals
+
+  - title: "Credit & Money"
+    desc: "Consumer credit and money supply"
+    contents:
+      - boe_consumer_credit
+      - boe_money_supply
+
+  - title: "General"
+    desc: "Fetch any series by code"
+    contents:
+      - boe_get
+
+  - title: "Utilities"
+    desc: "Cache management"
+    contents:
+      - clear_cache

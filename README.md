@@ -1,6 +1,6 @@
 # boe
 
-[![CRAN status](https://www.r-pkg.org/badges/version/boe)](https://CRAN.R-project.org/package=boe) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/boe)](https://cran.r-project.org/package=boe) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CRAN status](https://www.r-pkg.org/badges/version/boe)](https://CRAN.R-project.org/package=boe) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/boe)](https://cran.r-project.org/package=boe) [![R-CMD-check](https://github.com/charlescoverdale/boe/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/charlescoverdale/boe/actions/workflows/R-CMD-check.yaml) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 An R package for downloading data from the [Bank of England](https://www.bankofengland.co.uk) Statistical Database.
 
@@ -269,6 +269,9 @@ This package is part of a family of R packages for UK economic and fiscal data. 
 | [`ons`](https://github.com/charlescoverdale/ons) | ONS data (GDP, inflation, unemployment, wages, trade, house prices, population) |
 | [`hmrc`](https://github.com/charlescoverdale/hmrc) | HMRC tax receipts, corporation tax, stamp duty, R&D credits, and tax gap data |
 | [`obr`](https://github.com/charlescoverdale/obr) | OBR fiscal forecasts and the Public Finances Databank |
+| [`readecb`](https://github.com/charlescoverdale/readecb) | European Central Bank data (policy rates, HICP, exchange rates, yield curves) |
+| [`readoecd`](https://github.com/charlescoverdale/readoecd) | OECD data (GDP, unemployment, inflation, trade across 38 member countries) |
+| [`fred`](https://github.com/charlescoverdale/fred) | US Federal Reserve (FRED) data (800,000+ economic time series) |
 | [`inflateR`](https://github.com/charlescoverdale/inflateR) | Adjust values for inflation using CPI or GDP deflator data |
 
 ---
@@ -276,3 +279,7 @@ This package is part of a family of R packages for UK economic and fiscal data. 
 ## Issues
 
 Please report bugs or requests at <https://github.com/charlescoverdale/boe/issues>.
+
+## Keywords
+
+Bank of England, BoE, interest rates, bank rate, SONIA, yield curve, exchange rates, mortgage rates, consumer credit, money supply, monetary policy, UK economic data, R package

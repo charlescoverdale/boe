@@ -24,7 +24,8 @@ Suggests:
     ggplot2,
     scales
 Config/testthat/edition: 3
-URL: https://github.com/charlescoverdale/boe
+URL: https://charlescoverdale.github.io/boe/,
+    https://github.com/charlescoverdale/boe
 BugReports: https://github.com/charlescoverdale/boe/issues
 Depends:
     R (>= 4.1.0)
