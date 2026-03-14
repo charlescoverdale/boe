@@ -25,6 +25,7 @@
 #' boe_mortgage_approvals(from = "2015-01-01")
 #' }
 #'
+#' @family credit and housing
 #' @export
 boe_mortgage_approvals <- function(from                 = "1993-04-01",
                                    to                   = Sys.Date(),

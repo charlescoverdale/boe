@@ -27,3 +27,8 @@ clear_cache()
 }
 
 }
+\seealso{
+Other data access: 
+\code{\link{boe_get}()}
+}
+\concept{data access}

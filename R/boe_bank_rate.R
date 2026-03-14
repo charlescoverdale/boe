@@ -28,6 +28,7 @@
 #' boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #' }
 #'
+#' @family interest rates
 #' @export
 boe_bank_rate <- function(from      = "1975-01-02",
                           to        = Sys.Date(),

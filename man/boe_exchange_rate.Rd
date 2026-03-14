@@ -48,3 +48,8 @@ boe_exchange_rate(c("USD", "EUR", "JPY"), from = "2020-01-01")
 }
 
 }
+\seealso{
+Other exchange rates: 
+\code{\link{list_exchange_rates}()}
+}
+\concept{exchange rates}

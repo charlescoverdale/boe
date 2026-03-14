@@ -17,6 +17,7 @@
 #' clear_cache()
 #' }
 #'
+#' @family data access
 #' @export
 clear_cache <- function(max_age_days = NULL) {
   cache_dir <- tools::R_user_dir("boe", "cache")

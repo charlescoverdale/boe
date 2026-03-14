@@ -24,6 +24,7 @@
 #' boe_sonia(from = "2020-01-01")
 #' }
 #'
+#' @family interest rates
 #' @export
 boe_sonia <- function(from      = "1997-01-02",
                       to        = Sys.Date(),

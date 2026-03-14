@@ -42,3 +42,9 @@ boe_sonia(from = "2020-01-01")
 }
 
 }
+\seealso{
+Other interest rates: 
+\code{\link{boe_bank_rate}()},
+\code{\link{boe_yield_curve}()}
+}
+\concept{interest rates}

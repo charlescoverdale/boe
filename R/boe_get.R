@@ -34,6 +34,7 @@
 #' boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
 #' }
 #'
+#' @family data access
 #' @export
 boe_get <- function(series_codes,
                     from  = "1960-01-01",

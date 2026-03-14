@@ -35,6 +35,7 @@
 #' boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 #' }
 #'
+#' @family interest rates
 #' @export
 boe_yield_curve <- function(from     = "2000-01-01",
                             to       = Sys.Date(),

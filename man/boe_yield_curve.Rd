@@ -57,3 +57,9 @@ boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 }
 
 }
+\seealso{
+Other interest rates: 
+\code{\link{boe_bank_rate}()},
+\code{\link{boe_sonia}()}
+}
+\concept{interest rates}

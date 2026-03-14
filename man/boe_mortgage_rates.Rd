@@ -48,3 +48,9 @@ boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
 }
 
 }
+\seealso{
+Other credit and housing: 
+\code{\link{boe_consumer_credit}()},
+\code{\link{boe_mortgage_approvals}()}
+}
+\concept{credit and housing}

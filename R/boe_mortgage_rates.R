@@ -30,6 +30,7 @@
 #' boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
 #' }
 #'
+#' @family credit and housing
 #' @export
 boe_mortgage_rates <- function(type  = c("2yr_fixed", "3yr_fixed", "5yr_fixed", "svr"),
                                from  = "1995-01-01",

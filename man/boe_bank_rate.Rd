@@ -46,3 +46,9 @@ boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 }
 
 }
+\seealso{
+Other interest rates: 
+\code{\link{boe_sonia}()},
+\code{\link{boe_yield_curve}()}
+}
+\concept{interest rates}

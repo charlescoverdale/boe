@@ -48,3 +48,8 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
 }
 
 }
+\seealso{
+Other data access: 
+\code{\link{clear_cache}()}
+}
+\concept{data access}

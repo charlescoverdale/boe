@@ -25,6 +25,7 @@
 #' boe_money_supply(from = "2000-01-01")
 #' }
 #'
+#' @family money
 #' @export
 boe_money_supply <- function(from                = "1982-06-01",
                              to                  = Sys.Date(),

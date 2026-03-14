@@ -21,4 +21,13 @@ Useful links:
 \strong{Maintainer}: Charles Coverdale \email{charlesfcoverdale@gmail.com}
 
 }
+\concept{Bank of England}
+\concept{SONIA}
+\concept{UK central bank}
+\concept{exchange rates}
+\concept{interest rates}
+\concept{monetary policy}
+\concept{money supply}
+\concept{mortgage rates}
+\concept{yield curve}
 \keyword{internal}
