@@ -1,13 +1,14 @@
-# CRAN submission comments — boe 0.1.1
+# CRAN submission comments — boe 0.1.2
 
 ## Resubmission
 
-This is a resubmission of boe 0.1.0. Changes made in response to CRAN
-feedback (Prof Ripley, 2026-03-15):
+This is a resubmission addressing CRAN feedback (Prof Ripley, 2026-03-15).
+Changes since boe 0.1.0 (currently on CRAN):
 
 * Examples now cache to `tempdir()` instead of the user's home directory,
   fixing CRAN policy compliance for `\donttest` examples.
 * Cache directory is now configurable via `options(boe.cache_dir = ...)`.
+* Removed non-existent pkgdown URL from DESCRIPTION (was returning 404).
 
 ## Test environments
 
@@ -19,7 +20,7 @@ feedback (Prof Ripley, 2026-03-15):
 
 ## Downstream dependencies
 
-None — this is a new package with no reverse dependencies.
+None — no reverse dependencies.
 
 ## Notes for CRAN reviewers
 

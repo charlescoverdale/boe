@@ -11,7 +11,6 @@ Provides functions to download and tidy statistical data published by the 'Bank 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://charlescoverdale.github.io/boe/}
   \item \url{https://github.com/charlescoverdale/boe}
   \item Report bugs at \url{https://github.com/charlescoverdale/boe/issues}
 }

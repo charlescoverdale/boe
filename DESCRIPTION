@@ -1,6 +1,6 @@
 Package: boe
 Title: Download Data from the 'Bank of England' Statistical Database
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     person("Charles", "Coverdale", , "charlesfcoverdale@gmail.com",
            role = c("aut", "cre"))
@@ -24,8 +24,7 @@ Suggests:
     ggplot2,
     scales
 Config/testthat/edition: 3
-URL: https://charlescoverdale.github.io/boe/,
-    https://github.com/charlescoverdale/boe
+URL: https://github.com/charlescoverdale/boe
 BugReports: https://github.com/charlescoverdale/boe/issues
 Depends:
     R (>= 4.1.0)
