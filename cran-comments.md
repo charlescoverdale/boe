@@ -1,4 +1,13 @@
-# CRAN submission comments — boe 0.1.0
+# CRAN submission comments — boe 0.1.1
+
+## Resubmission
+
+This is a resubmission of boe 0.1.0. Changes made in response to CRAN
+feedback (Prof Ripley, 2026-03-15):
+
+* Examples now cache to `tempdir()` instead of the user's home directory,
+  fixing CRAN policy compliance for `\donttest` examples.
+* Cache directory is now configurable via `options(boe.cache_dir = ...)`.
 
 ## Test environments
 
@@ -19,4 +28,5 @@ None — this is a new package with no reverse dependencies.
 * Data is fetched from the Bank of England Interactive Statistical Database
   CSV endpoint at `https://www.bankofengland.co.uk/boeapps/database/`.
 * Local caching uses `tools::R_user_dir("boe", "cache")` (base R, no
-  additional dependencies).
+  additional dependencies). In examples, caching is redirected to `tempdir()`
+  so that no files are written to the user's home filespace.
