@@ -46,6 +46,7 @@ daily from late 1993; real zero-coupon yields from 1985.
 }
 \examples{
 \donttest{
+op <- options(boe.cache_dir = tempdir())
 # 10-year nominal gilt yield since 2020
 boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 
@@ -54,6 +55,7 @@ boe_yield_curve(from = "2020-01-01")
 
 # Real yields
 boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
+options(op)
 }
 
 }

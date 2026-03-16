@@ -95,10 +95,16 @@ parse_boe_csv <- function(path, expected_codes) {
   out
 }
 
+#' Get the cache directory, respecting the boe.cache_dir option
+#' @noRd
+boe_cache_dir <- function() {
+  getOption("boe.cache_dir", default = tools::R_user_dir("boe", "cache"))
+}
+
 #' Download a URL with local caching
 #' @noRd
 download_cached_boe <- function(url, cache = TRUE) {
-  cache_dir  <- tools::R_user_dir("boe", "cache")
+  cache_dir  <- boe_cache_dir()
   ext        <- ".csv"
   cache_file <- file.path(cache_dir, paste0(digest_url_boe(url), ext))
 

@@ -22,7 +22,9 @@
 #'
 #' @examples
 #' \donttest{
+#' op <- options(boe.cache_dir = tempdir())
 #' boe_mortgage_approvals(from = "2015-01-01")
+#' options(op)
 #' }
 #'
 #' @family credit and housing

@@ -27,11 +27,13 @@
 #'
 #' @examples
 #' \donttest{
+#' op <- options(boe.cache_dir = tempdir())
 #' # Bank Rate since 2000
 #' boe_get("IUDBEDR", from = "2000-01-01")
 #'
 #' # Multiple series
 #' boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
+#' options(op)
 #' }
 #'
 #' @family data access

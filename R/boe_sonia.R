@@ -21,7 +21,9 @@
 #'
 #' @examples
 #' \donttest{
+#' op <- options(boe.cache_dir = tempdir())
 #' boe_sonia(from = "2020-01-01")
+#' options(op)
 #' }
 #'
 #' @family interest rates

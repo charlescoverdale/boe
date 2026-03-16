@@ -38,7 +38,9 @@ reference rate for sterling markets. Available daily from January 1997.
 }
 \examples{
 \donttest{
+op <- options(boe.cache_dir = tempdir())
 boe_sonia(from = "2020-01-01")
+options(op)
 }
 
 }

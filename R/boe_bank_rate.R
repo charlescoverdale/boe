@@ -21,11 +21,13 @@
 #'
 #' @examples
 #' \donttest{
+#' op <- options(boe.cache_dir = tempdir())
 #' # Bank Rate since 2000
 #' boe_bank_rate(from = "2000-01-01")
 #'
 #' # Monthly average
 #' boe_bank_rate(from = "2020-01-01", frequency = "monthly")
+#' options(op)
 #' }
 #'
 #' @family interest rates

@@ -23,11 +23,13 @@
 #'
 #' @examples
 #' \donttest{
+#' op <- options(boe.cache_dir = tempdir())
 #' # GBP/USD since 2020
 #' boe_exchange_rate("USD", from = "2020-01-01")
 #'
 #' # Multiple currencies
 #' boe_exchange_rate(c("USD", "EUR", "JPY"), from = "2020-01-01")
+#' options(op)
 #' }
 #'
 #' @family exchange rates
