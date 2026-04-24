@@ -51,3 +51,9 @@ Cache management
 
 - [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)
   : Clear locally cached Bank of England data
+
+## Package
+
+- [`boe`](https://charlescoverdale.github.io/boe/reference/boe-package.md)
+  [`boe-package`](https://charlescoverdale.github.io/boe/reference/boe-package.md)
+  : boe: Download Data from the 'Bank of England' Statistical Database
