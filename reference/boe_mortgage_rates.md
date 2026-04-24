@@ -69,7 +69,7 @@ op <- options(boe.cache_dir = tempdir())
 # All mortgage rate types since 2015
 boe_mortgage_rates(from = "2015-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [563ms]
+#> ✔ Downloading from Bank of England [579ms]
 #> 
 #>           date      type rate_pct
 #> 1   2015-01-31 2yr_fixed     2.01
@@ -616,7 +616,7 @@ boe_mortgage_rates(from = "2015-01-01")
 # 2-year fixed only
 boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [347ms]
+#> ✔ Downloading from Bank of England [386ms]
 #> 
 #>          date      type rate_pct
 #> 1  2020-01-31 2yr_fixed     1.41
