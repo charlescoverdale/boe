@@ -50,13 +50,20 @@ A data frame with columns:
 
   Numeric. SONIA rate (percent).
 
+## See also
+
+Other interest rates:
+[`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md),
+[`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)
+
 ## Examples
 
 ``` r
 # \donttest{
+op <- options(boe.cache_dir = tempdir())
 boe_sonia(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [418ms]
+#> ✔ Downloading from Bank of England [427ms]
 #> 
 #>            date rate_pct
 #> 1    2020-01-02   0.7125
@@ -1623,5 +1630,33 @@ boe_sonia(from = "2020-01-01")
 #> 1562 2026-03-09   3.7296
 #> 1563 2026-03-10   3.7294
 #> 1564 2026-03-11   3.7295
+#> 1565 2026-03-12   3.7293
+#> 1566 2026-03-13   3.7295
+#> 1567 2026-03-16   3.7289
+#> 1568 2026-03-17   3.7290
+#> 1569 2026-03-18   3.7296
+#> 1570 2026-03-19   3.7294
+#> 1571 2026-03-20   3.7281
+#> 1572 2026-03-23   3.7274
+#> 1573 2026-03-24   3.7274
+#> 1574 2026-03-25   3.7278
+#> 1575 2026-03-26   3.7282
+#> 1576 2026-03-27   3.7284
+#> 1577 2026-03-30   3.7281
+#> 1578 2026-03-31   3.7296
+#> 1579 2026-04-01   3.7297
+#> 1580 2026-04-02   3.7300
+#> 1581 2026-04-07   3.7294
+#> 1582 2026-04-08   3.7287
+#> 1583 2026-04-09   3.7294
+#> 1584 2026-04-10   3.7295
+#> 1585 2026-04-13   3.7290
+#> 1586 2026-04-14   3.7293
+#> 1587 2026-04-15   3.7301
+#> 1588 2026-04-16   3.7301
+#> 1589 2026-04-17   3.7300
+#> 1590 2026-04-20   3.7304
+#> 1591 2026-04-21   3.7307
+options(op)
 # }
 ```

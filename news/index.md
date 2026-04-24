@@ -1,5 +1,20 @@
 # Changelog
 
+## boe 0.1.2
+
+CRAN release: 2026-03-17
+
+- Removed non-existent pkgdown URL from DESCRIPTION.
+
+## boe 0.1.1
+
+- Examples now cache to
+  [`tempdir()`](https://rdrr.io/r/base/tempfile.html) instead of the
+  user’s home directory, fixing CRAN policy compliance for `\donttest`
+  examples.
+- Cache directory is now configurable via
+  `options(boe.cache_dir = ...)`.
+
 ## boe 0.1.0
 
 CRAN release: 2026-03-12

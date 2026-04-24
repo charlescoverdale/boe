@@ -25,6 +25,11 @@ A data frame with columns:
 
   Character. BoE series code.
 
+## See also
+
+Other exchange rates:
+[`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md)
+
 ## Examples
 
 ``` r

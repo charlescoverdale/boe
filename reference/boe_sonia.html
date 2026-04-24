@@ -9,7 +9,7 @@ reference rate for sterling markets. Available daily from January 1997."></head>
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,13 +86,20 @@ reference rate for sterling markets. Available daily from January 1997.</p>
 
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other interest rates:
+<code><a href="boe_bank_rate.html">boe_bank_rate()</a></code>,
+<code><a href="boe_yield_curve.html">boe_yield_curve()</a></code></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>boe.cache_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">boe_sonia</span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[418ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[427ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date rate_pct</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02   0.7125</span>
@@ -1659,6 +1666,34 @@ reference rate for sterling markets. Available daily from January 1997.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1562 2026-03-09   3.7296</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1563 2026-03-10   3.7294</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1564 2026-03-11   3.7295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1565 2026-03-12   3.7293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1566 2026-03-13   3.7295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1567 2026-03-16   3.7289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1568 2026-03-17   3.7290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1569 2026-03-18   3.7296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1570 2026-03-19   3.7294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1571 2026-03-20   3.7281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1572 2026-03-23   3.7274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1573 2026-03-24   3.7274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1574 2026-03-25   3.7278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1575 2026-03-26   3.7282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1576 2026-03-27   3.7284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1577 2026-03-30   3.7281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1578 2026-03-31   3.7296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1579 2026-04-01   3.7297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1580 2026-04-02   3.7300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1581 2026-04-07   3.7294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1582 2026-04-08   3.7287</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1583 2026-04-09   3.7294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1584 2026-04-10   3.7295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1585 2026-04-13   3.7290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1586 2026-04-14   3.7293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1587 2026-04-15   3.7301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1588 2026-04-16   3.7301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1589 2026-04-17   3.7300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1590 2026-04-20   3.7304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1591 2026-04-21   3.7307</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
