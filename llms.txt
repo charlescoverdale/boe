@@ -1,0 +1,26 @@
+# boe
+
+> Provides functions to download and tidy statistical data published by the 'Bank of England'. Install with `install.packages("boe")`.
+
+Version: 0.1.2. License: MIT.
+
+## Functions
+
+- [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.html): Download Bank of England Bank Rate history
+- [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.html): Download consumer credit outstanding
+- [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.html): Download sterling exchange rates
+- [`boe_get()`](https://charlescoverdale.github.io/boe/reference/boe_get.html): Fetch any series from the Bank of England Statistical Database
+- [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.html): Download M4 money supply
+- [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.html): Download mortgage approvals for house purchase
+- [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.html): Download quoted mortgage interest rates
+- [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.html): Download SONIA interest rate
+- [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.html): Download UK gilt yields
+- [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.html): Clear locally cached Bank of England data
+- [`list_exchange_rates()`](https://charlescoverdale.github.io/boe/reference/list_exchange_rates.html): List available exchange rate currencies
+
+## Documentation
+
+- [Full reference](https://charlescoverdale.github.io/boe/reference/)
+- [GitHub](https://github.com/charlescoverdale/boe)
+- [CRAN](https://CRAN.R-project.org/package=boe)
+
