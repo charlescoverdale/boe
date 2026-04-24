@@ -47,3 +47,7 @@ reference:
     desc: "Cache management"
     contents:
       - clear_cache
+
+  - title: "Package"
+    contents:
+      - boe-package
