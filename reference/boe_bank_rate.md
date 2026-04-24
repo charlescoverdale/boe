@@ -6718,7 +6718,7 @@ boe_bank_rate(from = "2000-01-01")
 # Monthly average
 boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [581ms]
+#> ✔ Downloading from Bank of England [364ms]
 #> 
 #>          date rate_pct
 #> 1  2020-01-31   0.7500
