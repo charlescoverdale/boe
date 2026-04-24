@@ -2,6 +2,8 @@
 
 > Provides functions to download and tidy statistical data published by the 'Bank of England'. Install with `install.packages("boe")`.
 
+Full API reference (for agents): https://raw.githubusercontent.com/charlescoverdale/boe/main/llms-full.txt
+
 Version: 0.1.2. License: MIT.
 
 ## Functions

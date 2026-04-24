@@ -1,0 +1,437 @@
+# boe — full API reference
+
+> Provides functions to download and tidy statistical data published by the 'Bank of England'.
+
+- Version: 0.1.2
+- Install: `install.packages("boe")`
+- CRAN: https://CRAN.R-project.org/package=boe
+- GitHub: https://github.com/charlescoverdale/boe
+- Reference site: https://charlescoverdale.github.io/boe/
+
+This file is a self-contained reference for LLM agents: every exported
+function with its signature, arguments, return value, and example.
+
+---
+
+## `boe_bank_rate()`
+
+**Download Bank of England Bank Rate history**
+
+Downloads the official Bank Rate (base interest rate) set by the Monetary Policy Committee. Available as a daily series from January 1975.
+
+**Usage**
+
+```r
+boe_bank_rate(
+  from = "1975-01-02",
+  to = Sys.Date(),
+  frequency = c("daily", "monthly"),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `frequency` — Character. One of `"daily"` (default) or `"monthly"` (monthly average).
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. Observation date. rate_pctNumeric. Bank Rate (percent).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# Bank Rate since 2000
+boe_bank_rate(from = "2000-01-01")
+
+# Monthly average
+boe_bank_rate(from = "2020-01-01", frequency = "monthly")
+options(op)
+```
+
+---
+
+## `boe_consumer_credit()`
+
+**Download consumer credit outstanding**
+
+Downloads monthly outstanding amounts of consumer credit (total, credit cards, and other consumer credit). Seasonally adjusted. Available from April 1993.
+
+**Usage**
+
+```r
+boe_consumer_credit(
+  type = c("total", "credit_card", "other"),
+  from = "1993-04-01",
+  to = Sys.Date(),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `type` — Character vector. One or more of `"total"`, `"credit_card"`, `"other"`. Defaults to all three.
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. End of month. typeCharacter. Credit type. amount_gbp_mNumeric. Outstanding amount (millions of pounds).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+boe_consumer_credit(from = "2015-01-01")
+options(op)
+```
+
+---
+
+## `boe_exchange_rate()`
+
+**Download sterling exchange rates**
+
+Downloads daily spot exchange rates for sterling against major currencies from the Bank of England. Most series available from January 1975.
+
+**Usage**
+
+```r
+boe_exchange_rate(
+  currency = "USD",
+  from = "1975-01-02",
+  to = Sys.Date(),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `currency` — Character vector. One or more currency codes. Use `list_exchange_rates()` to see all available currencies. Defaults to `"USD"`.
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. Observation date. currencyCharacter. Currency code (e.g. `"USD"`). rateNumeric. Units of foreign currency per GBP.
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# GBP/USD since 2020
+boe_exchange_rate("USD", from = "2020-01-01")
+
+# Multiple currencies
+boe_exchange_rate(c("USD", "EUR", "JPY"), from = "2020-01-01")
+options(op)
+```
+
+---
+
+## `boe_get()`
+
+**Fetch any series from the Bank of England Statistical Database**
+
+The core data retrieval function. Fetches one or more series by their BoE series codes and returns a tidy data frame. Use this when the convenience functions (e.g. `boe_bank_rate()`, `boe_exchange_rate()`) do not cover the series you need.
+
+**Usage**
+
+```r
+boe_get(series_codes, from = "1960-01-01", to = Sys.Date(), cache = TRUE)
+```
+
+**Arguments**
+
+- `series_codes` — Character vector of one or more BoE series codes.
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1960-01-01"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. Observation date. codeCharacter. BoE series code. valueNumeric. Observation value.
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# Bank Rate since 2000
+boe_get("IUDBEDR", from = "2000-01-01")
+
+# Multiple series
+boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
+options(op)
+```
+
+---
+
+## `boe_money_supply()`
+
+**Download M4 money supply**
+
+Downloads monthly M4 (broad money) amounts outstanding from the Bank of England. Available from June 1982.
+
+**Usage**
+
+```r
+boe_money_supply(
+  from = "1982-06-01",
+  to = Sys.Date(),
+  seasonally_adjusted = TRUE,
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1982-06-01"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `seasonally_adjusted` — Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. End of month. amount_gbp_mNumeric. M4 amounts outstanding (millions of pounds).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+boe_money_supply(from = "2000-01-01")
+options(op)
+```
+
+---
+
+## `boe_mortgage_approvals()`
+
+**Download mortgage approvals for house purchase**
+
+Downloads the monthly count of mortgage approvals for house purchase, a widely watched leading indicator of housing market activity. Available from April 1993.
+
+**Usage**
+
+```r
+boe_mortgage_approvals(
+  from = "1993-04-01",
+  to = Sys.Date(),
+  seasonally_adjusted = TRUE,
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `seasonally_adjusted` — Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. End of month. approvalsNumeric. Number of mortgage approvals.
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+boe_mortgage_approvals(from = "2015-01-01")
+options(op)
+```
+
+---
+
+## `boe_mortgage_rates()`
+
+**Download quoted mortgage interest rates**
+
+Downloads monthly quoted (advertised) mortgage rates from the Bank of England, including fixed-rate products and the standard variable rate (SVR). Available from January 1995.
+
+**Usage**
+
+```r
+boe_mortgage_rates(
+  type = c("2yr_fixed", "3yr_fixed", "5yr_fixed", "svr"),
+  from = "1995-01-01",
+  to = Sys.Date(),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `type` — Character vector. One or more of `"2yr_fixed"`, `"3yr_fixed"`, `"5yr_fixed"`, `"svr"`. Defaults to all four.
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1995-01-01"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. End of month. typeCharacter. Mortgage product type. rate_pctNumeric. Quoted rate (percent).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# All mortgage rate types since 2015
+boe_mortgage_rates(from = "2015-01-01")
+
+# 2-year fixed only
+boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
+options(op)
+```
+
+---
+
+## `boe_sonia()`
+
+**Download SONIA interest rate**
+
+Downloads the Sterling Overnight Index Average (SONIA), the risk-free reference rate for sterling markets. Available daily from January 1997.
+
+**Usage**
+
+```r
+boe_sonia(
+  from = "1997-01-02",
+  to = Sys.Date(),
+  frequency = c("daily", "monthly", "annual"),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1997-01-02"`.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `frequency` — Character. One of `"daily"` (default), `"monthly"` (monthly average), or `"annual"` (annual average).
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. Observation date. rate_pctNumeric. SONIA rate (percent).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+boe_sonia(from = "2020-01-01")
+options(op)
+```
+
+---
+
+## `boe_yield_curve()`
+
+**Download UK gilt yields**
+
+Downloads nominal or real gilt yields at specified maturities from the Bank of England yield curve data. Nominal par yields are available daily from late 1993; real zero-coupon yields from 1985.
+
+**Usage**
+
+```r
+boe_yield_curve(
+  from = "2000-01-01",
+  to = Sys.Date(),
+  maturity = c("5yr", "10yr", "20yr"),
+  type = c("nominal", "real"),
+  measure = c("par_yield", "zero_coupon"),
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `from` — Date or character (YYYY-MM-DD). Start date.
+- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `maturity` — Character vector. One or more of `"5yr"`, `"10yr"`, `"20yr"`. Defaults to all three.
+- `type` — Character. `"nominal"` (default) or `"real"`.
+- `measure` — Character. `"par_yield"` (default, nominal only) or `"zero_coupon"`.
+- `cache` — Logical. Use cached data if available (default `TRUE`).
+
+**Returns**
+
+A data frame with columns: dateDate. Observation date. maturityCharacter. Maturity label (e.g. `"5yr"`). yield_pctNumeric. Yield (percent).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# 10-year nominal gilt yield since 2020
+boe_yield_curve(from = "2020-01-01", maturity = "10yr")
+
+# Full nominal curve
+boe_yield_curve(from = "2020-01-01")
+
+# Real yields
+boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
+options(op)
+```
+
+---
+
+## `clear_cache()`
+
+**Clear locally cached Bank of England data**
+
+Removes cached data files downloaded from the Bank of England.
+
+**Usage**
+
+```r
+clear_cache(max_age_days = NULL)
+```
+
+**Arguments**
+
+- `max_age_days` — Numeric or `NULL`. If specified, only removes files older than this many days. If `NULL` (the default), removes all cached files.
+
+**Returns**
+
+Invisibly returns the number of files removed.
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# Remove files older than 7 days
+clear_cache(max_age_days = 7)
+
+# Remove everything
+clear_cache()
+options(op)
+```
+
+---
+
+## `list_exchange_rates()`
+
+**List available exchange rate currencies**
+
+Returns a data frame of currency codes and descriptions available from the Bank of England exchange rate series.
+
+**Usage**
+
+```r
+list_exchange_rates()
+```
+
+**Returns**
+
+A data frame with columns: currencyCharacter. ISO currency code. descriptionCharacter. Currency name. boe_codeCharacter. BoE series code.
+
+**Example**
+
+```r
+list_exchange_rates()
+```
+
+---
+
