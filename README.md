@@ -75,6 +75,14 @@ devtools::install_github("charlescoverdale/boe")
 | `boe_consumer_credit()` | Consumer credit outstanding (total, cards, other) | 1993 | Present |
 | `boe_money_supply()` | M4 broad money amounts outstanding | 1982 | Present |
 
+**Monetary policy:**
+
+| Function | Description | From | To |
+|---|---|---|---|
+| `boe_mpc_decisions()` | MPC rate-change events: date, new rate, change in bps, direction | 1997 | Present |
+| `boe_mpc_votes()` | Full MPC voting record, one row per (meeting, member), with dissent flag | 1997 | Present |
+| `boe_mpr_forecasts()` | Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate) | 2019 | Present |
+
 **Discovery:**
 
 | Function | Description |
@@ -290,6 +298,52 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 #>    2024-01-04 IUDSOIA 5.1870
 #>    ...
 ```
+
+---
+
+### Tracking MPC decisions and votes
+
+```r
+# Every Bank Rate change since 1997
+decisions <- boe_mpc_decisions()
+tail(decisions, 5)
+#>         date new_rate_pct prev_rate_pct change_bps direction
+#>   2024-08-01         5.00          5.25        -25       cut
+#>   2024-11-07         4.75          5.00        -25       cut
+#>   2025-02-06         4.50          4.75        -25       cut
+#>   2025-08-07         4.25          4.50        -25       cut
+#>   2026-02-05         4.00          4.25        -25       cut
+
+# Full voting record: who dissented, and how
+votes <- boe_mpc_votes()
+recent_dissents <- subset(votes, dissent & date >= as.Date("2024-01-01"))
+head(recent_dissents)
+
+# How does Catherine L Mann vote?
+mann <- subset(votes, member == "Catherine L Mann")
+table(mann$dissent)
+```
+
+---
+
+### Forecasts from the Monetary Policy Report
+
+```r
+# Latest CPI inflation projections (one row per publication x horizon)
+cpi <- boe_mpr_forecasts(series = "cpi_inflation")
+head(cpi)
+#>         date horizon horizon_date        series value
+#>   2026-02-01 2026 Q1   2026-01-01 cpi_inflation   2.7
+#>   2026-02-01 2026 Q2   2026-04-01 cpi_inflation   2.6
+#>   2026-02-01 2026 Q3   2026-07-01 cpi_inflation   2.5
+
+# All five headline series for the most recent MPR
+all <- boe_mpr_forecasts()
+unique(all$series)
+#>   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"
+```
+
+Requires the `readxl` package. Note: this targets the post-2025 MPR file format; older releases use a different archive layout.
 
 ---
 

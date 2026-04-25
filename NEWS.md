@@ -1,5 +1,20 @@
 # boe 0.1.2.9000 (development)
 
+## New: monetary policy data
+
+* New `boe_mpc_decisions(from, to)`: history of MPC rate-change events
+  derived from the daily Bank Rate series. Returns date, new rate,
+  previous rate, change in basis points, and direction.
+* New `boe_mpc_votes()`: full MPC voting record from June 1997, parsed
+  from BoE's published `mpcvoting.xlsx`. Long format with one row per
+  (meeting, member) including a `dissent` flag.
+* New `boe_mpr_forecasts(series, month, year)`: Monetary Policy Report
+  forecast paths for CPI inflation, GDP growth, GDP level, unemployment,
+  and Bank Rate. Parses the Projections Databank workbook from the
+  per-release MPR zip. Defaults to the latest published quarterly
+  release; older releases are accessible via `month` / `year` (post-2025
+  format only).
+
 ## New: search and discovery
 
 * New `boe_series` exported dataset: a 52-row catalogue of every BoE
