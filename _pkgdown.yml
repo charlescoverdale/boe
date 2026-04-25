@@ -14,11 +14,12 @@ navbar:
 
 reference:
   - title: "Interest Rates"
-    desc: "Bank Rate, SONIA, and gilt yields"
+    desc: "Bank Rate, SONIA, gilt yields, and the full Anderson-Sleath curve"
     contents:
       - boe_bank_rate
       - boe_sonia
       - boe_yield_curve
+      - boe_curve
 
   - title: "Exchange Rates"
     desc: "Sterling spot exchange rates"
@@ -38,15 +39,31 @@ reference:
       - boe_consumer_credit
       - boe_money_supply
 
+  - title: "Monetary Policy"
+    desc: "MPC decisions, voting record, and MPR forecasts"
+    contents:
+      - boe_mpc_decisions
+      - boe_mpc_votes
+      - boe_mpr_forecasts
+
+  - title: "Discovery"
+    desc: "Search and browse the catalogue of wrapped series"
+    contents:
+      - boe_search
+      - boe_browse
+      - boe_series
+
   - title: "General"
     desc: "Fetch any series by code"
     contents:
       - boe_get
 
   - title: "Utilities"
-    desc: "Cache management"
+    desc: "Cache management and result class"
     contents:
       - clear_cache
+      - boe_cache_info
+      - print.boe_tbl
 
   - title: "Package"
     contents:
