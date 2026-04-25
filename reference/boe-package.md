@@ -11,6 +11,8 @@ endpoint. Data is cached locally between sessions.
 
 Useful links:
 
+- <https://charlescoverdale.github.io/boe/>
+
 - <https://github.com/charlescoverdale/boe>
 
 - Report bugs at <https://github.com/charlescoverdale/boe/issues>

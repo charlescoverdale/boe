@@ -57,8 +57,9 @@ A data frame with columns:
 op <- options(boe.cache_dir = tempdir())
 boe_money_supply(from = "2000-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [519ms]
+#> ✔ Downloading from Bank of England [486ms]
 #> 
+#> # BoE [boe_money_supply]: 1 series [LPMAUYN] · 314 obs · 2000-01-01 to 2026-04-25 · freq=monthly
 #>           date amount_gbp_m
 #> 1   2000-01-31       812294
 #> 2   2000-02-29       816749

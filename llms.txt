@@ -49,6 +49,20 @@ and so on. You don’t need to know that Bank Rate is `IUDBEDR` or that a
 2-year fixed mortgage rate is `IUMBV34`. The package handles series
 codes, date formatting, caching, and error handling internally.
 
+Beyond the IADB wrappers, it also ships:
+
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md):
+  the full Anderson-Sleath fitted yield curves (nominal, real, implied
+  inflation, OIS) at all maturities, parsed from the BoE’s published
+  Excel archive.
+- [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)
+  /
+  [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md):
+  a built-in catalogue of wrapped series so you can find codes from R
+  rather than the website.
+- A `boe_tbl` S3 class so every returned data frame carries provenance
+  metadata (series codes, date range, frequency, fetch timestamp).
+
 ## Why does this package exist?
 
 The data is freely available, but using it programmatically requires
@@ -93,19 +107,44 @@ devtools::install_github("charlescoverdale/boe")
 
 ## Functions
 
-| Function                                                                                                 | Description                                                | From | To      |
-|----------------------------------------------------------------------------------------------------------|------------------------------------------------------------|------|---------|
-| [`boe_get()`](https://charlescoverdale.github.io/boe/reference/boe_get.md)                               | Fetch any series by BoE series code                        | Any  | Present |
-| [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md)                   | Official Bank Rate (daily or monthly)                      | 1975 | Present |
-| [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md)                           | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
-| [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)               | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
-| [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md)           | Daily sterling spot rates for 27 currencies                | 1975 | Present |
-| [`list_exchange_rates()`](https://charlescoverdale.github.io/boe/reference/list_exchange_rates.md)       | Catalogue of available currency codes                      | \-   | \-      |
-| [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md)         | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR)             | 1995 | Present |
-| [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase              | 1993 | Present |
-| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md)       | Consumer credit outstanding (total, cards, other)          | 1993 | Present |
-| [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md)             | M4 broad money amounts outstanding                         | 1982 | Present |
-| [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)                       | Delete locally cached data files                           | \-   | \-      |
+**Data access:**
+
+| Function                                                                                                 | Description                                                                                              | From         | To      |
+|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------------|---------|
+| [`boe_get()`](https://charlescoverdale.github.io/boe/reference/boe_get.md)                               | Fetch any series by BoE series code                                                                      | Any          | Present |
+| [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md)                   | Official Bank Rate (daily or monthly)                                                                    | 1975         | Present |
+| [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md)                           | SONIA risk-free reference rate (daily, monthly, or annual)                                               | 1997         | Present |
+| [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)               | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities                                               | 1985         | Present |
+| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)                           | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
+| [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md)           | Daily sterling spot rates for 27 currencies                                                              | 1975         | Present |
+| [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md)         | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR)                                                           | 1995         | Present |
+| [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase                                                            | 1993         | Present |
+| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md)       | Consumer credit outstanding (total, cards, other)                                                        | 1993         | Present |
+| [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md)             | M4 broad money amounts outstanding                                                                       | 1982         | Present |
+
+**Monetary policy:**
+
+| Function                                                                                       | Description                                                                                           | From | To      |
+|------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------|---------|
+| [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md) | MPC rate-change events: date, new rate, change in bps, direction                                      | 1997 | Present |
+| [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md)         | Full MPC voting record, one row per (meeting, member), with dissent flag                              | 1997 | Present |
+| [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md) | Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate) | 2019 | Present |
+
+**Discovery:**
+
+| Function                                                                                           | Description                                                                                                                |
+|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `boe_series`                                                                                       | Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date)                            |
+| [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)                   | Keyword search over `boe_series`                                                                                           |
+| [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md)                   | Filter `boe_series` by category or frequency                                                                               |
+| [`list_exchange_rates()`](https://charlescoverdale.github.io/boe/reference/list_exchange_rates.md) | Currency codes available to [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) |
+
+**Cache:**
+
+| Function                                                                                 | Description                                    |
+|------------------------------------------------------------------------------------------|------------------------------------------------|
+| [`boe_cache_info()`](https://charlescoverdale.github.io/boe/reference/boe_cache_info.md) | Report cache directory, file count, total size |
+| [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)       | Delete locally cached data files               |
 
 ------------------------------------------------------------------------
 
@@ -169,6 +208,40 @@ boe_yield_curve(from = "2024-01-01")
 # Real yields
 boe_yield_curve(from = "2024-01-01", type = "real", measure = "zero_coupon")
 ```
+
+------------------------------------------------------------------------
+
+### The full Anderson-Sleath fitted curve
+
+For the complete yield curve at every published maturity (typically 0.5
+years to 25 or 40 years, in 0.5-year steps), use
+[`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md).
+This parses the BoE’s published Excel archive and covers four curves:
+nominal gilt, real (index-linked) gilt, implied inflation (breakeven),
+and overnight index swap (OIS).
+
+``` r
+# Latest nominal spot curve at all maturities
+nc <- boe_curve(curve = "nominal", measure = "spot")
+head(nc, 6)
+#>         date maturity_years rate_pct
+#>   2026-04-01            0.5    3.95
+#>   2026-04-01            1.0    4.10
+#>   2026-04-01            1.5    4.13
+#>   2026-04-01            2.0    4.15
+#>   2026-04-01            2.5    4.16
+#>   2026-04-01            3.0    4.17
+
+# Implied inflation curve (breakeven inflation)
+boe_curve(curve = "inflation", measure = "spot")
+
+# OIS forward curve
+boe_curve(curve = "ois", measure = "spot")
+```
+
+Requires the `readxl` package (loaded lazily). Reference: Anderson and
+Sleath (2001), *New estimates of the UK real and nominal yield curves*,
+Bank of England Working Paper No. 126.
 
 ------------------------------------------------------------------------
 
@@ -282,6 +355,94 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 
 ------------------------------------------------------------------------
 
+### Tracking MPC decisions and votes
+
+``` r
+# Every Bank Rate change since 1997
+decisions <- boe_mpc_decisions()
+tail(decisions, 5)
+#>         date new_rate_pct prev_rate_pct change_bps direction
+#>   2024-08-01         5.00          5.25        -25       cut
+#>   2024-11-07         4.75          5.00        -25       cut
+#>   2025-02-06         4.50          4.75        -25       cut
+#>   2025-08-07         4.25          4.50        -25       cut
+#>   2026-02-05         4.00          4.25        -25       cut
+
+# Full voting record: who dissented, and how
+votes <- boe_mpc_votes()
+recent_dissents <- subset(votes, dissent & date >= as.Date("2024-01-01"))
+head(recent_dissents)
+
+# How does Catherine L Mann vote?
+mann <- subset(votes, member == "Catherine L Mann")
+table(mann$dissent)
+```
+
+------------------------------------------------------------------------
+
+### Forecasts from the Monetary Policy Report
+
+``` r
+# Latest CPI inflation projections (one row per publication x horizon)
+cpi <- boe_mpr_forecasts(series = "cpi_inflation")
+head(cpi)
+#>         date horizon horizon_date        series value
+#>   2026-02-01 2026 Q1   2026-01-01 cpi_inflation   2.7
+#>   2026-02-01 2026 Q2   2026-04-01 cpi_inflation   2.6
+#>   2026-02-01 2026 Q3   2026-07-01 cpi_inflation   2.5
+
+# All five headline series for the most recent MPR
+all <- boe_mpr_forecasts()
+unique(all$series)
+#>   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"
+```
+
+Requires the `readxl` package. Note: this targets the post-2025 MPR file
+format; older releases use a different archive layout.
+
+------------------------------------------------------------------------
+
+### Searching for a series
+
+``` r
+# Keyword search across the catalogue
+boe_search("mortgage")
+
+# Filter by category and frequency
+boe_search(category = "interest_rates", frequency = "daily")
+
+# Browse without a keyword
+boe_browse(category = "exchange_rates")
+
+# The full catalogue is exported as a data frame
+head(boe_series)
+table(boe_series$category)
+#>     consumer_credit       exchange_rates       interest_rates
+#>                   3                   27                   14
+#>     monetary_aggregates    mortgage_market
+#>                       2                  6
+```
+
+------------------------------------------------------------------------
+
+### Provenance
+
+Every result from a `boe_*()` function is a `boe_tbl` (a data frame with
+attached metadata). Printing shows a one-line provenance header, but it
+behaves like a normal data frame for everything else.
+
+``` r
+br <- boe_bank_rate(from = "2024-01-01", frequency = "monthly")
+br
+#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 16 obs · 2024-01-01 to 2025-04-30 · freq=monthly
+#>         date rate_pct
+#>   2024-01-31     5.25
+#>   2024-02-29     5.25
+#>   ...
+```
+
+------------------------------------------------------------------------
+
 ## Caching
 
 All downloads are cached locally in your user cache directory.
@@ -289,6 +450,14 @@ Subsequent calls return the cached copy instantly - no network request
 is made.
 
 ``` r
+# Inspect the cache (path, file count, size, range)
+boe_cache_info()
+#> BoE cache
+#> * Path:  /Users/.../R/boe/cache
+#> * Files: 12
+#> * Size:  6.4 MB
+#> * Range: 2026-04-12 09:14:02 to 2026-04-25 11:30:18
+
 # Force a fresh download
 boe_bank_rate(from = "2020-01-01", cache = FALSE)
 
@@ -353,7 +522,7 @@ policy, UK economic data, R package
 
 ## Interest Rates
 
-Bank Rate, SONIA, and gilt yields
+Bank Rate, SONIA, gilt yields, and the full Anderson-Sleath curve
 
 - [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md)
   : Download Bank of England Bank Rate history
@@ -361,6 +530,8 @@ Bank Rate, SONIA, and gilt yields
   : Download SONIA interest rate
 - [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)
   : Download UK gilt yields
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  : Download the BoE Anderson-Sleath fitted yield curves
 
 ## Exchange Rates
 
@@ -389,6 +560,28 @@ Consumer credit and money supply
 - [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md)
   : Download M4 money supply
 
+## Monetary Policy
+
+MPC decisions, voting record, and MPR forecasts
+
+- [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md)
+  : Bank Rate decision history
+- [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md)
+  : Monetary Policy Committee voting history
+- [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md)
+  : Monetary Policy Report forecast data
+
+## Discovery
+
+Search and browse the catalogue of wrapped series
+
+- [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)
+  : Search the BoE series catalogue
+- [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md)
+  : Browse the BoE series catalogue
+- [`boe_series`](https://charlescoverdale.github.io/boe/reference/boe_series.md)
+  : Catalogue of BoE series wrapped by this package
+
 ## General
 
 Fetch any series by code
@@ -398,10 +591,14 @@ Fetch any series by code
 
 ## Utilities
 
-Cache management
+Cache management and result class
 
 - [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)
   : Clear locally cached Bank of England data
+- [`boe_cache_info()`](https://charlescoverdale.github.io/boe/reference/boe_cache_info.md)
+  : Inspect the local BoE cache
+- [`print(`*`<boe_tbl>`*`)`](https://charlescoverdale.github.io/boe/reference/print.boe_tbl.md)
+  : Print method for boe_tbl
 
 ## Package
 

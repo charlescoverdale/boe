@@ -68,8 +68,9 @@ Other credit and housing:
 op <- options(boe.cache_dir = tempdir())
 boe_consumer_credit(from = "2015-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [814ms]
+#> ✔ Downloading from Bank of England [705ms]
 #> 
+#> # BoE [boe_consumer_credit]: 3 series [LPMVZRI,LPMVZRJ,LPMVZRK] · 380 obs · 2015-01-01 to 2026-04-25 · freq=monthly
 #>           date        type amount_gbp_m
 #> 1   2015-01-31 credit_card        61304
 #> 2   2015-02-28 credit_card        61417

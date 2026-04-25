@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
     <div class="section level2">
       <h2 id="interest-rates">Interest Rates<a class="anchor" aria-label="anchor" href="#interest-rates"></a></h2>
 
-      <div class="section-desc"><p>Bank Rate, SONIA, and gilt yields</p></div>
+      <div class="section-desc"><p>Bank Rate, SONIA, gilt yields, and the full Anderson-Sleath curve</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -61,6 +61,13 @@
 
         </dt>
         <dd>Download UK gilt yields</dd>
+
+        <dt>
+
+          <code><a href="boe_curve.html">boe_curve()</a></code>
+
+        </dt>
+        <dd>Download the BoE Anderson-Sleath fitted yield curves</dd>
       </dl></div><div class="section level2">
       <h2 id="exchange-rates">Exchange Rates<a class="anchor" aria-label="anchor" href="#exchange-rates"></a></h2>
 
@@ -131,6 +138,66 @@
         </dt>
         <dd>Download M4 money supply</dd>
       </dl></div><div class="section level2">
+      <h2 id="monetary-policy">Monetary Policy<a class="anchor" aria-label="anchor" href="#monetary-policy"></a></h2>
+
+      <div class="section-desc"><p>MPC decisions, voting record, and MPR forecasts</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="boe_mpc_decisions.html">boe_mpc_decisions()</a></code>
+
+        </dt>
+        <dd>Bank Rate decision history</dd>
+
+        <dt>
+
+          <code><a href="boe_mpc_votes.html">boe_mpc_votes()</a></code>
+
+        </dt>
+        <dd>Monetary Policy Committee voting history</dd>
+
+        <dt>
+
+          <code><a href="boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code>
+
+        </dt>
+        <dd>Monetary Policy Report forecast data</dd>
+      </dl></div><div class="section level2">
+      <h2 id="discovery">Discovery<a class="anchor" aria-label="anchor" href="#discovery"></a></h2>
+
+      <div class="section-desc"><p>Search and browse the catalogue of wrapped series</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="boe_search.html">boe_search()</a></code>
+
+        </dt>
+        <dd>Search the BoE series catalogue</dd>
+
+        <dt>
+
+          <code><a href="boe_browse.html">boe_browse()</a></code>
+
+        </dt>
+        <dd>Browse the BoE series catalogue</dd>
+
+        <dt>
+
+          <code><a href="boe_series.html">boe_series</a></code>
+
+        </dt>
+        <dd>Catalogue of BoE series wrapped by this package</dd>
+      </dl></div><div class="section level2">
       <h2 id="general">General<a class="anchor" aria-label="anchor" href="#general"></a></h2>
 
       <div class="section-desc"><p>Fetch any series by code</p></div>
@@ -149,7 +216,7 @@
       </dl></div><div class="section level2">
       <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
 
-      <div class="section-desc"><p>Cache management</p></div>
+      <div class="section-desc"><p>Cache management and result class</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -162,6 +229,20 @@
 
         </dt>
         <dd>Clear locally cached Bank of England data</dd>
+
+        <dt>
+
+          <code><a href="boe_cache_info.html">boe_cache_info()</a></code>
+
+        </dt>
+        <dd>Inspect the local BoE cache</dd>
+
+        <dt>
+
+          <code><a href="print.boe_tbl.html">print(<i>&lt;boe_tbl&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Print method for boe_tbl</dd>
       </dl></div><div class="section level2">
       <h2 id="package">Package<a class="anchor" aria-label="anchor" href="#package"></a></h2>
 

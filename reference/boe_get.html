@@ -13,7 +13,7 @@ do not cover the series you need."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,6 +110,7 @@ Statistical Database at
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using cached data</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using cached data <span style="color: #B2B2B2;">[6ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_get]: 1 series [IUDBEDR] · 6647 obs · 2000-01-01 to 2026-04-25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date    code value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2000-01-04 IUDBEDR  5.50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2000-01-05 IUDBEDR  5.50</span>
@@ -6762,8 +6763,9 @@ Statistical Database at
 <span class="r-in"><span><span class="co"># Multiple series</span></span></span>
 <span class="r-in"><span><span class="fu">boe_get</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IUDBEDR"</span>, <span class="st">"IUDSOIA"</span><span class="op">)</span>, from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[631ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[522ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_get]: 2 series [IUDBEDR,IUDSOIA] · 3185 obs · 2020-01-01 to 2026-04-25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date    code  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02 IUDBEDR 0.7500</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2020-01-03 IUDBEDR 0.7500</span>

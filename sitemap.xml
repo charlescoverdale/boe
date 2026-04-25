@@ -6,16 +6,25 @@
 <url><loc>https://charlescoverdale.github.io/boe/news/index.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe-package.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_bank_rate.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_browse.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_cache_info.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_curve.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_get.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_money_supply.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_search.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/boe_series.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_sonia.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/boe_yield_curve.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/clear_cache.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/index.html</loc></url>
 <url><loc>https://charlescoverdale.github.io/boe/reference/list_exchange_rates.html</loc></url>
+<url><loc>https://charlescoverdale.github.io/boe/reference/print.boe_tbl.html</loc></url>
 </urlset>
 

@@ -2,7 +2,7 @@
 
 ## Interest Rates
 
-Bank Rate, SONIA, and gilt yields
+Bank Rate, SONIA, gilt yields, and the full Anderson-Sleath curve
 
 - [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md)
   : Download Bank of England Bank Rate history
@@ -10,6 +10,8 @@ Bank Rate, SONIA, and gilt yields
   : Download SONIA interest rate
 - [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)
   : Download UK gilt yields
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  : Download the BoE Anderson-Sleath fitted yield curves
 
 ## Exchange Rates
 
@@ -38,6 +40,28 @@ Consumer credit and money supply
 - [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md)
   : Download M4 money supply
 
+## Monetary Policy
+
+MPC decisions, voting record, and MPR forecasts
+
+- [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md)
+  : Bank Rate decision history
+- [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md)
+  : Monetary Policy Committee voting history
+- [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md)
+  : Monetary Policy Report forecast data
+
+## Discovery
+
+Search and browse the catalogue of wrapped series
+
+- [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)
+  : Search the BoE series catalogue
+- [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md)
+  : Browse the BoE series catalogue
+- [`boe_series`](https://charlescoverdale.github.io/boe/reference/boe_series.md)
+  : Catalogue of BoE series wrapped by this package
+
 ## General
 
 Fetch any series by code
@@ -47,10 +71,14 @@ Fetch any series by code
 
 ## Utilities
 
-Cache management
+Cache management and result class
 
 - [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)
   : Clear locally cached Bank of England data
+- [`boe_cache_info()`](https://charlescoverdale.github.io/boe/reference/boe_cache_info.md)
+  : Inspect the local BoE cache
+- [`print(`*`<boe_tbl>`*`)`](https://charlescoverdale.github.io/boe/reference/print.boe_tbl.md)
+  : Print method for boe_tbl
 
 ## Package
 

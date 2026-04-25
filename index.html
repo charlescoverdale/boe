@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,6 +62,14 @@
 </h2>
 <p>The <a href="https://cran.r-project.org/package=bbk" class="external-link"><code>bbk</code></a> package on CRAN provides a single generic function for Bank of England data (<code>bbk::boe_data()</code>), but it is primarily a Bundesbank client - the Bank of England is one of seven central banks it covers, and its BoE support amounts to a raw API wrapper. You still need to know the series codes, and the output requires further processing.</p>
 <p>This package is different. It is built specifically for the Bank of England and provides named, documented functions for the series people actually use - <code><a href="reference/boe_bank_rate.html">boe_bank_rate()</a></code>, <code><a href="reference/boe_mortgage_rates.html">boe_mortgage_rates()</a></code>, <code><a href="reference/boe_yield_curve.html">boe_yield_curve()</a></code>, and so on. You don’t need to know that Bank Rate is <code>IUDBEDR</code> or that a 2-year fixed mortgage rate is <code>IUMBV34</code>. The package handles series codes, date formatting, caching, and error handling internally.</p>
+<p>Beyond the IADB wrappers, it also ships:</p>
+<ul>
+<li>
+<code><a href="reference/boe_curve.html">boe_curve()</a></code>: the full Anderson-Sleath fitted yield curves (nominal, real, implied inflation, OIS) at all maturities, parsed from the BoE’s published Excel archive.</li>
+<li>
+<code><a href="reference/boe_search.html">boe_search()</a></code> / <code><a href="reference/boe_browse.html">boe_browse()</a></code>: a built-in catalogue of wrapped series so you can find codes from R rather than the website.</li>
+<li>A <code>boe_tbl</code> S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="why-does-this-package-exist">Why does this package exist?<a class="anchor" aria-label="anchor" href="#why-does-this-package-exist"></a>
@@ -98,6 +106,7 @@
 <div class="section level2">
 <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
 </h2>
+<p><strong>Data access:</strong></p>
 <table class="table">
 <colgroup>
 <col width="25%">
@@ -137,16 +146,16 @@
 <td>Present</td>
 </tr>
 <tr class="odd">
+<td><code><a href="reference/boe_curve.html">boe_curve()</a></code></td>
+<td>Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities</td>
+<td>Latest month</td>
+<td>Present</td>
+</tr>
+<tr class="even">
 <td><code><a href="reference/boe_exchange_rate.html">boe_exchange_rate()</a></code></td>
 <td>Daily sterling spot rates for 27 currencies</td>
 <td>1975</td>
 <td>Present</td>
-</tr>
-<tr class="even">
-<td><code><a href="reference/list_exchange_rates.html">list_exchange_rates()</a></code></td>
-<td>Catalogue of available currency codes</td>
-<td>-</td>
-<td>-</td>
 </tr>
 <tr class="odd">
 <td><code><a href="reference/boe_mortgage_rates.html">boe_mortgage_rates()</a></code></td>
@@ -172,11 +181,88 @@
 <td>1982</td>
 <td>Present</td>
 </tr>
+</tbody>
+</table>
+<p><strong>Monetary policy:</strong></p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Description</th>
+<th>From</th>
+<th>To</th>
+</tr></thead>
+<tbody>
 <tr class="odd">
+<td><code><a href="reference/boe_mpc_decisions.html">boe_mpc_decisions()</a></code></td>
+<td>MPC rate-change events: date, new rate, change in bps, direction</td>
+<td>1997</td>
+<td>Present</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/boe_mpc_votes.html">boe_mpc_votes()</a></code></td>
+<td>Full MPC voting record, one row per (meeting, member), with dissent flag</td>
+<td>1997</td>
+<td>Present</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code></td>
+<td>Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate)</td>
+<td>2019</td>
+<td>Present</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Discovery:</strong></p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>boe_series</code></td>
+<td>Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date)</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/boe_search.html">boe_search()</a></code></td>
+<td>Keyword search over <code>boe_series</code>
+</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/boe_browse.html">boe_browse()</a></code></td>
+<td>Filter <code>boe_series</code> by category or frequency</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/list_exchange_rates.html">list_exchange_rates()</a></code></td>
+<td>Currency codes available to <code><a href="reference/boe_exchange_rate.html">boe_exchange_rate()</a></code>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cache:</strong></p>
+<table class="table">
+<thead><tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="reference/boe_cache_info.html">boe_cache_info()</a></code></td>
+<td>Report cache directory, file count, total size</td>
+</tr>
+<tr class="even">
 <td><code><a href="reference/clear_cache.html">clear_cache()</a></code></td>
 <td>Delete locally cached data files</td>
-<td>-</td>
-<td>-</td>
 </tr>
 </tbody>
 </table>
@@ -244,9 +330,33 @@
 <hr>
 </div>
 <div class="section level3">
+<h3 id="the-full-anderson-sleath-fitted-curve">The full Anderson-Sleath fitted curve<a class="anchor" aria-label="anchor" href="#the-full-anderson-sleath-fitted-curve"></a>
+</h3>
+<p>For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use <code><a href="reference/boe_curve.html">boe_curve()</a></code>. This parses the BoE’s published Excel archive and covers four curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), and overnight index swap (OIS).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Latest nominal spot curve at all maturities</span></span>
+<span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"nominal"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nc</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         date maturity_years rate_pct</span></span>
+<span><span class="co">#&gt;   2026-04-01            0.5    3.95</span></span>
+<span><span class="co">#&gt;   2026-04-01            1.0    4.10</span></span>
+<span><span class="co">#&gt;   2026-04-01            1.5    4.13</span></span>
+<span><span class="co">#&gt;   2026-04-01            2.0    4.15</span></span>
+<span><span class="co">#&gt;   2026-04-01            2.5    4.16</span></span>
+<span><span class="co">#&gt;   2026-04-01            3.0    4.17</span></span>
+<span></span>
+<span><span class="co"># Implied inflation curve (breakeven inflation)</span></span>
+<span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"inflation"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># OIS forward curve</span></span>
+<span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"ois"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span></code></pre></div>
+<p>Requires the <code>readxl</code> package (loaded lazily). Reference: Anderson and Sleath (2001), <em>New estimates of the UK real and nominal yield curves</em>, Bank of England Working Paper No. 126.</p>
+<hr>
+</div>
+<div class="section level3">
 <h3 id="what-are-mortgage-rates-right-now">What are mortgage rates right now?<a class="anchor" aria-label="anchor" href="#what-are-mortgage-rates-right-now"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># All mortgage rate types</span></span>
 <span><span class="va">mr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mortgage_rates.html">boe_mortgage_rates</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2023-01-01"</span><span class="op">)</span></span>
 <span></span>
@@ -260,7 +370,7 @@
 <div class="section level3">
 <h3 id="how-active-is-the-housing-market">How active is the housing market?<a class="anchor" aria-label="anchor" href="#how-active-is-the-housing-market"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Monthly mortgage approvals - a leading indicator of housing activity</span></span>
 <span><span class="va">ma</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mortgage_approvals.html">boe_mortgage_approvals</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2019-01-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">ma</span>, <span class="fl">6</span><span class="op">)</span></span>
@@ -276,7 +386,7 @@
 <div class="section level3">
 <h3 id="how-much-are-households-borrowing">How much are households borrowing?<a class="anchor" aria-label="anchor" href="#how-much-are-households-borrowing"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Total consumer credit outstanding</span></span>
 <span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"total"</span>, from <span class="op">=</span> <span class="st">"2024-01-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">cc</span>, <span class="fl">6</span><span class="op">)</span></span>
@@ -295,7 +405,7 @@
 <div class="section level3">
 <h3 id="how-much-money-is-in-the-economy">How much money is in the economy?<a class="anchor" aria-label="anchor" href="#how-much-money-is-in-the-economy"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># M4 amounts outstanding</span></span>
 <span><span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_money_supply.html">boe_money_supply</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2024-01-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">m4</span>, <span class="fl">6</span><span class="op">)</span></span>
@@ -311,7 +421,7 @@
 <div class="section level3">
 <h3 id="what-is-the-risk-free-rate">What is the risk-free rate?<a class="anchor" aria-label="anchor" href="#what-is-the-risk-free-rate"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># SONIA replaced LIBOR as the UK's benchmark interest rate</span></span>
 <span><span class="va">sonia</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_sonia.html">boe_sonia</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2024-01-01"</span>, to <span class="op">=</span> <span class="st">"2024-01-31"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sonia</span>, <span class="fl">6</span><span class="op">)</span></span>
@@ -330,7 +440,7 @@
 <div class="section level3">
 <h3 id="fetching-any-series-by-code">Fetching any series by code<a class="anchor" aria-label="anchor" href="#fetching-any-series-by-code"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If you know the BoE series code, use boe_get() directly</span></span>
 <span><span class="co"># Series codes: https://www.bankofengland.co.uk/boeapps/database/</span></span>
 <span></span>
@@ -347,13 +457,100 @@
 <span><span class="co">#&gt;    ...</span></span></code></pre></div>
 <hr>
 </div>
+<div class="section level3">
+<h3 id="tracking-mpc-decisions-and-votes">Tracking MPC decisions and votes<a class="anchor" aria-label="anchor" href="#tracking-mpc-decisions-and-votes"></a>
+</h3>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Every Bank Rate change since 1997</span></span>
+<span><span class="va">decisions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpc_decisions.html">boe_mpc_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">decisions</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         date new_rate_pct prev_rate_pct change_bps direction</span></span>
+<span><span class="co">#&gt;   2024-08-01         5.00          5.25        -25       cut</span></span>
+<span><span class="co">#&gt;   2024-11-07         4.75          5.00        -25       cut</span></span>
+<span><span class="co">#&gt;   2025-02-06         4.50          4.75        -25       cut</span></span>
+<span><span class="co">#&gt;   2025-08-07         4.25          4.50        -25       cut</span></span>
+<span><span class="co">#&gt;   2026-02-05         4.00          4.25        -25       cut</span></span>
+<span></span>
+<span><span class="co"># Full voting record: who dissented, and how</span></span>
+<span><span class="va">votes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpc_votes.html">boe_mpc_votes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">recent_dissents</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">votes</span>, <span class="va">dissent</span> <span class="op">&amp;</span> <span class="va">date</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-01-01"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">recent_dissents</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># How does Catherine L Mann vote?</span></span>
+<span><span class="va">mann</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">votes</span>, <span class="va">member</span> <span class="op">==</span> <span class="st">"Catherine L Mann"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mann</span><span class="op">$</span><span class="va">dissent</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="forecasts-from-the-monetary-policy-report">Forecasts from the Monetary Policy Report<a class="anchor" aria-label="anchor" href="#forecasts-from-the-monetary-policy-report"></a>
+</h3>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Latest CPI inflation projections (one row per publication x horizon)</span></span>
+<span><span class="va">cpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts</a></span><span class="op">(</span>series <span class="op">=</span> <span class="st">"cpi_inflation"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cpi</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         date horizon horizon_date        series value</span></span>
+<span><span class="co">#&gt;   2026-02-01 2026 Q1   2026-01-01 cpi_inflation   2.7</span></span>
+<span><span class="co">#&gt;   2026-02-01 2026 Q2   2026-04-01 cpi_inflation   2.6</span></span>
+<span><span class="co">#&gt;   2026-02-01 2026 Q3   2026-07-01 cpi_inflation   2.5</span></span>
+<span></span>
+<span><span class="co"># All five headline series for the most recent MPR</span></span>
+<span><span class="va">all</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all</span><span class="op">$</span><span class="va">series</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"</span></span></code></pre></div>
+<p>Requires the <code>readxl</code> package. Note: this targets the post-2025 MPR file format; older releases use a different archive layout.</p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="searching-for-a-series">Searching for a series<a class="anchor" aria-label="anchor" href="#searching-for-a-series"></a>
+</h3>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Keyword search across the catalogue</span></span>
+<span><span class="fu"><a href="reference/boe_search.html">boe_search</a></span><span class="op">(</span><span class="st">"mortgage"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter by category and frequency</span></span>
+<span><span class="fu"><a href="reference/boe_search.html">boe_search</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"interest_rates"</span>, frequency <span class="op">=</span> <span class="st">"daily"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Browse without a keyword</span></span>
+<span><span class="fu"><a href="reference/boe_browse.html">boe_browse</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"exchange_rates"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The full catalogue is exported as a data frame</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">$</span><span class="va">category</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     consumer_credit       exchange_rates       interest_rates</span></span>
+<span><span class="co">#&gt;                   3                   27                   14</span></span>
+<span><span class="co">#&gt;     monetary_aggregates    mortgage_market</span></span>
+<span><span class="co">#&gt;                       2                  6</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="provenance">Provenance<a class="anchor" aria-label="anchor" href="#provenance"></a>
+</h3>
+<p>Every result from a <code>boe_*()</code> function is a <code>boe_tbl</code> (a data frame with attached metadata). Printing shows a one-line provenance header, but it behaves like a normal data frame for everything else.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_bank_rate.html">boe_bank_rate</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2024-01-01"</span>, frequency <span class="op">=</span> <span class="st">"monthly"</span><span class="op">)</span></span>
+<span><span class="va">br</span></span>
+<span><span class="co">#&gt; # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 16 obs · 2024-01-01 to 2025-04-30 · freq=monthly</span></span>
+<span><span class="co">#&gt;         date rate_pct</span></span>
+<span><span class="co">#&gt;   2024-01-31     5.25</span></span>
+<span><span class="co">#&gt;   2024-02-29     5.25</span></span>
+<span><span class="co">#&gt;   ...</span></span></code></pre></div>
+<hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h2>
 <p>All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly - no network request is made.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Force a fresh download</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Inspect the cache (path, file count, size, range)</span></span>
+<span><span class="fu"><a href="reference/boe_cache_info.html">boe_cache_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; BoE cache</span></span>
+<span><span class="co">#&gt; * Path:  /Users/.../R/boe/cache</span></span>
+<span><span class="co">#&gt; * Files: 12</span></span>
+<span><span class="co">#&gt; * Size:  6.4 MB</span></span>
+<span><span class="co">#&gt; * Range: 2026-04-12 09:14:02 to 2026-04-25 11:30:18</span></span>
+<span></span>
+<span><span class="co"># Force a fresh download</span></span>
 <span><span class="fu"><a href="reference/boe_bank_rate.html">boe_bank_rate</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Remove files older than 7 days</span></span>
