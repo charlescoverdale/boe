@@ -16,6 +16,12 @@ The [`bbk`](https://cran.r-project.org/package=bbk) package on CRAN provides a s
 
 This package is different. It is built specifically for the Bank of England and provides named, documented functions for the series people actually use - `boe_bank_rate()`, `boe_mortgage_rates()`, `boe_yield_curve()`, and so on. You don't need to know that Bank Rate is `IUDBEDR` or that a 2-year fixed mortgage rate is `IUMBV34`. The package handles series codes, date formatting, caching, and error handling internally.
 
+Beyond the IADB wrappers, it also ships:
+
+- `boe_curve()`: the full Anderson-Sleath fitted yield curves (nominal, real, implied inflation, OIS) at all maturities, parsed from the BoE's published Excel archive.
+- `boe_search()` / `boe_browse()`: a built-in catalogue of wrapped series so you can find codes from R rather than the website.
+- A `boe_tbl` S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).
+
 ## Why does this package exist?
 
 The data is freely available, but using it programmatically requires knowing obscure series codes, constructing query URLs with a non-standard date format (`DD/Mon/YYYY`), parsing CSV responses with irregular date formats, and handling HTML error pages returned with HTTP 200 status codes. Every analyst who works with this data writes the same boilerplate.
@@ -54,19 +60,36 @@ devtools::install_github("charlescoverdale/boe")
 
 ## Functions
 
+**Data access:**
+
 | Function | Description | From | To |
 |---|---|---|---|
 | `boe_get()` | Fetch any series by BoE series code | Any | Present |
 | `boe_bank_rate()` | Official Bank Rate (daily or monthly) | 1975 | Present |
 | `boe_sonia()` | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
 | `boe_yield_curve()` | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
+| `boe_curve()` | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
 | `boe_exchange_rate()` | Daily sterling spot rates for 27 currencies | 1975 | Present |
-| `list_exchange_rates()` | Catalogue of available currency codes | - | -|
 | `boe_mortgage_rates()` | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | `boe_mortgage_approvals()` | Monthly mortgage approvals for house purchase | 1993 | Present |
 | `boe_consumer_credit()` | Consumer credit outstanding (total, cards, other) | 1993 | Present |
 | `boe_money_supply()` | M4 broad money amounts outstanding | 1982 | Present |
-| `clear_cache()` | Delete locally cached data files | - | -|
+
+**Discovery:**
+
+| Function | Description |
+|---|---|
+| `boe_series` | Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date) |
+| `boe_search()` | Keyword search over `boe_series` |
+| `boe_browse()` | Filter `boe_series` by category or frequency |
+| `list_exchange_rates()` | Currency codes available to `boe_exchange_rate()` |
+
+**Cache:**
+
+| Function | Description |
+|---|---|
+| `boe_cache_info()` | Report cache directory, file count, total size |
+| `clear_cache()` | Delete locally cached data files |
 
 ---
 
@@ -130,6 +153,33 @@ boe_yield_curve(from = "2024-01-01")
 # Real yields
 boe_yield_curve(from = "2024-01-01", type = "real", measure = "zero_coupon")
 ```
+
+---
+
+### The full Anderson-Sleath fitted curve
+
+For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use `boe_curve()`. This parses the BoE's published Excel archive and covers four curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), and overnight index swap (OIS).
+
+```r
+# Latest nominal spot curve at all maturities
+nc <- boe_curve(curve = "nominal", measure = "spot")
+head(nc, 6)
+#>         date maturity_years rate_pct
+#>   2026-04-01            0.5    3.95
+#>   2026-04-01            1.0    4.10
+#>   2026-04-01            1.5    4.13
+#>   2026-04-01            2.0    4.15
+#>   2026-04-01            2.5    4.16
+#>   2026-04-01            3.0    4.17
+
+# Implied inflation curve (breakeven inflation)
+boe_curve(curve = "inflation", measure = "spot")
+
+# OIS forward curve
+boe_curve(curve = "ois", measure = "spot")
+```
+
+Requires the `readxl` package (loaded lazily). Reference: Anderson and Sleath (2001), *New estimates of the UK real and nominal yield curves*, Bank of England Working Paper No. 126.
 
 ---
 
@@ -243,11 +293,58 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 
 ---
 
+### Searching for a series
+
+```r
+# Keyword search across the catalogue
+boe_search("mortgage")
+
+# Filter by category and frequency
+boe_search(category = "interest_rates", frequency = "daily")
+
+# Browse without a keyword
+boe_browse(category = "exchange_rates")
+
+# The full catalogue is exported as a data frame
+head(boe_series)
+table(boe_series$category)
+#>     consumer_credit       exchange_rates       interest_rates
+#>                   3                   27                   14
+#>     monetary_aggregates    mortgage_market
+#>                       2                  6
+```
+
+---
+
+### Provenance
+
+Every result from a `boe_*()` function is a `boe_tbl` (a data frame with attached metadata). Printing shows a one-line provenance header, but it behaves like a normal data frame for everything else.
+
+```r
+br <- boe_bank_rate(from = "2024-01-01", frequency = "monthly")
+br
+#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 16 obs · 2024-01-01 to 2025-04-30 · freq=monthly
+#>         date rate_pct
+#>   2024-01-31     5.25
+#>   2024-02-29     5.25
+#>   ...
+```
+
+---
+
 ## Caching
 
 All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly - no network request is made.
 
 ```r
+# Inspect the cache (path, file count, size, range)
+boe_cache_info()
+#> BoE cache
+#> * Path:  /Users/.../R/boe/cache
+#> * Files: 12
+#> * Size:  6.4 MB
+#> * Range: 2026-04-12 09:14:02 to 2026-04-25 11:30:18
+
 # Force a fresh download
 boe_bank_rate(from = "2020-01-01", cache = FALSE)
 
