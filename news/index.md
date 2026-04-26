@@ -1,6 +1,6 @@
 # Changelog
 
-## boe 0.1.2.9000 (development)
+## boe 0.2.0
 
 ### New: monetary policy data
 

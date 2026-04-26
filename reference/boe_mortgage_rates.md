@@ -69,9 +69,9 @@ op <- options(boe.cache_dir = tempdir())
 # All mortgage rate types since 2015
 boe_mortgage_rates(from = "2015-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [526ms]
+#> ✔ Downloading from Bank of England [527ms]
 #> 
-#> # BoE [boe_mortgage_rates]: 4 series [IUMBV34,IUMBV37,IUMBV42,IUMTLMV] · 540 obs · 2015-01-01 to 2026-04-25 · freq=monthly
+#> # BoE [boe_mortgage_rates]: 4 series [IUMBV34,IUMBV37,IUMBV42,IUMTLMV] · 540 obs · 2015-01-01 to 2026-04-26 · freq=monthly
 #>           date      type rate_pct
 #> 1   2015-01-31 2yr_fixed     2.01
 #> 2   2015-02-28 2yr_fixed     1.96
@@ -617,9 +617,9 @@ boe_mortgage_rates(from = "2015-01-01")
 # 2-year fixed only
 boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [297ms]
+#> ✔ Downloading from Bank of England [377ms]
 #> 
-#> # BoE [boe_mortgage_rates]: 1 series [IUMBV34] · 75 obs · 2020-01-01 to 2026-04-25 · freq=monthly
+#> # BoE [boe_mortgage_rates]: 1 series [IUMBV34] · 75 obs · 2020-01-01 to 2026-04-26 · freq=monthly
 #>          date      type rate_pct
 #> 1  2020-01-31 2yr_fixed     1.41
 #> 2  2020-02-29 2yr_fixed     1.40

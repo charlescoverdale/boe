@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,31 +33,31 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.2.9000" id="boe-0129000-development">boe 0.1.2.9000 (development)<a class="anchor" aria-label="anchor" href="#boe-0129000-development"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="boe-020">boe 0.2.0<a class="anchor" aria-label="anchor" href="#boe-020"></a></h2>
 <div class="section level3">
-<h3 id="new-monetary-policy-data-0-1-2-9000">New: monetary policy data<a class="anchor" aria-label="anchor" href="#new-monetary-policy-data-0-1-2-9000"></a></h3>
+<h3 id="new-monetary-policy-data-0-2-0">New: monetary policy data<a class="anchor" aria-label="anchor" href="#new-monetary-policy-data-0-2-0"></a></h3>
 <ul><li>New <code>boe_mpc_decisions(from, to)</code>: history of MPC rate-change events derived from the daily Bank Rate series. Returns date, new rate, previous rate, change in basis points, and direction.</li>
 <li>New <code><a href="../reference/boe_mpc_votes.html">boe_mpc_votes()</a></code>: full MPC voting record from June 1997, parsed from BoE’s published <code>mpcvoting.xlsx</code>. Long format with one row per (meeting, member) including a <code>dissent</code> flag.</li>
 <li>New <code>boe_mpr_forecasts(series, month, year)</code>: Monetary Policy Report forecast paths for CPI inflation, GDP growth, GDP level, unemployment, and Bank Rate. Parses the Projections Databank workbook from the per-release MPR zip. Defaults to the latest published quarterly release; older releases are accessible via <code>month</code> / <code>year</code> (post-2025 format only).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-search-and-discovery-0-1-2-9000">New: search and discovery<a class="anchor" aria-label="anchor" href="#new-search-and-discovery-0-1-2-9000"></a></h3>
+<h3 id="new-search-and-discovery-0-2-0">New: search and discovery<a class="anchor" aria-label="anchor" href="#new-search-and-discovery-0-2-0"></a></h3>
 <ul><li>New <code>boe_series</code> exported dataset: a 52-row catalogue of every BoE series wrapped by the package, with code, title, category, frequency, unit, start date, and seasonal-adjustment flag.</li>
 <li>New <code>boe_search(query, category, frequency)</code>: keyword + filter search over <code>boe_series</code>. Case-insensitive substring match against title and code.</li>
 <li>New <code>boe_browse(category, frequency)</code>: filter-only view of <code>boe_series</code>. Equivalent to <code><a href="../reference/boe_search.html">boe_search()</a></code> with no keyword.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-yield-curve-depth-anderson-sleath-0-1-2-9000">New: yield-curve depth (Anderson-Sleath)<a class="anchor" aria-label="anchor" href="#new-yield-curve-depth-anderson-sleath-0-1-2-9000"></a></h3>
+<h3 id="new-yield-curve-depth-anderson-sleath-0-2-0">New: yield-curve depth (Anderson-Sleath)<a class="anchor" aria-label="anchor" href="#new-yield-curve-depth-anderson-sleath-0-2-0"></a></h3>
 <ul><li>New <code>boe_curve(curve, measure)</code>: full Anderson-Sleath fitted yield curves at all maturities (typically 0.5 to 25 or 40 years), covering nominal gilt, real gilt, implied inflation, and OIS curves. Both spot and forward measures available where published. Latest month of daily data; archive coverage planned.</li>
 <li>References Anderson and Sleath (2001, BoE Working Paper 126).</li>
 <li>Adds <strong>readxl</strong> to Suggests (used only by <code><a href="../reference/boe_curve.html">boe_curve()</a></code>; lazily required at call time).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-cache-helpers-0-1-2-9000">New: cache helpers<a class="anchor" aria-label="anchor" href="#new-cache-helpers-0-1-2-9000"></a></h3>
+<h3 id="new-cache-helpers-0-2-0">New: cache helpers<a class="anchor" aria-label="anchor" href="#new-cache-helpers-0-2-0"></a></h3>
 <ul><li>New <code><a href="../reference/boe_cache_info.html">boe_cache_info()</a></code>: report cache directory, file count, total size, and modification timestamp range. Companion to <code><a href="../reference/clear_cache.html">clear_cache()</a></code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="provenance-0-1-2-9000">Provenance<a class="anchor" aria-label="anchor" href="#provenance-0-1-2-9000"></a></h3>
+<h3 id="provenance-0-2-0">Provenance<a class="anchor" aria-label="anchor" href="#provenance-0-2-0"></a></h3>
 <ul><li>New <code>boe_tbl</code> S3 class. All <code>boe_*()</code> functions now return data frames carrying provenance metadata (series codes, date range, frequency, function called, fetch timestamp). Subclasses <code>data.frame</code> so downstream operations are unaffected.</li>
 <li>New <code><a href="../reference/print.boe_tbl.html">print.boe_tbl()</a></code> method shows a one-line provenance header above the data frame body, mirroring the <code>fred_tbl</code> pattern in the <code>fred</code> package.</li>
 </ul></div>
