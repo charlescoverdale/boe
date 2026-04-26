@@ -13,7 +13,7 @@ boe_mpc_votes(cache = TRUE)
 
 ## Source
 
-<https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes>
+<https://www.bankofengland.co.uk/monetary-policy>
 
 ## Arguments
 
@@ -78,7 +78,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading MPC voting record from Bank of England
-#> ✔ Downloading MPC voting record from Bank of England [571ms]
+#> ✔ Downloading MPC voting record from Bank of England [538ms]
 #> 
 # }
 ```

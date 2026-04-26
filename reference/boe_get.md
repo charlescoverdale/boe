@@ -6726,7 +6726,7 @@ boe_get("IUDBEDR", from = "2000-01-01")
 # Multiple series
 boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [543ms]
+#> ✔ Downloading from Bank of England [540ms]
 #> 
 #> # BoE [boe_get]: 2 series [IUDBEDR,IUDSOIA] · 3185 obs · 2020-01-01 to 2026-04-26
 #>            date    code  value

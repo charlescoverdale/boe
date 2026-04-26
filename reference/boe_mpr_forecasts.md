@@ -18,7 +18,7 @@ boe_mpr_forecasts(
 
 ## Source
 
-<https://www.bankofengland.co.uk/monetary-policy-report>
+<https://www.bankofengland.co.uk/monetary-policy>
 
 ## Arguments
 
@@ -111,7 +111,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading February 2026 MPR archive
-#> ✔ Downloading February 2026 MPR archive [389ms]
+#> ✔ Downloading February 2026 MPR archive [301ms]
 #> 
 # }
 ```
