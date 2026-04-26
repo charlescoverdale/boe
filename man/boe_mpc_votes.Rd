@@ -4,7 +4,7 @@
 \alias{boe_mpc_votes}
 \title{Monetary Policy Committee voting history}
 \source{
-\url{https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes}
+\url{https://www.bankofengland.co.uk/monetary-policy}
 }
 \usage{
 boe_mpc_votes(cache = TRUE)

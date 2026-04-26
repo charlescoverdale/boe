@@ -4,7 +4,7 @@
 \alias{boe_mpr_forecasts}
 \title{Monetary Policy Report forecast data}
 \source{
-\url{https://www.bankofengland.co.uk/monetary-policy-report}
+\url{https://www.bankofengland.co.uk/monetary-policy}
 }
 \usage{
 boe_mpr_forecasts(

@@ -1,8 +1,25 @@
 # CRAN submission comments — boe 0.2.0
 
-## Resubmission
+## Resubmission (auto-check NOTE fix)
 
-This is a feature release on top of boe 0.1.2 (currently on CRAN).
+Re-uploading at the same version 0.2.0 to address the auto-check NOTE
+flagging two roxygen `@source` URLs that returned 404. Both pointed at
+Bank of England landing pages that have been retired in a recent site
+restructure:
+
+* `https://www.bankofengland.co.uk/monetary-policy-report` → 404
+* `https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes` → 404
+
+Both `@source` links now point at the parent
+`https://www.bankofengland.co.uk/monetary-policy` landing page (verified
+200), which is the stable umbrella for both Monetary Policy Reports and
+the Monetary Policy Summary / minutes.
+
+The actual data-fetching URLs (under `/-/media/boe/files/`) used by
+`boe_mpr_forecasts()` and `boe_mpc_votes()` were not affected and
+continue to resolve.
+
+## Feature release on top of boe 0.1.2 (currently on CRAN)
 
 ### New functionality
 

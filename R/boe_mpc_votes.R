@@ -25,7 +25,7 @@
 #'
 #' @details Requires the \pkg{readxl} package.
 #'
-#' @source <https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes>
+#' @source <https://www.bankofengland.co.uk/monetary-policy>
 #'
 #' @examples
 #' \donttest{

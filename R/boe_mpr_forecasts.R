@@ -40,7 +40,7 @@
 #' forecast quarters. The same publication therefore contributes
 #' multiple rows here, one per forecast horizon.
 #'
-#' @source <https://www.bankofengland.co.uk/monetary-policy-report>
+#' @source <https://www.bankofengland.co.uk/monetary-policy>
 #'
 #' @section Older releases:
 #' Pre-2025 MPRs are packaged differently and do not contain a single
