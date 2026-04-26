@@ -77,7 +77,12 @@ boe_mpr_forecasts <- function(series = c("cpi_inflation", "gdp_growth",
     ))
   }
 
-  series <- match.arg(series, several.ok = TRUE)
+  series_choices <- eval(formals()$series)
+  if (missing(series)) {
+    series <- series_choices
+  } else {
+    series <- match.arg(series, choices = series_choices, several.ok = TRUE)
+  }
 
   release <- resolve_mpr_release(month = month, year = year)
   zip_path <- download_mpr_zip(release$month, release$year, cache = cache)
@@ -349,6 +354,9 @@ parse_publication_date <- function(x) {
   if (any(todo)) {
     txt <- sub("\\s*\\([a-z]\\)\\s*$", "", as.character(x[todo]),
                ignore.case = TRUE)
+    old <- Sys.getlocale("LC_TIME")
+    on.exit(suppressWarnings(Sys.setlocale("LC_TIME", old)), add = TRUE)
+    suppressWarnings(Sys.setlocale("LC_TIME", "C"))
     out[todo] <- suppressWarnings(
       as.Date(paste("1", txt), format = "%d %B %Y")
     )
