@@ -413,36 +413,17 @@ clear_cache()
 
 ## Related packages
 
-This package is part of a suite of R packages for economic, financial, and policy data. They share a consistent interface (named functions, tidy data frames, local caching) and are designed to work together.
-
-**Data access:**
-
-| Package | Source |
+| Package | Description |
 |---|---|
-| [`ons`](https://github.com/charlescoverdale/ons) | UK Office for National Statistics |
-| [`hmrc`](https://github.com/charlescoverdale/hmrc) | HM Revenue & Customs |
-| [`obr`](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility |
-| [`ukhousing`](https://github.com/charlescoverdale/ukhousing) | UK Land Registry, EPC, Planning |
-| [`fred`](https://github.com/charlescoverdale/fred) | US Federal Reserve (FRED) |
-| [`readecb`](https://github.com/charlescoverdale/readecb) | European Central Bank |
-| [`readoecd`](https://github.com/charlescoverdale/readoecd) | OECD |
-| [`readnoaa`](https://github.com/charlescoverdale/readnoaa) | NOAA Climate Data |
-| [`readaec`](https://github.com/charlescoverdale/readaec) | Australian Electoral Commission |
-| [`comtrade`](https://github.com/charlescoverdale/comtrade) | UN Comtrade |
-| [`carbondata`](https://github.com/charlescoverdale/carbondata) | Carbon markets (EU ETS, UK ETS, voluntary registries) |
-
-**Analytical toolkits:**
-
-| Package | Purpose |
-|---|---|
-| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series |
-| [`inflationkit`](https://github.com/charlescoverdale/inflationkit) | Inflation analysis (decomposition, persistence, Phillips curve) |
+| [`ons`](https://github.com/charlescoverdale/ons) | UK Office for National Statistics data |
+| [`hmrc`](https://github.com/charlescoverdale/hmrc) | HM Revenue & Customs tax data |
+| [`obr`](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility fiscal forecasts |
+| [`fred`](https://github.com/charlescoverdale/fred) | US Federal Reserve (FRED) data |
+| [`readecb`](https://github.com/charlescoverdale/readecb) | European Central Bank data |
 | [`yieldcurves`](https://github.com/charlescoverdale/yieldcurves) | Yield curve fitting (Nelson-Siegel, Svensson) |
-| [`debtkit`](https://github.com/charlescoverdale/debtkit) | Debt sustainability analysis |
-| [`nowcast`](https://github.com/charlescoverdale/nowcast) | Economic nowcasting |
-| [`predictset`](https://github.com/charlescoverdale/predictset) | Conformal prediction |
-| [`climatekit`](https://github.com/charlescoverdale/climatekit) | Climate indices |
-| [`inequality`](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement |
+| [`mpshock`](https://github.com/charlescoverdale/mpshock) | Monetary policy shock series (US/UK/AU) |
+| [`inflationkit`](https://github.com/charlescoverdale/inflationkit) | Inflation analysis (decomposition, persistence, Phillips curve) |
+| [`nowcast`](https://github.com/charlescoverdale/nowcast) | Economic nowcasting (bridge, MIDAS, DFM) |
 
 ---
 
