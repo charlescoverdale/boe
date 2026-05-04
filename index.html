@@ -114,68 +114,68 @@
 <col width="25%">
 <col width="25%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Function</th>
 <th>Description</th>
 <th>From</th>
 <th>To</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_get.html">boe_get()</a></code></td>
 <td>Fetch any series by BoE series code</td>
 <td>Any</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_bank_rate.html">boe_bank_rate()</a></code></td>
 <td>Official Bank Rate (daily or monthly)</td>
 <td>1975</td>
 <td>Present</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_sonia.html">boe_sonia()</a></code></td>
 <td>SONIA risk-free reference rate (daily, monthly, or annual)</td>
 <td>1997</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_yield_curve.html">boe_yield_curve()</a></code></td>
 <td>Nominal and real gilt yields at 5yr, 10yr, 20yr maturities</td>
 <td>1985</td>
 <td>Present</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_curve.html">boe_curve()</a></code></td>
 <td>Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities</td>
 <td>Latest month</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_exchange_rate.html">boe_exchange_rate()</a></code></td>
 <td>Daily sterling spot rates for 27 currencies</td>
 <td>1975</td>
 <td>Present</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_mortgage_rates.html">boe_mortgage_rates()</a></code></td>
 <td>Quoted mortgage rates (2yr/3yr/5yr fixed, SVR)</td>
 <td>1995</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_mortgage_approvals.html">boe_mortgage_approvals()</a></code></td>
 <td>Monthly mortgage approvals for house purchase</td>
 <td>1993</td>
 <td>Present</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_consumer_credit.html">boe_consumer_credit()</a></code></td>
 <td>Consumer credit outstanding (total, cards, other)</td>
 <td>1993</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_money_supply.html">boe_money_supply()</a></code></td>
 <td>M4 broad money amounts outstanding</td>
 <td>1982</td>
@@ -191,26 +191,26 @@
 <col width="25%">
 <col width="25%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Function</th>
 <th>Description</th>
 <th>From</th>
 <th>To</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_mpc_decisions.html">boe_mpc_decisions()</a></code></td>
 <td>MPC rate-change events: date, new rate, change in bps, direction</td>
 <td>1997</td>
 <td>Present</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_mpc_votes.html">boe_mpc_votes()</a></code></td>
 <td>Full MPC voting record, one row per (meeting, member), with dissent flag</td>
 <td>1997</td>
 <td>Present</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code></td>
 <td>Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate)</td>
 <td>2019</td>
@@ -224,25 +224,25 @@
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>boe_series</code></td>
 <td>Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date)</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/boe_search.html">boe_search()</a></code></td>
 <td>Keyword search over <code>boe_series</code>
 </td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_browse.html">boe_browse()</a></code></td>
 <td>Filter <code>boe_series</code> by category or frequency</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/list_exchange_rates.html">list_exchange_rates()</a></code></td>
 <td>Currency codes available to <code><a href="reference/boe_exchange_rate.html">boe_exchange_rate()</a></code>
 </td>
@@ -251,16 +251,16 @@
 </table>
 <p><strong>Cache:</strong></p>
 <table class="table">
-<thead><tr class="header">
+<thead><tr>
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code><a href="reference/boe_cache_info.html">boe_cache_info()</a></code></td>
 <td>Report cache directory, file count, total size</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code><a href="reference/clear_cache.html">clear_cache()</a></code></td>
 <td>Delete locally cached data files</td>
 </tr>
@@ -563,106 +563,51 @@
 <div class="section level2">
 <h2 id="related-packages">Related packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>
 </h2>
-<p>This package is part of a suite of R packages for economic, financial, and policy data. They share a consistent interface (named functions, tidy data frames, local caching) and are designed to work together.</p>
-<p><strong>Data access:</strong></p>
 <table class="table">
 <colgroup>
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Package</th>
-<th>Source</th>
+<th>Description</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><a href="https://github.com/charlescoverdale/ons" class="external-link"><code>ons</code></a></td>
-<td>UK Office for National Statistics</td>
+<td>UK Office for National Statistics data</td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="https://github.com/charlescoverdale/hmrc" class="external-link"><code>hmrc</code></a></td>
-<td>HM Revenue &amp; Customs</td>
+<td>HM Revenue &amp; Customs tax data</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="https://github.com/charlescoverdale/obr" class="external-link"><code>obr</code></a></td>
-<td>Office for Budget Responsibility</td>
+<td>Office for Budget Responsibility fiscal forecasts</td>
 </tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/ukhousing" class="external-link"><code>ukhousing</code></a></td>
-<td>UK Land Registry, EPC, Planning</td>
-</tr>
-<tr class="odd">
+<tr>
 <td><a href="https://github.com/charlescoverdale/fred" class="external-link"><code>fred</code></a></td>
-<td>US Federal Reserve (FRED)</td>
+<td>US Federal Reserve (FRED) data</td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="https://github.com/charlescoverdale/readecb" class="external-link"><code>readecb</code></a></td>
-<td>European Central Bank</td>
+<td>European Central Bank data</td>
 </tr>
-<tr class="odd">
-<td><a href="https://github.com/charlescoverdale/readoecd" class="external-link"><code>readoecd</code></a></td>
-<td>OECD</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/readnoaa" class="external-link"><code>readnoaa</code></a></td>
-<td>NOAA Climate Data</td>
-</tr>
-<tr class="odd">
-<td><a href="https://github.com/charlescoverdale/readaec" class="external-link"><code>readaec</code></a></td>
-<td>Australian Electoral Commission</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/comtrade" class="external-link"><code>comtrade</code></a></td>
-<td>UN Comtrade</td>
-</tr>
-<tr class="odd">
-<td><a href="https://github.com/charlescoverdale/carbondata" class="external-link"><code>carbondata</code></a></td>
-<td>Carbon markets (EU ETS, UK ETS, voluntary registries)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Analytical toolkits:</strong></p>
-<table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr class="header">
-<th>Package</th>
-<th>Purpose</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://github.com/charlescoverdale/inflateR" class="external-link"><code>inflateR</code></a></td>
-<td>Inflation adjustment for price series</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/inflationkit" class="external-link"><code>inflationkit</code></a></td>
-<td>Inflation analysis (decomposition, persistence, Phillips curve)</td>
-</tr>
-<tr class="odd">
+<tr>
 <td><a href="https://github.com/charlescoverdale/yieldcurves" class="external-link"><code>yieldcurves</code></a></td>
 <td>Yield curve fitting (Nelson-Siegel, Svensson)</td>
 </tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/debtkit" class="external-link"><code>debtkit</code></a></td>
-<td>Debt sustainability analysis</td>
+<tr>
+<td><a href="https://github.com/charlescoverdale/mpshock" class="external-link"><code>mpshock</code></a></td>
+<td>Monetary policy shock series (US/UK/AU)</td>
 </tr>
-<tr class="odd">
+<tr>
+<td><a href="https://github.com/charlescoverdale/inflationkit" class="external-link"><code>inflationkit</code></a></td>
+<td>Inflation analysis (decomposition, persistence, Phillips curve)</td>
+</tr>
+<tr>
 <td><a href="https://github.com/charlescoverdale/nowcast" class="external-link"><code>nowcast</code></a></td>
-<td>Economic nowcasting</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/predictset" class="external-link"><code>predictset</code></a></td>
-<td>Conformal prediction</td>
-</tr>
-<tr class="odd">
-<td><a href="https://github.com/charlescoverdale/climatekit" class="external-link"><code>climatekit</code></a></td>
-<td>Climate indices</td>
-</tr>
-<tr class="even">
-<td><a href="https://github.com/charlescoverdale/inequality" class="external-link"><code>inequality</code></a></td>
-<td>Inequality and poverty measurement</td>
+<td>Economic nowcasting (bridge, MIDAS, DFM)</td>
 </tr>
 </tbody>
 </table>

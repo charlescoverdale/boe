@@ -2,6 +2,8 @@
 
 ## boe 0.2.0
 
+CRAN release: 2026-04-27
+
 ### New: monetary policy data
 
 - New `boe_mpc_decisions(from, to)`: history of MPC rate-change events

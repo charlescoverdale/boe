@@ -50,10 +50,10 @@ can be overridden with `options(boe.cache_dir = ...)`.
 op <- options(boe.cache_dir = tempdir())
 boe_cache_info()
 #> BoE cache
-#> • Path: /tmp/Rtmpv5PfnV
+#> • Path: /tmp/Rtmpbn8QV5
 #> • Files: 4
-#> • Size: 119.6 KB
-#> • Range: 2026-04-26 13:36:52 to 2026-04-26 13:36:57
+#> • Size: 119.7 KB
+#> • Range: 2026-05-04 19:13:45 to 2026-05-04 19:13:50
 options(op)
 # }
 ```

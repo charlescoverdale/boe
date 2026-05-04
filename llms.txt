@@ -76,6 +76,7 @@ This package replaces all of that with named functions that return clean
 data frames.
 
 ``` r
+
 # Without this package
 url <- paste0(
   "https://www.bankofengland.co.uk/boeapps/database/",
@@ -96,6 +97,7 @@ boe_bank_rate(from = "2020-01-01")
 ## Installation
 
 ``` r
+
 install.packages("boe")
 
 # Or install the development version from GitHub
@@ -109,42 +111,42 @@ devtools::install_github("charlescoverdale/boe")
 
 **Data access:**
 
-| Function                                                                                                 | Description                                                                                              | From         | To      |
-|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------------|---------|
-| [`boe_get()`](https://charlescoverdale.github.io/boe/reference/boe_get.md)                               | Fetch any series by BoE series code                                                                      | Any          | Present |
-| [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md)                   | Official Bank Rate (daily or monthly)                                                                    | 1975         | Present |
-| [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md)                           | SONIA risk-free reference rate (daily, monthly, or annual)                                               | 1997         | Present |
-| [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)               | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities                                               | 1985         | Present |
-| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)                           | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
-| [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md)           | Daily sterling spot rates for 27 currencies                                                              | 1975         | Present |
-| [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md)         | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR)                                                           | 1995         | Present |
-| [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase                                                            | 1993         | Present |
-| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md)       | Consumer credit outstanding (total, cards, other)                                                        | 1993         | Present |
-| [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md)             | M4 broad money amounts outstanding                                                                       | 1982         | Present |
+| Function | Description | From | To |
+|----|----|----|----|
+| [`boe_get()`](https://charlescoverdale.github.io/boe/reference/boe_get.md) | Fetch any series by BoE series code | Any | Present |
+| [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md) | Official Bank Rate (daily or monthly) | 1975 | Present |
+| [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md) | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
+| [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md) | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
+| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
+| [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) | Daily sterling spot rates for 27 currencies | 1975 | Present |
+| [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md) | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
+| [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase | 1993 | Present |
+| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md) | Consumer credit outstanding (total, cards, other) | 1993 | Present |
+| [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md) | M4 broad money amounts outstanding | 1982 | Present |
 
 **Monetary policy:**
 
-| Function                                                                                       | Description                                                                                           | From | To      |
-|------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------|---------|
-| [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md) | MPC rate-change events: date, new rate, change in bps, direction                                      | 1997 | Present |
-| [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md)         | Full MPC voting record, one row per (meeting, member), with dissent flag                              | 1997 | Present |
+| Function | Description | From | To |
+|----|----|----|----|
+| [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md) | MPC rate-change events: date, new rate, change in bps, direction | 1997 | Present |
+| [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md) | Full MPC voting record, one row per (meeting, member), with dissent flag | 1997 | Present |
 | [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md) | Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate) | 2019 | Present |
 
 **Discovery:**
 
-| Function                                                                                           | Description                                                                                                                |
-|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `boe_series`                                                                                       | Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date)                            |
-| [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)                   | Keyword search over `boe_series`                                                                                           |
-| [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md)                   | Filter `boe_series` by category or frequency                                                                               |
+| Function | Description |
+|----|----|
+| `boe_series` | Exported catalogue of every wrapped series (code, title, category, frequency, unit, start date) |
+| [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md) | Keyword search over `boe_series` |
+| [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md) | Filter `boe_series` by category or frequency |
 | [`list_exchange_rates()`](https://charlescoverdale.github.io/boe/reference/list_exchange_rates.md) | Currency codes available to [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) |
 
 **Cache:**
 
-| Function                                                                                 | Description                                    |
-|------------------------------------------------------------------------------------------|------------------------------------------------|
+| Function | Description |
+|----|----|
 | [`boe_cache_info()`](https://charlescoverdale.github.io/boe/reference/boe_cache_info.md) | Report cache directory, file count, total size |
-| [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md)       | Delete locally cached data files               |
+| [`clear_cache()`](https://charlescoverdale.github.io/boe/reference/clear_cache.md) | Delete locally cached data files |
 
 ------------------------------------------------------------------------
 
@@ -153,6 +155,7 @@ devtools::install_github("charlescoverdale/boe")
 ### What is Bank Rate today?
 
 ``` r
+
 library(boe)
 
 # Bank Rate since 2000
@@ -172,6 +175,7 @@ tail(br, 6)
 ### How has sterling moved against other currencies?
 
 ``` r
+
 # GBP/USD and GBP/EUR
 fx <- boe_exchange_rate(c("USD", "EUR"), from = "2024-01-01", to = "2024-01-31")
 head(fx, 6)
@@ -192,6 +196,7 @@ list_exchange_rates()
 ### What are gilt yields doing?
 
 ``` r
+
 # 10-year nominal gilt yield
 yc <- boe_yield_curve(from = "2024-01-01", to = "2024-01-31", maturity = "10yr")
 head(yc, 5)
@@ -221,6 +226,7 @@ nominal gilt, real (index-linked) gilt, implied inflation (breakeven),
 and overnight index swap (OIS).
 
 ``` r
+
 # Latest nominal spot curve at all maturities
 nc <- boe_curve(curve = "nominal", measure = "spot")
 head(nc, 6)
@@ -248,6 +254,7 @@ Bank of England Working Paper No. 126.
 ### What are mortgage rates right now?
 
 ``` r
+
 # All mortgage rate types
 mr <- boe_mortgage_rates(from = "2023-01-01")
 
@@ -263,6 +270,7 @@ mr <- boe_mortgage_rates(from = "2023-01-01")
 ### How active is the housing market?
 
 ``` r
+
 # Monthly mortgage approvals - a leading indicator of housing activity
 ma <- boe_mortgage_approvals(from = "2019-01-01")
 tail(ma, 6)
@@ -280,6 +288,7 @@ tail(ma, 6)
 ### How much are households borrowing?
 
 ``` r
+
 # Total consumer credit outstanding
 cc <- boe_consumer_credit(type = "total", from = "2024-01-01")
 tail(cc, 6)
@@ -300,6 +309,7 @@ boe_consumer_credit(type = "credit_card", from = "2024-01-01")
 ### How much money is in the economy?
 
 ``` r
+
 # M4 amounts outstanding
 m4 <- boe_money_supply(from = "2024-01-01")
 head(m4, 6)
@@ -317,6 +327,7 @@ head(m4, 6)
 ### What is the risk-free rate?
 
 ``` r
+
 # SONIA replaced LIBOR as the UK's benchmark interest rate
 sonia <- boe_sonia(from = "2024-01-01", to = "2024-01-31")
 head(sonia, 6)
@@ -337,6 +348,7 @@ boe_sonia(from = "2020-01-01", frequency = "monthly")
 ### Fetching any series by code
 
 ``` r
+
 # If you know the BoE series code, use boe_get() directly
 # Series codes: https://www.bankofengland.co.uk/boeapps/database/
 
@@ -358,6 +370,7 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 ### Tracking MPC decisions and votes
 
 ``` r
+
 # Every Bank Rate change since 1997
 decisions <- boe_mpc_decisions()
 tail(decisions, 5)
@@ -383,6 +396,7 @@ table(mann$dissent)
 ### Forecasts from the Monetary Policy Report
 
 ``` r
+
 # Latest CPI inflation projections (one row per publication x horizon)
 cpi <- boe_mpr_forecasts(series = "cpi_inflation")
 head(cpi)
@@ -405,6 +419,7 @@ format; older releases use a different archive layout.
 ### Searching for a series
 
 ``` r
+
 # Keyword search across the catalogue
 boe_search("mortgage")
 
@@ -432,6 +447,7 @@ attached metadata). Printing shows a one-line provenance header, but it
 behaves like a normal data frame for everything else.
 
 ``` r
+
 br <- boe_bank_rate(from = "2024-01-01", frequency = "monthly")
 br
 #> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 16 obs · 2024-01-01 to 2025-04-30 · freq=monthly
@@ -450,6 +466,7 @@ Subsequent calls return the cached copy instantly - no network request
 is made.
 
 ``` r
+
 # Inspect the cache (path, file count, size, range)
 boe_cache_info()
 #> BoE cache
@@ -472,38 +489,17 @@ clear_cache()
 
 ## Related packages
 
-This package is part of a suite of R packages for economic, financial,
-and policy data. They share a consistent interface (named functions,
-tidy data frames, local caching) and are designed to work together.
-
-**Data access:**
-
-| Package                                                        | Source                                                |
-|----------------------------------------------------------------|-------------------------------------------------------|
-| [`ons`](https://github.com/charlescoverdale/ons)               | UK Office for National Statistics                     |
-| [`hmrc`](https://github.com/charlescoverdale/hmrc)             | HM Revenue & Customs                                  |
-| [`obr`](https://github.com/charlescoverdale/obr)               | Office for Budget Responsibility                      |
-| [`ukhousing`](https://github.com/charlescoverdale/ukhousing)   | UK Land Registry, EPC, Planning                       |
-| [`fred`](https://github.com/charlescoverdale/fred)             | US Federal Reserve (FRED)                             |
-| [`readecb`](https://github.com/charlescoverdale/readecb)       | European Central Bank                                 |
-| [`readoecd`](https://github.com/charlescoverdale/readoecd)     | OECD                                                  |
-| [`readnoaa`](https://github.com/charlescoverdale/readnoaa)     | NOAA Climate Data                                     |
-| [`readaec`](https://github.com/charlescoverdale/readaec)       | Australian Electoral Commission                       |
-| [`comtrade`](https://github.com/charlescoverdale/comtrade)     | UN Comtrade                                           |
-| [`carbondata`](https://github.com/charlescoverdale/carbondata) | Carbon markets (EU ETS, UK ETS, voluntary registries) |
-
-**Analytical toolkits:**
-
-| Package                                                            | Purpose                                                         |
-|--------------------------------------------------------------------|-----------------------------------------------------------------|
-| [`inflateR`](https://github.com/charlescoverdale/inflateR)         | Inflation adjustment for price series                           |
+| Package | Description |
+|----|----|
+| [`ons`](https://github.com/charlescoverdale/ons) | UK Office for National Statistics data |
+| [`hmrc`](https://github.com/charlescoverdale/hmrc) | HM Revenue & Customs tax data |
+| [`obr`](https://github.com/charlescoverdale/obr) | Office for Budget Responsibility fiscal forecasts |
+| [`fred`](https://github.com/charlescoverdale/fred) | US Federal Reserve (FRED) data |
+| [`readecb`](https://github.com/charlescoverdale/readecb) | European Central Bank data |
+| [`yieldcurves`](https://github.com/charlescoverdale/yieldcurves) | Yield curve fitting (Nelson-Siegel, Svensson) |
+| [`mpshock`](https://github.com/charlescoverdale/mpshock) | Monetary policy shock series (US/UK/AU) |
 | [`inflationkit`](https://github.com/charlescoverdale/inflationkit) | Inflation analysis (decomposition, persistence, Phillips curve) |
-| [`yieldcurves`](https://github.com/charlescoverdale/yieldcurves)   | Yield curve fitting (Nelson-Siegel, Svensson)                   |
-| [`debtkit`](https://github.com/charlescoverdale/debtkit)           | Debt sustainability analysis                                    |
-| [`nowcast`](https://github.com/charlescoverdale/nowcast)           | Economic nowcasting                                             |
-| [`predictset`](https://github.com/charlescoverdale/predictset)     | Conformal prediction                                            |
-| [`climatekit`](https://github.com/charlescoverdale/climatekit)     | Climate indices                                                 |
-| [`inequality`](https://github.com/charlescoverdale/inequality)     | Inequality and poverty measurement                              |
+| [`nowcast`](https://github.com/charlescoverdale/nowcast) | Economic nowcasting (bridge, MIDAS, DFM) |
 
 ------------------------------------------------------------------------
 
