@@ -64,9 +64,9 @@ Other interest rates:
 op <- options(boe.cache_dir = tempdir())
 boe_sonia(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [559ms]
+#> ✔ Downloading from Bank of England [371ms]
 #> 
-#> # BoE [boe_sonia]: 1 series [IUDSOIA] · 1597 obs · 2020-01-01 to 2026-05-04 · freq=daily
+#> # BoE [boe_sonia]: 1 series [IUDSOIA] · 1600 obs · 2020-01-01 to 2026-05-07 · freq=daily
 #>            date rate_pct
 #> 1    2020-01-02   0.7125
 #> 2    2020-01-03   0.7110
@@ -1665,6 +1665,9 @@ boe_sonia(from = "2020-01-01")
 #> 1595 2026-04-27   3.7307
 #> 1596 2026-04-28   3.7306
 #> 1597 2026-04-29   3.7298
+#> 1598 2026-04-30   3.7299
+#> 1599 2026-05-01   3.7295
+#> 1600 2026-05-05   3.7291
 options(op)
 # }
 ```
