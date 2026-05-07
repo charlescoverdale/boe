@@ -11,7 +11,9 @@ Bank Rate, SONIA, gilt yields, and the full Anderson-Sleath curve
 - [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)
   : Download UK gilt yields
 - [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
-  : Download the BoE Anderson-Sleath fitted yield curves
+  : Download BoE Anderson-Sleath fitted yield curves
+- [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
+  : Wide panel of BoE yield curve at chosen pillar maturities
 
 ## Exchange Rates
 

@@ -69,6 +69,7 @@ A data frame with columns:
 Other interest rates:
 [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md),
 [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md),
+[`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md),
 [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md)
 
 ## Examples
@@ -79,7 +80,7 @@ op <- options(boe.cache_dir = tempdir())
 # 10-year nominal gilt yield since 2020
 boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [411ms]
+#> ✔ Downloading from Bank of England [451ms]
 #> 
 #> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1600 obs · 2020-01-01 to 2026-05-07 · freq=daily
 #>            date maturity yield_pct
@@ -1687,7 +1688,7 @@ boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 # Full nominal curve
 boe_yield_curve(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [657ms]
+#> ✔ Downloading from Bank of England [667ms]
 #> 
 #> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 4800 obs · 2020-01-01 to 2026-05-07 · freq=daily
 #>            date maturity yield_pct
@@ -6495,7 +6496,7 @@ boe_yield_curve(from = "2020-01-01")
 # Real yields
 boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [724ms]
+#> ✔ Downloading from Bank of England [685ms]
 #> 
 #> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 4800 obs · 2020-01-01 to 2026-05-07 · freq=daily
 #>            date maturity yield_pct

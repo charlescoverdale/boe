@@ -55,6 +55,7 @@ A data frame with columns:
 
 Other interest rates:
 [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md),
+[`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md),
 [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md),
 [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md)
 
@@ -66,7 +67,7 @@ op <- options(boe.cache_dir = tempdir())
 # Bank Rate since 2000
 boe_bank_rate(from = "2000-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.2s]
+#> ✔ Downloading from Bank of England [1.4s]
 #> 
 #> # BoE [boe_bank_rate]: 1 series [IUDBEDR] · 6655 obs · 2000-01-01 to 2026-05-07 · freq=daily
 #>            date rate_pct
@@ -6729,7 +6730,7 @@ boe_bank_rate(from = "2000-01-01")
 # Monthly average
 boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [417ms]
+#> ✔ Downloading from Bank of England [435ms]
 #> 
 #> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 76 obs · 2020-01-01 to 2026-05-07 · freq=monthly
 #>          date rate_pct

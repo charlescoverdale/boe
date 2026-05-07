@@ -1,5 +1,38 @@
 # Changelog
 
+## boe (development version)
+
+### Yield curves: historical archive and panel helper (Phase 4b)
+
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  gains `from`, `to`, `frequency`, and `cache_ttl_h` arguments. Setting
+  any of `from` / `to`, or `frequency = "monthly"`, routes the request
+  through the BoE archive zips, which extend back to ~1979 for nominal
+  gilts, ~1985 for real, ~2000 for the commercial bank liability curve,
+  and ~2009 for OIS. Default behaviour (`from = NULL`, `to = NULL`,
+  `frequency = "daily"`) is unchanged: the function still returns the
+  latest published month from the `latest-yield-curve-data.zip`
+  endpoint.
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  gains a fifth curve type, `"blc"` (commercial bank liability curve).
+  BLC is only published in the historical archive zip, so requests for
+  it always route through the archive path regardless of `from` / `to`.
+- New
+  `boe_curve_panel(curve, measure, frequency, from, to, maturities)`:
+  wide-format wrapper that returns one row per date and one numeric
+  column per pillar maturity. The default pillar set is
+  `c(0.5, 1, 2, 5, 10, 20)`, which aligns exactly with the BoE half-year
+  grid. Pillars outside a curve’s published range trigger a warning and
+  are dropped.
+- Provenance: `boe_tbl` queries from
+  [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  now record `source = "latest"` or `"archive"` and the `source_url` so
+  the data carries its own audit trail.
+- Internal: archive zips cache for 30 days (vs. 24 hours for the
+  latest-month zip); per-period workbooks within an archive are
+  concatenated transparently, with content-based maturity-row detection
+  for older layouts.
+
 ## boe 0.2.0
 
 CRAN release: 2026-04-27
