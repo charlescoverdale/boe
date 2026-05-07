@@ -20,6 +20,7 @@ reference:
       - boe_sonia
       - boe_yield_curve
       - boe_curve
+      - boe_curve_panel
 
   - title: "Exchange Rates"
     desc: "Sterling spot exchange rates"
