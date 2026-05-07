@@ -32,6 +32,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -65,7 +66,7 @@
 <p>Beyond the IADB wrappers, it also ships:</p>
 <ul>
 <li>
-<code><a href="reference/boe_curve.html">boe_curve()</a></code>: the full Anderson-Sleath fitted yield curves (nominal, real, implied inflation, OIS) at all maturities, parsed from the BoE’s published Excel archive.</li>
+<code><a href="reference/boe_curve.html">boe_curve()</a></code>: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability) and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). <code><a href="reference/boe_curve_panel.html">boe_curve_panel()</a></code> reshapes to a wide panel at chosen pillar maturities for time-series modelling.</li>
 <li>
 <code><a href="reference/boe_search.html">boe_search()</a></code> / <code><a href="reference/boe_browse.html">boe_browse()</a></code>: a built-in catalogue of wrapped series so you can find codes from R rather than the website.</li>
 <li>A <code>boe_tbl</code> S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).</li>
@@ -147,8 +148,14 @@
 </tr>
 <tr>
 <td><code><a href="reference/boe_curve.html">boe_curve()</a></code></td>
-<td>Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities</td>
-<td>Latest month</td>
+<td>Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS / BLC, spot or forward) at all maturities</td>
+<td>1979</td>
+<td>Present</td>
+</tr>
+<tr>
+<td><code><a href="reference/boe_curve_panel.html">boe_curve_panel()</a></code></td>
+<td>Wide panel of <code><a href="reference/boe_curve.html">boe_curve()</a></code> at chosen pillar maturities (default 0.5y, 1y, 2y, 5y, 10y, 20y)</td>
+<td>1979</td>
 <td>Present</td>
 </tr>
 <tr>

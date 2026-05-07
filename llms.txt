@@ -52,9 +52,13 @@ codes, date formatting, caching, and error handling internally.
 Beyond the IADB wrappers, it also ships:
 
 - [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md):
-  the full Anderson-Sleath fitted yield curves (nominal, real, implied
-  inflation, OIS) at all maturities, parsed from the BoE’s published
-  Excel archive.
+  the full Anderson-Sleath fitted yield curves at all maturities, with
+  five curve types (nominal, real, implied inflation, OIS, commercial
+  bank liability) and full historical archive coverage back to 1979
+  (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS).
+  [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
+  reshapes to a wide panel at chosen pillar maturities for time-series
+  modelling.
 - [`boe_search()`](https://charlescoverdale.github.io/boe/reference/boe_search.md)
   /
   [`boe_browse()`](https://charlescoverdale.github.io/boe/reference/boe_browse.md):
@@ -117,7 +121,8 @@ devtools::install_github("charlescoverdale/boe")
 | [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md) | Official Bank Rate (daily or monthly) | 1975 | Present |
 | [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md) | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
 | [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md) | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
-| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
+| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS / BLC, spot or forward) at all maturities | 1979 | Present |
+| [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md) | Wide panel of [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) at chosen pillar maturities (default 0.5y, 1y, 2y, 5y, 10y, 20y) | 1979 | Present |
 | [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) | Daily sterling spot rates for 27 currencies | 1975 | Present |
 | [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md) | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase | 1993 | Present |
@@ -606,7 +611,7 @@ Cache management and result class
 
 # Articles
 
-### All vignettes
+### Articles
 
 - [Anderson-Sleath yield curves: latest and
   historical](https://charlescoverdale.github.io/boe/articles/yield-curves.md):

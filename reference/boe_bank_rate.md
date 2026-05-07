@@ -67,7 +67,7 @@ op <- options(boe.cache_dir = tempdir())
 # Bank Rate since 2000
 boe_bank_rate(from = "2000-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.4s]
+#> ✔ Downloading from Bank of England [1.1s]
 #> 
 #> # BoE [boe_bank_rate]: 1 series [IUDBEDR] · 6655 obs · 2000-01-01 to 2026-05-07 · freq=daily
 #>            date rate_pct
@@ -6730,7 +6730,7 @@ boe_bank_rate(from = "2000-01-01")
 # Monthly average
 boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [779ms]
+#> ✔ Downloading from Bank of England [430ms]
 #> 
 #> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 76 obs · 2020-01-01 to 2026-05-07 · freq=monthly
 #>          date rate_pct
