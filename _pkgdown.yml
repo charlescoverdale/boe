@@ -5,12 +5,17 @@ template:
 
 navbar:
   structure:
-    left:  [intro, reference, news]
+    left:  [intro, reference, articles, news]
     right: [search, github]
   components:
     github:
       icon: fa-github
       href: https://github.com/charlescoverdale/boe
+
+articles:
+  - title: "Articles"
+    contents:
+      - yield-curves
 
 reference:
   - title: "Interest Rates"

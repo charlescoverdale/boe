@@ -18,7 +18,7 @@ This package is different. It is built specifically for the Bank of England and 
 
 Beyond the IADB wrappers, it also ships:
 
-- `boe_curve()`: the full Anderson-Sleath fitted yield curves (nominal, real, implied inflation, OIS) at all maturities, parsed from the BoE's published Excel archive.
+- `boe_curve()`: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability) and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). `boe_curve_panel()` reshapes to a wide panel at chosen pillar maturities for time-series modelling.
 - `boe_search()` / `boe_browse()`: a built-in catalogue of wrapped series so you can find codes from R rather than the website.
 - A `boe_tbl` S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).
 
@@ -68,7 +68,8 @@ devtools::install_github("charlescoverdale/boe")
 | `boe_bank_rate()` | Official Bank Rate (daily or monthly) | 1975 | Present |
 | `boe_sonia()` | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
 | `boe_yield_curve()` | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
-| `boe_curve()` | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS, spot or forward) at all maturities | Latest month | Present |
+| `boe_curve()` | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS / BLC, spot or forward) at all maturities | 1979 | Present |
+| `boe_curve_panel()` | Wide panel of `boe_curve()` at chosen pillar maturities (default 0.5y, 1y, 2y, 5y, 10y, 20y) | 1979 | Present |
 | `boe_exchange_rate()` | Daily sterling spot rates for 27 currencies | 1975 | Present |
 | `boe_mortgage_rates()` | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | `boe_mortgage_approvals()` | Monthly mortgage approvals for house purchase | 1993 | Present |
