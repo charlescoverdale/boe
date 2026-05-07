@@ -23,7 +23,10 @@ Suggests:
     testthat (>= 3.0.0),
     ggplot2,
     scales,
-    readxl (>= 1.4.0)
+    readxl (>= 1.4.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://charlescoverdale.github.io/boe/, https://github.com/charlescoverdale/boe
 BugReports: https://github.com/charlescoverdale/boe/issues
