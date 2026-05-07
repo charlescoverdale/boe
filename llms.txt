@@ -604,3 +604,9 @@ Cache management and result class
   [`boe-package`](https://charlescoverdale.github.io/boe/reference/boe-package.md)
   : boe: Download Data from the 'Bank of England' Statistical Database
 
+# Articles
+
+### All vignettes
+
+- [Anderson-Sleath yield curves: latest and
+  historical](https://charlescoverdale.github.io/boe/articles/yield-curves.md):

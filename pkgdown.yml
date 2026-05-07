@@ -1,8 +1,9 @@
 pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2026-05-07T20:57Z
+articles:
+  yield-curves: yield-curves.html
+last_built: 2026-05-07T21:02Z
 urls:
   reference: https://charlescoverdale.github.io/boe/reference
   article: https://charlescoverdale.github.io/boe/articles
