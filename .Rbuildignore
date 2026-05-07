@@ -11,3 +11,4 @@
 ^data-raw$
 ^llms\.txt$
 ^llms-full\.txt$
+^IMPROVEMENT_PLAN\.md$
