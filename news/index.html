@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,9 +34,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="boe-development-version">boe (development version)<a class="anchor" aria-label="anchor" href="#boe-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.0" id="boe-030">boe 0.3.0<a class="anchor" aria-label="anchor" href="#boe-030"></a></h2>
 <div class="section level3">
-<h3 id="yield-curves-historical-archive-and-panel-helper-phaseb-development-version">Yield curves: historical archive and panel helper (Phase 4b)<a class="anchor" aria-label="anchor" href="#yield-curves-historical-archive-and-panel-helper-phaseb-development-version"></a></h3>
+<h3 id="yield-curves-historical-archive-and-panel-helper-0-3-0">Yield curves: historical archive and panel helper<a class="anchor" aria-label="anchor" href="#yield-curves-historical-archive-and-panel-helper-0-3-0"></a></h3>
 <ul><li>
 <code><a href="../reference/boe_curve.html">boe_curve()</a></code> gains <code>from</code>, <code>to</code>, <code>frequency</code>, and <code>cache_ttl_h</code> arguments. Setting any of <code>from</code> / <code>to</code>, or <code>frequency = "monthly"</code>, routes the request through the BoE archive zips, which extend back to ~1979 for nominal gilts, ~1985 for real, ~2000 for the commercial bank liability curve, and ~2009 for OIS. Default behaviour (<code>from = NULL</code>, <code>to = NULL</code>, <code>frequency = "daily"</code>) is unchanged: the function still returns the latest published month from the <code>latest-yield-curve-data.zip</code> endpoint.</li>
 <li>

@@ -1,8 +1,8 @@
 # Changelog
 
-## boe (development version)
+## boe 0.3.0
 
-### Yield curves: historical archive and panel helper (Phase 4b)
+### Yield curves: historical archive and panel helper
 
 - [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
   gains `from`, `to`, `frequency`, and `cache_ttl_h` arguments. Setting
