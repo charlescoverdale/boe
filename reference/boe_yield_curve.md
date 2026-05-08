@@ -80,7 +80,7 @@ op <- options(boe.cache_dir = tempdir())
 # 10-year nominal gilt yield since 2020
 boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [482ms]
+#> ✔ Downloading from Bank of England [476ms]
 #> 
 #> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1601 obs · 2020-01-01 to 2026-05-08 · freq=daily
 #>            date maturity yield_pct
@@ -1689,7 +1689,7 @@ boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 # Full nominal curve
 boe_yield_curve(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [704ms]
+#> ✔ Downloading from Bank of England [598ms]
 #> 
 #> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 4803 obs · 2020-01-01 to 2026-05-08 · freq=daily
 #>            date maturity yield_pct
@@ -6500,7 +6500,7 @@ boe_yield_curve(from = "2020-01-01")
 # Real yields
 boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [699ms]
+#> ✔ Downloading from Bank of England [528ms]
 #> 
 #> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 4803 obs · 2020-01-01 to 2026-05-08 · freq=daily
 #>            date maturity yield_pct

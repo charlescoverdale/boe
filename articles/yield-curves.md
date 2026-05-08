@@ -20,7 +20,7 @@ archive, which extends back as far as 1979 for nominal gilts.
 
 latest <- boe_curve(curve = "nominal", measure = "spot")
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [265ms]
+#> ✔ Downloading yield curve archive from Bank of England [731ms]
 #> 
 range(latest$date)
 #> [1] "2026-05-01" "2026-05-07"
@@ -58,7 +58,7 @@ panel <- boe_curve_panel(
   maturities = c(2, 5, 10, 20)
 )
 #> ℹ Downloading nominal monthly yield-curve archive from Bank of England
-#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [195ms]
+#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [156ms]
 #> 
 head(panel)
 #> # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-04-30 · freq=monthly
@@ -105,7 +105,7 @@ inflation_fwd <- boe_curve_panel(
   maturities = c(5, 10)
 )
 #> ℹ Downloading inflation monthly yield-curve archive from Bank of England
-#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [160ms]
+#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [205ms]
 #> 
 
 inflation_fwd$five_y_five_y <- (inflation_fwd$m10 * 10 -
@@ -159,12 +159,12 @@ ois <- boe_curve_panel(
   maturities = c(0.5, 1, 2, 5)
 )
 #> ℹ Downloading ois monthly yield-curve archive from Bank of England
-#> ✔ Downloading ois monthly yield-curve archive from Bank of England [129ms]
+#> ✔ Downloading ois monthly yield-curve archive from Bank of England [212ms]
 #> 
 
 mpc <- boe_mpc_decisions(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [368ms]
+#> ✔ Downloading from Bank of England [441ms]
 #> 
 mpc <- data.frame(date = mpc$date, bank_rate = mpc$new_rate_pct)
 

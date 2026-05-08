@@ -98,7 +98,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Using cached nominal daily yield-curve archive
-#> ✔ Using cached nominal daily yield-curve archive [8ms]
+#> ✔ Using cached nominal daily yield-curve archive [6ms]
 #> 
 # }
 ```

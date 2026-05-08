@@ -81,7 +81,7 @@ gilts.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"nominal"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading yield curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading yield curve archive from Bank of England <span style="color: #B2B2B2;">[265ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading yield curve archive from Bank of England <span style="color: #B2B2B2;">[731ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">latest</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2026-05-01" "2026-05-07"</span></span>
@@ -112,7 +112,7 @@ download small.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading nominal monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading nominal monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[195ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading nominal monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[156ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">panel</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-04-30 · freq=monthly</span></span>
@@ -152,7 +152,7 @@ implied-inflation forward curve.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading inflation monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading inflation monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[160ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading inflation monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[205ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span></span>
 <span><span class="va">inflation_fwd</span><span class="op">$</span><span class="va">five_y_five_y</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">inflation_fwd</span><span class="op">$</span><span class="va">m10</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">-</span></span>
@@ -199,12 +199,12 @@ through the 2022 to 2024 hiking cycle.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading ois monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading ois monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[129ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading ois monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[212ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span></span>
 <span><span class="va">mpc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_mpc_decisions.html">boe_mpc_decisions</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[368ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[441ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="va">mpc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">mpc</span><span class="op">$</span><span class="va">date</span>, bank_rate <span class="op">=</span> <span class="va">mpc</span><span class="op">$</span><span class="va">new_rate_pct</span><span class="op">)</span></span>
 <span></span>
