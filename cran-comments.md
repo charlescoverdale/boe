@@ -59,10 +59,7 @@ None — no reverse dependencies.
 ## Notes for CRAN reviewers
 
 * All functions that make network requests are wrapped in `\donttest{}`
-  in examples and `skip_on_cran()` + `skip_if_offline()` in tests. The
-  new offline parser tests use a tiny synthetic XLSX fixture
-  (`tests/testthat/fixtures/synthetic-yield-curve.xlsx`, ~13 KB) and
-  run unconditionally.
+  in examples and `skip_on_cran()` + `skip_if_offline()` in tests.
 * Data is fetched from the Bank of England Interactive Statistical
   Database CSV endpoint and the BoE website
   (`https://www.bankofengland.co.uk/`).

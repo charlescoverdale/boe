@@ -12,4 +12,3 @@
 ^llms\.txt$
 ^llms-full\.txt$
 ^IMPROVEMENT_PLAN\.md$
-^tests/testthat/fixtures/build-fixtures\.R$
