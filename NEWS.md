@@ -1,6 +1,6 @@
-# boe (development version)
+# boe 0.3.0
 
-## Yield curves: historical archive and panel helper (Phase 4b)
+## Yield curves: historical archive and panel helper
 
 * `boe_curve()` gains `from`, `to`, `frequency`, and `cache_ttl_h`
   arguments. Setting any of `from` / `to`, or `frequency = "monthly"`,

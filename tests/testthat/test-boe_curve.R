@@ -83,6 +83,43 @@ test_that("detect_maturity_row falls back when row 4 is empty", {
   expect_true(is.na(out) || out %in% c(3L, 5L, 6L))
 })
 
+# ---- offline parser tests against synthetic fixture -------------------------
+
+test_that("parse_yield_workbooks parses the synthetic spot fixture", {
+  testthat::skip_if_not_installed("readxl")
+  fx <- testthat::test_path("fixtures", "synthetic-yield-curve.xlsx")
+  testthat::skip_if_not(file.exists(fx),
+                        "synthetic fixture missing; run build-fixtures.R")
+
+  out <- parse_yield_workbooks(fx, measure = "spot", curve = "nominal")
+
+  expect_equal(nrow(out), 180L)                 # 36 obs x 5 maturities
+  expect_equal(sort(unique(out$maturity_years)), c(1, 2, 5, 10, 20))
+  expect_equal(min(out$date), as.Date("2020-01-31"))
+  expect_equal(max(out$date), as.Date("2022-12-31"))
+  expect_true(all(out$rate_pct >= 0.1 & out$rate_pct <= 5.0))
+})
+
+test_that("parse_yield_workbooks parses the synthetic forward fixture", {
+  testthat::skip_if_not_installed("readxl")
+  fx <- testthat::test_path("fixtures", "synthetic-yield-curve.xlsx")
+  testthat::skip_if_not(file.exists(fx))
+
+  out <- parse_yield_workbooks(fx, measure = "forward", curve = "nominal")
+  expect_equal(nrow(out), 180L)
+  expect_equal(sort(unique(out$maturity_years)), c(1, 2, 5, 10, 20))
+})
+
+test_that("parse_yield_workbooks concatenates and dedupes across files", {
+  testthat::skip_if_not_installed("readxl")
+  fx <- testthat::test_path("fixtures", "synthetic-yield-curve.xlsx")
+  testthat::skip_if_not(file.exists(fx))
+
+  # Same fixture twice mimics two overlapping period workbooks
+  out <- parse_yield_workbooks(c(fx, fx), measure = "spot", curve = "nominal")
+  expect_equal(nrow(out), 180L)                 # dedupe collapses the duplicate
+})
+
 # ---- network-dependent: latest month (default behaviour) --------------------
 
 test_that("boe_curve fetches and parses the nominal spot curve", {
