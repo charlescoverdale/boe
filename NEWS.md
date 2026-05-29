@@ -40,6 +40,24 @@
   concatenated transparently, with content-based maturity-row detection
   for older layouts.
 
+## Fixes: Monetary Policy Report release resolution
+
+* `boe_mpr_forecasts()` no longer fails with an HTTP 404 when the latest
+  scheduled release does not exist at the guessed URL. The Bank's
+  publication month drifts between years (the second 2026 report was
+  published in April, not May), and the data archive filename changed
+  from `chart-slides-and-data` to `charts-slides-and-data` during 2025.
+  Release selection now enumerates recent months, verifies each archive
+  exists with a lightweight request, and handles both filename variants,
+  instead of assuming a fixed February / May / August / November calendar.
+* From the April 2026 report the Bank moved to a scenario-based
+  "Scenario Projections Databank" with a transposed layout, which this
+  function cannot parse yet. Automatic selection now skips such releases,
+  falls back to the most recent compatible release, and warns. Requesting
+  a scenario-format release explicitly via `month` / `year` raises a clear
+  error rather than a parsing failure. Full support for the scenario
+  format is planned for a future release.
+
 # boe 0.2.0
 
 ## New: monetary policy data
