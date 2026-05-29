@@ -6,6 +6,16 @@
 #' nominal gilt, real (index-linked) gilt, implied inflation, overnight
 #' index swap (OIS), and the commercial bank liability curve (BLC).
 #'
+#' Each curve is published in two segments. The default
+#' `segment = "standard"` returns the full maturity spectrum in half-year
+#' steps (0.5 years out to 25 or 40). `segment = "short"` returns the
+#' short end of the curve in monthly steps (one month out to five years),
+#' which the Bank fits separately and which is the segment most relevant
+#' to near-term policy-rate and money-market analysis. The short end is
+#' available for every curve in the latest month, and historically wherever
+#' the BoE published it (e.g. OIS short-end data begins later than the OIS
+#' standard curve); periods without a short-end sheet are skipped.
+#'
 #' By default (`from = NULL`, `to = NULL`, `frequency = "daily"`) returns
 #' the latest published month of daily data, matching the behaviour of
 #' earlier releases of this package. Setting `from`, `to`, or `frequency`
@@ -18,6 +28,9 @@
 #'   published in the historical archive zip, so requests for it always
 #'   route through the archive path regardless of `from` / `to`.
 #' @param measure Character. `"spot"` (default) or `"forward"`.
+#' @param segment Character. `"standard"` (default) for the full maturity
+#'   spectrum in half-year steps, or `"short"` for the separately fitted
+#'   short end in monthly steps (one month to five years).
 #' @param frequency Character. `"daily"` (default) or `"monthly"`. Monthly
 #'   archives are end-of-month observations and are much smaller files.
 #' @param from,to Date or character ("YYYY-MM-DD"). Optional inclusive
@@ -65,6 +78,11 @@
 #'   # End-of-month real curve since 1990 (small download)
 #'   real_m <- boe_curve(curve = "real", frequency = "monthly",
 #'                       from = "1990-01-01")
+#'
+#'   # Short end of the nominal forward curve (monthly steps to 5 years)
+#'   se <- boe_curve(curve = "nominal", measure = "forward",
+#'                   segment = "short")
+#'   range(se$maturity_years)
 #'   options(op)
 #' }
 #' }
@@ -73,6 +91,7 @@
 #' @export
 boe_curve <- function(curve       = c("nominal", "real", "inflation", "ois", "blc"),
                       measure     = c("spot", "forward"),
+                      segment     = c("standard", "short"),
                       frequency   = c("daily", "monthly"),
                       from        = NULL,
                       to          = NULL,
@@ -81,6 +100,7 @@ boe_curve <- function(curve       = c("nominal", "real", "inflation", "ois", "bl
 
   curve     <- match.arg(curve)
   measure   <- match.arg(measure)
+  segment   <- match.arg(segment)
   frequency <- match.arg(frequency)
 
   if (!requireNamespace("readxl", quietly = TRUE)) {
@@ -107,14 +127,16 @@ boe_curve <- function(curve       = c("nominal", "real", "inflation", "ois", "bl
     arc <- download_yield_archive(curve, frequency,
                                   cache = cache, cache_ttl_h = ttl)
     xls_paths <- extract_archive_excels(arc$path, curve, frequency)
-    out <- parse_yield_workbooks(xls_paths, measure = measure, curve = curve)
+    out <- parse_yield_workbooks(xls_paths, measure = measure, curve = curve,
+                                 segment = segment)
     source_url   <- arc$url
     source_label <- "archive"
   } else {
     ttl <- cache_ttl_h %||% 24
     zip_path <- download_yield_zip(cache = cache, cache_ttl_h = ttl)
     xls_path <- extract_yield_excel(zip_path, curve)
-    out <- parse_yield_workbooks(xls_path, measure = measure, curve = curve)
+    out <- parse_yield_workbooks(xls_path, measure = measure, curve = curve,
+                                 segment = segment)
     source_url   <- yield_zip_url()
     source_label <- "latest"
   }
@@ -131,10 +153,12 @@ boe_curve <- function(curve       = c("nominal", "real", "inflation", "ois", "bl
   }
 
   query <- list(
-    series_codes  = sprintf("AS_%s_%s", toupper(curve), toupper(measure)),
+    series_codes  = sprintf("AS_%s_%s%s", toupper(curve), toupper(measure),
+                            if (segment == "short") "_SHORT" else ""),
     from          = if (nrow(out)) min(out$date) else from_d,
     to            = if (nrow(out)) max(out$date) else to_d,
     frequency     = frequency,
+    segment       = segment,
     function_name = "boe_curve",
     source_url    = source_url,
     source        = source_label
@@ -236,20 +260,29 @@ extract_yield_excel <- function(zip_path, curve) {
 #' Parse one or more BoE yield-curve workbooks and concatenate.
 #'
 #' Each workbook has the same internal structure regardless of period:
-#' sheets named like "4. spot curve" and "2. fwd curve". The maturity row
-#' is normally row 4 (years), but older workbooks (pre-2007) sometimes
-#' shift it. We use content-based detection: scan rows 3 to 6 for the row
-#' whose first non-empty entries are monotonically increasing numerics
-#' starting near 0.5.
+#' standard sheets named like "4. spot curve" / "2. fwd curve" and
+#' short-end sheets named like "3. spot, short end" / "1. fwds, short end"
+#' (older workbooks infix the curve name, e.g. "4. nominal spot curve").
+#' The maturity row is normally row 4 (years), but older workbooks
+#' (pre-2007) sometimes shift it. We use content-based detection: scan
+#' rows 3 to 6 for the row whose first non-empty entries are monotonically
+#' increasing positive numerics.
 #'
 #' @param paths Character vector of one or more workbook paths.
+#' @param segment `"standard"` or `"short"`; selects which curve sheet to read.
 #' @noRd
-parse_yield_workbooks <- function(paths, measure, curve) {
+parse_yield_workbooks <- function(paths, measure, curve, segment = "standard") {
   parts <- lapply(paths, parse_yield_excel_one,
-                  measure = measure, curve = curve)
+                  measure = measure, curve = curve, segment = segment)
   parts <- parts[vapply(parts, function(p) !is.null(p) && nrow(p) > 0L, logical(1))]
 
   if (length(parts) == 0L) {
+    if (segment == "short") {
+      cli::cli_abort(c(
+        "No short-end {.val {measure}} data found for the {.val {curve}} curve.",
+        "i" = "The BoE does not publish a short end for every curve in every period."
+      ))
+    }
     cli::cli_abort("Could not parse any data from {.val {curve}} workbooks.")
   }
 
@@ -263,17 +296,23 @@ parse_yield_workbooks <- function(paths, measure, curve) {
 
 #' Parse a single yield-curve workbook
 #' @noRd
-parse_yield_excel_one <- function(path, measure, curve) {
+parse_yield_excel_one <- function(path, measure, curve, segment = "standard") {
   sheets <- readxl::excel_sheets(path)
   sheets_trim <- trimws(sheets)
 
-  pattern <- if (measure == "spot") "spot curve$" else "fwd curve$"
+  pattern <- yield_sheet_pattern(measure, segment)
   hits <- grep(pattern, sheets_trim, ignore.case = TRUE)
   if (length(hits) == 0L) {
-    cli::cli_warn(c(
-      "Could not find a {.val {measure}} curve sheet in {.file {basename(path)}}.",
-      "i" = "Available sheets: {.val {sheets}}"
-    ))
+    # A missing short-end sheet is expected for periods/curves where the
+    # BoE never published one (e.g. early OIS); skip the workbook quietly
+    # and let the caller decide if *no* workbook yielded data. A missing
+    # standard sheet is unexpected, so surface it.
+    if (segment != "short") {
+      cli::cli_warn(c(
+        "Could not find a {.val {measure}} curve sheet in {.file {basename(path)}}.",
+        "i" = "Available sheets: {.val {sheets}}"
+      ))
+    }
     return(NULL)
   }
   sheet_name <- sheets[hits[1L]]
@@ -328,6 +367,24 @@ parse_yield_excel_one <- function(path, measure, curve) {
     stringsAsFactors = FALSE
   )
   long[!is.na(long$rate_pct), , drop = FALSE]
+}
+
+
+#' Build the regex that selects a curve sheet by measure and segment.
+#'
+#' Sheet names are anchored at the end so the optional curve-name infix in
+#' older workbooks (e.g. "4. nominal spot curve", "1. nominal fwds, short
+#' end") still matches. Standard forward sheets are singular ("fwd curve")
+#' while short-end forward sheets are plural ("fwds, short end"); the
+#' patterns tolerate both and an optional comma.
+#'
+#' @noRd
+yield_sheet_pattern <- function(measure, segment) {
+  if (segment == "short") {
+    if (measure == "spot") "spot,? short end$" else "fwds?,? short end$"
+  } else {
+    if (measure == "spot") "spot curve$" else "fwd curve$"
+  }
 }
 
 

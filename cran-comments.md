@@ -18,6 +18,11 @@
   wide-format wrapper that returns one row per date and one numeric
   column per pillar maturity. Default pillars are
   `c(0.5, 1, 2, 5, 10, 20)`.
+* `boe_curve()` and `boe_curve_panel()` gain a `segment` argument.
+  `segment = "short"` returns the Bank's separately fitted short end
+  (monthly maturity steps from one month to five years); `"standard"`
+  (default) is unchanged. Periods or curves with no published short end
+  are skipped rather than erroring.
 
 ### Provenance and caching
 

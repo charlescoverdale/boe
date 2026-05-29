@@ -7,10 +7,11 @@
 boe_curve_panel(
   curve = c("nominal", "real", "inflation", "ois", "blc"),
   measure = c("spot", "forward"),
+  segment = c("standard", "short"),
   frequency = c("daily", "monthly"),
   from = NULL,
   to = NULL,
-  maturities = c(0.5, 1, 2, 5, 10, 20),
+  maturities = NULL,
   cache = TRUE,
   cache_ttl_h = NULL
 )
@@ -24,6 +25,10 @@ route through the archive path regardless of \code{from} / \code{to}.}
 
 \item{measure}{Character. \code{"spot"} (default) or \code{"forward"}.}
 
+\item{segment}{Character. \code{"standard"} (default) for the full maturity
+spectrum in half-year steps, or \code{"short"} for the separately fitted
+short end in monthly steps (one month to five years).}
+
 \item{frequency}{Character. \code{"daily"} (default) or \code{"monthly"}. Monthly
 archives are end-of-month observations and are much smaller files.}
 
@@ -31,8 +36,11 @@ archives are end-of-month observations and are much smaller files.}
 bounds. When either is set, the function uses the BoE archive zip
 (multi-decade history) and filters by date.}
 
-\item{maturities}{Numeric vector of pillar maturities in years.
-Defaults to \code{c(0.5, 1, 2, 5, 10, 20)}.}
+\item{maturities}{Numeric vector of pillar maturities in years. When
+\code{NULL} (default) a sensible set is chosen for the segment:
+\code{c(0.5, 1, 2, 5, 10, 20)} for \code{"standard"} and
+\code{c(0.5, 1, 2, 3, 5)} for \code{"short"}. Pillars not on the published grid
+for the chosen curve and segment are dropped with a warning.}
 
 \item{cache}{Logical. Use cached download if available and within the
 TTL window (default \code{TRUE}).}
@@ -54,8 +62,9 @@ plotting.
 \details{
 For each requested pillar, the function picks the published maturity
 closest to the request (within a 0.05-year tolerance) and uses that.
-The published BoE grid steps in 0.5-year increments, so pillars at
-integer or half-integer years align exactly.
+The standard grid steps in 0.5-year increments and the short-end grid
+(\code{segment = "short"}) in monthly increments, so pillars at integer,
+half-integer, or whole-month maturities align exactly.
 }
 \examples{
 \donttest{

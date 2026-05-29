@@ -18,7 +18,7 @@ This package is different. It is built specifically for the Bank of England and 
 
 Beyond the IADB wrappers, it also ships:
 
-- `boe_curve()`: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability) and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). `boe_curve_panel()` reshapes to a wide panel at chosen pillar maturities for time-series modelling.
+- `boe_curve()`: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability), both standard and short-end segments (`segment = "short"` for monthly steps from one month to five years), and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). `boe_curve_panel()` reshapes to a wide panel at chosen pillar maturities for time-series modelling.
 - `boe_search()` / `boe_browse()`: a built-in catalogue of wrapped series so you can find codes from R rather than the website.
 - A `boe_tbl` S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).
 
@@ -167,7 +167,7 @@ boe_yield_curve(from = "2024-01-01", type = "real", measure = "zero_coupon")
 
 ### The full Anderson-Sleath fitted curve
 
-For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use `boe_curve()`. This parses the BoE's published Excel archive and covers four curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), and overnight index swap (OIS).
+For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use `boe_curve()`. This parses the BoE's published Excel archive and covers five curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), overnight index swap (OIS), and the commercial bank liability curve (BLC). Each curve is published in two segments: the standard curve and a separately fitted short end (monthly steps from one month to five years), reached with `segment = "short"`.
 
 ```r
 # Latest nominal spot curve at all maturities
@@ -186,6 +186,10 @@ boe_curve(curve = "inflation", measure = "spot")
 
 # OIS forward curve
 boe_curve(curve = "ois", measure = "spot")
+
+# Short end of the OIS forward curve: the market-implied Bank Rate path
+# at monthly resolution, one month to five years
+boe_curve(curve = "ois", measure = "forward", segment = "short")
 ```
 
 Requires the `readxl` package (loaded lazily). Reference: Anderson and Sleath (2001), *New estimates of the UK real and nominal yield curves*, Bank of England Working Paper No. 126.

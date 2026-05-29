@@ -10,6 +10,7 @@
 boe_curve(
   curve = c("nominal", "real", "inflation", "ois", "blc"),
   measure = c("spot", "forward"),
+  segment = c("standard", "short"),
   frequency = c("daily", "monthly"),
   from = NULL,
   to = NULL,
@@ -25,6 +26,10 @@ published in the historical archive zip, so requests for it always
 route through the archive path regardless of \code{from} / \code{to}.}
 
 \item{measure}{Character. \code{"spot"} (default) or \code{"forward"}.}
+
+\item{segment}{Character. \code{"standard"} (default) for the full maturity
+spectrum in half-year steps, or \code{"short"} for the separately fitted
+short end in monthly steps (one month to five years).}
 
 \item{frequency}{Character. \code{"daily"} (default) or \code{"monthly"}. Monthly
 archives are end-of-month observations and are much smaller files.}
@@ -56,6 +61,16 @@ nominal gilt, real (index-linked) gilt, implied inflation, overnight
 index swap (OIS), and the commercial bank liability curve (BLC).
 }
 \details{
+Each curve is published in two segments. The default
+\code{segment = "standard"} returns the full maturity spectrum in half-year
+steps (0.5 years out to 25 or 40). \code{segment = "short"} returns the
+short end of the curve in monthly steps (one month out to five years),
+which the Bank fits separately and which is the segment most relevant
+to near-term policy-rate and money-market analysis. The short end is
+available for every curve in the latest month, and historically wherever
+the BoE published it (e.g. OIS short-end data begins later than the OIS
+standard curve); periods without a short-end sheet are skipped.
+
 By default (\code{from = NULL}, \code{to = NULL}, \code{frequency = "daily"}) returns
 the latest published month of daily data, matching the behaviour of
 earlier releases of this package. Setting \code{from}, \code{to}, or \code{frequency}
@@ -83,6 +98,11 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   # End-of-month real curve since 1990 (small download)
   real_m <- boe_curve(curve = "real", frequency = "monthly",
                       from = "1990-01-01")
+
+  # Short end of the nominal forward curve (monthly steps to 5 years)
+  se <- boe_curve(curve = "nominal", measure = "forward",
+                  segment = "short")
+  range(se$maturity_years)
   options(op)
 }
 }
