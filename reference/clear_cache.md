@@ -35,7 +35,7 @@ clear_cache(max_age_days = 7)
 
 # Remove everything
 clear_cache()
-#> ✔ Removed 27 cached files.
+#> ✔ Removed 30 cached files.
 options(op)
 # }
 ```

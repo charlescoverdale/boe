@@ -72,14 +72,19 @@ date, forecast horizon, series) triple.</p>
 
 
 <dt id="arg-month">month<a class="anchor" aria-label="anchor" href="#arg-month"></a></dt>
-<dd><p>Character. <code>"february"</code>, <code>"may"</code>, <code>"august"</code>, or
-<code>"november"</code>. If <code>NULL</code>, the most recent quarterly release is
-used.</p></dd>
+<dd><p>Character. Publication month of the report, e.g.
+<code>"february"</code> or <code>"may"</code>. The report is published roughly quarterly,
+but the exact month drifts between years (for example, the second
+2026 report appeared in April, not May), so any month name is
+accepted and its existence is verified against the Bank's website.
+Supply with <code>year</code>. If both are <code>NULL</code>, the most recent compatible
+release is selected automatically.</p></dd>
 
 
 <dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
-<dd><p>Integer. MPR year, 2019 or later. If <code>NULL</code>, the most
-recent quarterly release is used.</p></dd>
+<dd><p>Integer. MPR year, 2019 or later. Supply with <code>month</code>.
+If both are <code>NULL</code>, the most recent compatible release is selected
+automatically.</p></dd>
 
 
 <dt id="arg-cache">cache<a class="anchor" aria-label="anchor" href="#arg-cache"></a></dt>
@@ -121,12 +126,18 @@ forecast quarters. The same publication therefore contributes
 multiple rows here, one per forecast horizon.</p>
     </div>
     <div class="section level2">
-    <h2 id="older-releases">Older releases<a class="anchor" aria-label="anchor" href="#older-releases"></a></h2>
+    <h2 id="release-format-and-automatic-fallback">Release format and automatic fallback<a class="anchor" aria-label="anchor" href="#release-format-and-automatic-fallback"></a></h2>
 
 
-<p>Pre-2025 MPRs are packaged differently and do not contain a single
-"Projections Databank" workbook. This function targets the post-2025
-format and may error on older releases.</p>
+<p>From the April 2026 report the Bank moved to a scenario-based
+"Scenario Projections Databank" with a transposed layout (following
+the Bernanke review of forecasting). That format is not parsed by
+this function yet. When automatic selection encounters such a
+release it skips it, falls back to the most recent compatible release
+(the classic "Projections Databank" workbook), and warns. Requesting
+a scenario-format release explicitly via <code>month</code>/<code>year</code> raises a
+clear error. Pre-2020 MPRs that predate the single "Projections
+Databank" workbook may also error.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -148,12 +159,15 @@ format and may error on older releases.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading may 2026 MPR archive</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in value[[3L]](cond):</span> Download failed.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Check the <span style="color: #0000BB;">"may"</span> <span style="color: #0000BB;">2026</span> release exists, and your network connection.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> HTTP 404 Not Found.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Downloading may 2026 MPR archive <span style="color: #B2B2B2;">[499ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading April 2026 MPR archive</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading April 2026 MPR archive <span style="color: #B2B2B2;">[145ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading February 2026 MPR archive</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading February 2026 MPR archive <span style="color: #B2B2B2;">[197ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span><span style="color: #BBBB00;">!</span> Skipping newer MPR release(s) in the Bank of England's new scenario-based</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   format, not parsed by `boe_mpr_forecasts()` yet: <span style="color: #0000BB;">"April 2026"</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Returning the most recent compatible release: February 2026.</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

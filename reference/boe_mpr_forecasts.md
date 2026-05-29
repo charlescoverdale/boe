@@ -29,13 +29,18 @@ boe_mpr_forecasts(
 
 - month:
 
-  Character. `"february"`, `"may"`, `"august"`, or `"november"`. If
-  `NULL`, the most recent quarterly release is used.
+  Character. Publication month of the report, e.g. `"february"` or
+  `"may"`. The report is published roughly quarterly, but the exact
+  month drifts between years (for example, the second 2026 report
+  appeared in April, not May), so any month name is accepted and its
+  existence is verified against the Bank's website. Supply with `year`.
+  If both are `NULL`, the most recent compatible release is selected
+  automatically.
 
 - year:
 
-  Integer. MPR year, 2019 or later. If `NULL`, the most recent quarterly
-  release is used.
+  Integer. MPR year, 2019 or later. Supply with `month`. If both are
+  `NULL`, the most recent compatible release is selected automatically.
 
 - cache:
 
@@ -82,11 +87,16 @@ Each row of a projection sheet is one MPR publication; columns are
 forecast quarters. The same publication therefore contributes multiple
 rows here, one per forecast horizon.
 
-## Older releases
+## Release format and automatic fallback
 
-Pre-2025 MPRs are packaged differently and do not contain a single
-"Projections Databank" workbook. This function targets the post-2025
-format and may error on older releases.
+From the April 2026 report the Bank moved to a scenario-based "Scenario
+Projections Databank" with a transposed layout (following the Bernanke
+review of forecasting). That format is not parsed by this function yet.
+When automatic selection encounters such a release it skips it, falls
+back to the most recent compatible release (the classic "Projections
+Databank" workbook), and warns. Requesting a scenario-format release
+explicitly via `month`/`year` raises a clear error. Pre-2020 MPRs that
+predate the single "Projections Databank" workbook may also error.
 
 ## See also
 
@@ -110,11 +120,14 @@ if (requireNamespace("readxl", quietly = TRUE)) {
 
   options(op)
 }
-#> ℹ Downloading may 2026 MPR archive
-#> Error in value[[3L]](cond): Download failed.
-#> ℹ Check the "may" 2026 release exists, and your network connection.
-#> ✖ HTTP 404 Not Found.
-#> ✖ Downloading may 2026 MPR archive [499ms]
+#> ℹ Downloading April 2026 MPR archive
+#> ✔ Downloading April 2026 MPR archive [145ms]
 #> 
+#> ℹ Downloading February 2026 MPR archive
+#> ✔ Downloading February 2026 MPR archive [197ms]
+#> 
+#> Warning: ! Skipping newer MPR release(s) in the Bank of England's new scenario-based
+#>   format, not parsed by `boe_mpr_forecasts()` yet: "April 2026".
+#> ℹ Returning the most recent compatible release: February 2026.
 # }
 ```

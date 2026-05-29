@@ -49,6 +49,12 @@
 <li>Provenance: <code>boe_tbl</code> queries from <code><a href="../reference/boe_curve.html">boe_curve()</a></code> now record <code>source = "latest"</code> or <code>"archive"</code> and the <code>source_url</code> so the data carries its own audit trail.</li>
 <li>Internal: archive zips cache for 30 days (vs. 24 hours for the latest-month zip); per-period workbooks within an archive are concatenated transparently, with content-based maturity-row detection for older layouts.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="fixes-monetary-policy-report-release-resolution-0-3-0">Fixes: Monetary Policy Report release resolution<a class="anchor" aria-label="anchor" href="#fixes-monetary-policy-report-release-resolution-0-3-0"></a></h3>
+<ul><li>
+<code><a href="../reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code> no longer fails with an HTTP 404 when the latest scheduled release does not exist at the guessed URL. The Bank’s publication month drifts between years (the second 2026 report was published in April, not May), and the data archive filename changed from <code>chart-slides-and-data</code> to <code>charts-slides-and-data</code> during 2025. Release selection now enumerates recent months, verifies each archive exists with a lightweight request, and handles both filename variants, instead of assuming a fixed February / May / August / November calendar.</li>
+<li>From the April 2026 report the Bank moved to a scenario-based “Scenario Projections Databank” with a transposed layout, which this function cannot parse yet. Automatic selection now skips such releases, falls back to the most recent compatible release, and warns. Requesting a scenario-format release explicitly via <code>month</code> / <code>year</code> raises a clear error rather than a parsing failure. Full support for the scenario format is planned for a future release.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="boe-020">boe 0.2.0<a class="anchor" aria-label="anchor" href="#boe-020"></a></h2><p class="text-muted">CRAN release: 2026-04-27</p>
