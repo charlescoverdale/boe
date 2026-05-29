@@ -121,10 +121,10 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading April 2026 MPR archive
-#> ✔ Downloading April 2026 MPR archive [145ms]
+#> ✔ Downloading April 2026 MPR archive [150ms]
 #> 
 #> ℹ Downloading February 2026 MPR archive
-#> ✔ Downloading February 2026 MPR archive [197ms]
+#> ✔ Downloading February 2026 MPR archive [154ms]
 #> 
 #> Warning: ! Skipping newer MPR release(s) in the Bank of England's new scenario-based
 #>   format, not parsed by `boe_mpr_forecasts()` yet: "April 2026".
