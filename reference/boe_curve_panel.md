@@ -12,10 +12,11 @@ time-series modelling and quick plotting.
 boe_curve_panel(
   curve = c("nominal", "real", "inflation", "ois", "blc"),
   measure = c("spot", "forward"),
+  segment = c("standard", "short"),
   frequency = c("daily", "monthly"),
   from = NULL,
   to = NULL,
-  maturities = c(0.5, 1, 2, 5, 10, 20),
+  maturities = NULL,
   cache = TRUE,
   cache_ttl_h = NULL
 )
@@ -35,6 +36,12 @@ boe_curve_panel(
 
   Character. `"spot"` (default) or `"forward"`.
 
+- segment:
+
+  Character. `"standard"` (default) for the full maturity spectrum in
+  half-year steps, or `"short"` for the separately fitted short end in
+  monthly steps (one month to five years).
+
 - frequency:
 
   Character. `"daily"` (default) or `"monthly"`. Monthly archives are
@@ -48,8 +55,11 @@ boe_curve_panel(
 
 - maturities:
 
-  Numeric vector of pillar maturities in years. Defaults to
-  `c(0.5, 1, 2, 5, 10, 20)`.
+  Numeric vector of pillar maturities in years. When `NULL` (default) a
+  sensible set is chosen for the segment: `c(0.5, 1, 2, 5, 10, 20)` for
+  `"standard"` and `c(0.5, 1, 2, 3, 5)` for `"short"`. Pillars not on
+  the published grid for the chosen curve and segment are dropped with a
+  warning.
 
 - cache:
 
@@ -71,8 +81,9 @@ pillar named like `m0.5`, `m1`, `m2`, `m5`, `m10`, `m20`.
 
 For each requested pillar, the function picks the published maturity
 closest to the request (within a 0.05-year tolerance) and uses that. The
-published BoE grid steps in 0.5-year increments, so pillars at integer
-or half-integer years align exactly.
+standard grid steps in 0.5-year increments and the short-end grid
+(`segment = "short"`) in monthly increments, so pillars at integer,
+half-integer, or whole-month maturities align exactly.
 
 ## See also
 
@@ -98,7 +109,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Using cached nominal daily yield-curve archive
-#> ✔ Using cached nominal daily yield-curve archive [6ms]
+#> ✔ Using cached nominal daily yield-curve archive [9ms]
 #> 
 # }
 ```

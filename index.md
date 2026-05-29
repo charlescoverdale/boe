@@ -54,8 +54,10 @@ Beyond the IADB wrappers, it also ships:
 - [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md):
   the full Anderson-Sleath fitted yield curves at all maturities, with
   five curve types (nominal, real, implied inflation, OIS, commercial
-  bank liability) and full historical archive coverage back to 1979
-  (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS).
+  bank liability), both standard and short-end segments
+  (`segment = "short"` for monthly steps from one month to five years),
+  and full historical archive coverage back to 1979 (nominal), 1985
+  (real), 2000 (BLC), or 2009 (OIS).
   [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
   reshapes to a wide panel at chosen pillar maturities for time-series
   modelling.
@@ -226,9 +228,12 @@ boe_yield_curve(from = "2024-01-01", type = "real", measure = "zero_coupon")
 For the complete yield curve at every published maturity (typically 0.5
 years to 25 or 40 years, in 0.5-year steps), use
 [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md).
-This parses the BoE’s published Excel archive and covers four curves:
+This parses the BoE’s published Excel archive and covers five curves:
 nominal gilt, real (index-linked) gilt, implied inflation (breakeven),
-and overnight index swap (OIS).
+overnight index swap (OIS), and the commercial bank liability curve
+(BLC). Each curve is published in two segments: the standard curve and a
+separately fitted short end (monthly steps from one month to five
+years), reached with `segment = "short"`.
 
 ``` r
 
@@ -248,6 +253,10 @@ boe_curve(curve = "inflation", measure = "spot")
 
 # OIS forward curve
 boe_curve(curve = "ois", measure = "spot")
+
+# Short end of the OIS forward curve: the market-implied Bank Rate path
+# at monthly resolution, one month to five years
+boe_curve(curve = "ois", measure = "forward", segment = "short")
 ```
 
 Requires the `readxl` package (loaded lazily). Reference: Anderson and

@@ -110,8 +110,11 @@ if (requireNamespace("readxl", quietly = TRUE)) {
 
   options(op)
 }
-#> ℹ Downloading February 2026 MPR archive
-#> ✔ Downloading February 2026 MPR archive [223ms]
+#> ℹ Downloading may 2026 MPR archive
+#> Error in value[[3L]](cond): Download failed.
+#> ℹ Check the "may" 2026 release exists, and your network connection.
+#> ✖ HTTP 404 Not Found.
+#> ✖ Downloading may 2026 MPR archive [284ms]
 #> 
 # }
 ```

@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Anderson-Sleath yield curves: latest and historical • boe</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Anderson-Sleath yield curves: latest and historical">
 </head>
@@ -55,7 +55,7 @@
                         <h4 data-toc-skip class="author">Charles
 Coverdale</h4>
             
-            <h4 data-toc-skip class="date">08 May 2026</h4>
+            <h4 data-toc-skip class="date">29 May 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/charlescoverdale/boe/blob/main/vignettes/yield-curves.Rmd" class="external-link"><code>vignettes/yield-curves.Rmd</code></a></small>
       <div class="d-none name"><code>yield-curves.Rmd</code></div>
@@ -68,7 +68,10 @@ maturities using the Anderson and Sleath (2001) smoothing methodology.
 Five curves are produced: nominal gilt, real (index-linked) gilt,
 implied inflation, overnight index swap (OIS), and the commercial bank
 liability curve (BLC). Each is available in spot and
-instantaneous-forward form.</p>
+instantaneous-forward form, and in two segments: the <em>standard</em>
+curve (half-year maturity steps out to 25 or 40 years) and the
+separately fitted <em>short end</em> (monthly steps from one month to
+five years), selected with <code>segment = "short"</code>.</p>
 <p>The default behaviour of <code><a href="../reference/boe_curve.html">boe_curve()</a></code> returns the latest
 published month, matching what most analysts need when they reach for
 “today’s curve”. Pass <code>from</code>, <code>to</code>, or
@@ -81,10 +84,10 @@ gilts.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">latest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"nominal"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading yield curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading yield curve archive from Bank of England <span style="color: #B2B2B2;">[731ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading yield curve archive from Bank of England <span style="color: #B2B2B2;">[702ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">latest</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2026-05-01" "2026-05-07"</span></span>
+<span><span class="co">#&gt; [1] "2026-05-01" "2026-05-28"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">latest</span><span class="op">$</span><span class="va">maturity_years</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  0.5 40.0</span></span></code></pre></div>
 <p><code><a href="../reference/boe_curve.html">boe_curve()</a></code> returns a long-format <code>boe_tbl</code>
@@ -112,7 +115,7 @@ download small.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading nominal monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading nominal monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[156ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading nominal monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[54ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">panel</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-04-30 · freq=monthly</span></span>
@@ -152,7 +155,7 @@ implied-inflation forward curve.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading inflation monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading inflation monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[205ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading inflation monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[54ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span></span>
 <span><span class="va">inflation_fwd</span><span class="op">$</span><span class="va">five_y_five_y</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">inflation_fwd</span><span class="op">$</span><span class="va">m10</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">-</span></span>
@@ -199,12 +202,12 @@ through the 2022 to 2024 hiking cycle.</p>
 <span>  maturities <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading ois monthly yield-curve archive from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading ois monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[212ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading ois monthly yield-curve archive from Bank of England <span style="color: #B2B2B2;">[141ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span></span>
 <span><span class="va">mpc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_mpc_decisions.html">boe_mpc_decisions</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[441ms]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[364ms]</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="va">mpc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">mpc</span><span class="op">$</span><span class="va">date</span>, bank_rate <span class="op">=</span> <span class="va">mpc</span><span class="op">$</span><span class="va">new_rate_pct</span><span class="op">)</span></span>
 <span></span>
@@ -252,6 +255,59 @@ through the 2022 to 2024 hiking cycle.</p>
 <p><img src="yield-curves_files/figure-html/ois-cycle-plot-1.png" class="r-plt" alt="UK OIS spot pillars and Bank Rate, 2020 to present" width="672"></p>
 </div>
 <div class="section level2">
+<h2 id="the-short-end-of-the-curve">The short end of the curve<a class="anchor" aria-label="anchor" href="#the-short-end-of-the-curve"></a>
+</h2>
+<p>The standard curves step in half-years from 0.5 years out. For
+near-term policy and money-market work the Bank fits a separate
+<em>short end</em> at monthly maturities, from one month to five years.
+Pass <code>segment = "short"</code> to <code><a href="../reference/boe_curve.html">boe_curve()</a></code> or
+<code><a href="../reference/boe_curve_panel.html">boe_curve_panel()</a></code> to reach it.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">short</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"nominal"</span>, measure <span class="op">=</span> <span class="st">"spot"</span>, segment <span class="op">=</span> <span class="st">"short"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Using cached yield curve archive</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Using cached yield curve archive <span style="color: #B2B2B2;">[6ms]</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">short</span><span class="op">$</span><span class="va">maturity_years</span><span class="op">)</span>   <span class="co"># monthly grid, ~1/12 to 5 years</span></span>
+<span><span class="co">#&gt; [1] 0.4166667 4.9999998</span></span></code></pre></div>
+<p>The short end of the OIS <em>forward</em> curve is the cleanest
+market-implied path for Bank Rate: the instantaneous forward rate at
+each horizon, at monthly resolution. Here it is on the most recent
+published date.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ois_short</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"ois"</span>, measure <span class="op">=</span> <span class="st">"forward"</span>, segment <span class="op">=</span> <span class="st">"short"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Using cached yield curve archive</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Using cached yield curve archive <span style="color: #B2B2B2;">[7ms]</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="va">latest_day</span> <span class="op">&lt;-</span> <span class="va">ois_short</span><span class="op">[</span><span class="va">ois_short</span><span class="op">$</span><span class="va">date</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ois_short</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">latest_day</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # BoE [boe_curve]: 1 series [AS_OIS_FORWARD_SHORT] · 6 obs · 2026-05-01 to 2026-05-28 · freq=daily</span></span>
+<span><span class="co">#&gt;            date maturity_years rate_pct</span></span>
+<span><span class="co">#&gt; 1021 2026-05-28     0.08333333 3.733148</span></span>
+<span><span class="co">#&gt; 1022 2026-05-28     0.16666667 3.788507</span></span>
+<span><span class="co">#&gt; 1023 2026-05-28     0.25000000 3.849676</span></span>
+<span><span class="co">#&gt; 1024 2026-05-28     0.33333333 3.912664</span></span>
+<span><span class="co">#&gt; 1025 2026-05-28     0.41666667 3.973075</span></span>
+<span><span class="co">#&gt; 1026 2026-05-28     0.50000000 4.025891</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">latest_day</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">maturity_years</span>, <span class="va">rate_pct</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"#1f77b4"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.8</span>, colour <span class="op">=</span> <span class="st">"#1f77b4"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>      title    <span class="op">=</span> <span class="st">"UK OIS instantaneous forward curve, short end"</span>,</span>
+<span>      subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Market-implied Bank Rate path on"</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ois_short</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, <span class="st">"%d %B %Y"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      x <span class="op">=</span> <span class="st">"Horizon (years)"</span>, y <span class="op">=</span> <span class="st">"Per cent"</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="yield-curves_files/figure-html/short-ois-plot-1.png" class="r-plt" alt="UK OIS short-end forward curve on the latest published date" width="672"></p>
+<p>Short-end history goes back as far as the Bank published it: to 1979
+for nominal gilts, and from 2016 for OIS. Where a period has no
+short-end sheet (early OIS, for instance), those dates are simply absent
+from the result rather than causing an error.</p>
+</div>
+<div class="section level2">
 <h2 id="when-to-reach-for-the-archive">When to reach for the archive<a class="anchor" aria-label="anchor" href="#when-to-reach-for-the-archive"></a>
 </h2>
 <table class="table">
@@ -277,6 +333,10 @@ through the 2022 to 2024 hiking cycle.</p>
 <td><code>frequency = "monthly", from = "1990-01-01"</code></td>
 </tr>
 <tr class="even">
+<td>Near-term policy-rate path, monthly detail</td>
+<td><code>segment = "short"</code></td>
+</tr>
+<tr class="odd">
 <td>Commercial bank liability curve</td>
 <td>
 <code>curve = "blc"</code> (always uses archive)</td>

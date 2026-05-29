@@ -12,6 +12,7 @@ gilt, real (index-linked) gilt, implied inflation, overnight index swap
 boe_curve(
   curve = c("nominal", "real", "inflation", "ois", "blc"),
   measure = c("spot", "forward"),
+  segment = c("standard", "short"),
   frequency = c("daily", "monthly"),
   from = NULL,
   to = NULL,
@@ -37,6 +38,12 @@ boe_curve(
 - measure:
 
   Character. `"spot"` (default) or `"forward"`.
+
+- segment:
+
+  Character. `"standard"` (default) for the full maturity spectrum in
+  half-year steps, or `"short"` for the separately fitted short end in
+  monthly steps (one month to five years).
 
 - frequency:
 
@@ -77,6 +84,16 @@ A `boe_tbl` data frame with columns:
   Numeric. Yield or implied rate (percent).
 
 ## Details
+
+Each curve is published in two segments. The default
+`segment = "standard"` returns the full maturity spectrum in half-year
+steps (0.5 years out to 25 or 40). `segment = "short"` returns the short
+end of the curve in monthly steps (one month out to five years), which
+the Bank fits separately and which is the segment most relevant to
+near-term policy-rate and money-market analysis. The short end is
+available for every curve in the latest month, and historically wherever
+the BoE published it (e.g. OIS short-end data begins later than the OIS
+standard curve); periods without a short-end sheet are skipped.
 
 By default (`from = NULL`, `to = NULL`, `frequency = "daily"`) returns
 the latest published month of daily data, matching the behaviour of
@@ -121,16 +138,24 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   # End-of-month real curve since 1990 (small download)
   real_m <- boe_curve(curve = "real", frequency = "monthly",
                       from = "1990-01-01")
+
+  # Short end of the nominal forward curve (monthly steps to 5 years)
+  se <- boe_curve(curve = "nominal", measure = "forward",
+                  segment = "short")
+  range(se$maturity_years)
   options(op)
 }
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [229ms]
+#> ✔ Downloading yield curve archive from Bank of England [168ms]
 #> 
 #> ℹ Downloading nominal daily yield-curve archive from Bank of England
-#> ✔ Downloading nominal daily yield-curve archive from Bank of England [760ms]
+#> ✔ Downloading nominal daily yield-curve archive from Bank of England [231ms]
 #> 
 #> ℹ Downloading real monthly yield-curve archive from Bank of England
-#> ✔ Downloading real monthly yield-curve archive from Bank of England [52ms]
+#> ✔ Downloading real monthly yield-curve archive from Bank of England [37ms]
+#> 
+#> ℹ Using cached yield curve archive
+#> ✔ Using cached yield curve archive [6ms]
 #> 
 # }
 ```

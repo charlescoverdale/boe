@@ -24,6 +24,20 @@
   `c(0.5, 1, 2, 5, 10, 20)`, which aligns exactly with the BoE half-year
   grid. Pillars outside a curve’s published range trigger a warning and
   are dropped.
+- [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+  and
+  [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
+  gain a `segment` argument. `segment = "short"` returns the separately
+  fitted short end of the curve (monthly maturity steps from one month
+  out to five years) for every curve type; `segment = "standard"` (the
+  default) is unchanged. Short-end history extends as far back as the
+  Bank published it (to 1979 for nominal gilts, later for OIS); periods
+  with no short-end sheet are skipped rather than erroring. The panel’s
+  default pillars become `c(0.5, 1, 2, 3, 5)` when `segment = "short"`.
+- [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
+  now keeps pillar column labels aligned with the maturities they match
+  when an off-grid pillar is dropped; previously a dropped pillar could
+  shift the labels so a surviving column carried the wrong name.
 - Provenance: `boe_tbl` queries from
   [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
   now record `source = "latest"` or `"archive"` and the `source_url` so

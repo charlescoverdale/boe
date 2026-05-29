@@ -5,7 +5,10 @@ maturities using the Anderson and Sleath (2001) smoothing methodology.
 Five curves are produced: nominal gilt, real (index-linked) gilt,
 implied inflation, overnight index swap (OIS), and the commercial bank
 liability curve (BLC). Each is available in spot and
-instantaneous-forward form.
+instantaneous-forward form, and in two segments: the *standard* curve
+(half-year maturity steps out to 25 or 40 years) and the separately
+fitted *short end* (monthly steps from one month to five years),
+selected with `segment = "short"`.
 
 The default behaviour of
 [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
@@ -20,10 +23,10 @@ archive, which extends back as far as 1979 for nominal gilts.
 
 latest <- boe_curve(curve = "nominal", measure = "spot")
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [731ms]
+#> ✔ Downloading yield curve archive from Bank of England [702ms]
 #> 
 range(latest$date)
-#> [1] "2026-05-01" "2026-05-07"
+#> [1] "2026-05-01" "2026-05-28"
 range(latest$maturity_years)
 #> [1]  0.5 40.0
 ```
@@ -58,7 +61,7 @@ panel <- boe_curve_panel(
   maturities = c(2, 5, 10, 20)
 )
 #> ℹ Downloading nominal monthly yield-curve archive from Bank of England
-#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [156ms]
+#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [54ms]
 #> 
 head(panel)
 #> # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-04-30 · freq=monthly
@@ -105,7 +108,7 @@ inflation_fwd <- boe_curve_panel(
   maturities = c(5, 10)
 )
 #> ℹ Downloading inflation monthly yield-curve archive from Bank of England
-#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [205ms]
+#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [54ms]
 #> 
 
 inflation_fwd$five_y_five_y <- (inflation_fwd$m10 * 10 -
@@ -159,12 +162,12 @@ ois <- boe_curve_panel(
   maturities = c(0.5, 1, 2, 5)
 )
 #> ℹ Downloading ois monthly yield-curve archive from Bank of England
-#> ✔ Downloading ois monthly yield-curve archive from Bank of England [212ms]
+#> ✔ Downloading ois monthly yield-curve archive from Bank of England [141ms]
 #> 
 
 mpc <- boe_mpc_decisions(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [441ms]
+#> ✔ Downloading from Bank of England [364ms]
 #> 
 mpc <- data.frame(date = mpc$date, bank_rate = mpc$new_rate_pct)
 
@@ -217,6 +220,73 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
 ![UK OIS spot pillars and Bank Rate, 2020 to
 present](yield-curves_files/figure-html/ois-cycle-plot-1.png)
 
+## The short end of the curve
+
+The standard curves step in half-years from 0.5 years out. For near-term
+policy and money-market work the Bank fits a separate *short end* at
+monthly maturities, from one month to five years. Pass
+`segment = "short"` to
+[`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md)
+or
+[`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md)
+to reach it.
+
+``` r
+
+short <- boe_curve(curve = "nominal", measure = "spot", segment = "short")
+#> ℹ Using cached yield curve archive
+#> ✔ Using cached yield curve archive [6ms]
+#> 
+range(short$maturity_years)   # monthly grid, ~1/12 to 5 years
+#> [1] 0.4166667 4.9999998
+```
+
+The short end of the OIS *forward* curve is the cleanest market-implied
+path for Bank Rate: the instantaneous forward rate at each horizon, at
+monthly resolution. Here it is on the most recent published date.
+
+``` r
+
+ois_short  <- boe_curve(curve = "ois", measure = "forward", segment = "short")
+#> ℹ Using cached yield curve archive
+#> ✔ Using cached yield curve archive [7ms]
+#> 
+latest_day <- ois_short[ois_short$date == max(ois_short$date), ]
+head(latest_day)
+#> # BoE [boe_curve]: 1 series [AS_OIS_FORWARD_SHORT] · 6 obs · 2026-05-01 to 2026-05-28 · freq=daily
+#>            date maturity_years rate_pct
+#> 1021 2026-05-28     0.08333333 3.733148
+#> 1022 2026-05-28     0.16666667 3.788507
+#> 1023 2026-05-28     0.25000000 3.849676
+#> 1024 2026-05-28     0.33333333 3.912664
+#> 1025 2026-05-28     0.41666667 3.973075
+#> 1026 2026-05-28     0.50000000 4.025891
+```
+
+``` r
+
+if (requireNamespace("ggplot2", quietly = TRUE)) {
+  ggplot2::ggplot(latest_day, ggplot2::aes(maturity_years, rate_pct)) +
+    ggplot2::geom_line(colour = "#1f77b4") +
+    ggplot2::geom_point(size = 0.8, colour = "#1f77b4") +
+    ggplot2::labs(
+      title    = "UK OIS instantaneous forward curve, short end",
+      subtitle = paste("Market-implied Bank Rate path on",
+                       format(max(ois_short$date), "%d %B %Y")),
+      x = "Horizon (years)", y = "Per cent"
+    ) +
+    ggplot2::theme_minimal()
+}
+```
+
+![UK OIS short-end forward curve on the latest published
+date](yield-curves_files/figure-html/short-ois-plot-1.png)
+
+Short-end history goes back as far as the Bank published it: to 1979 for
+nominal gilts, and from 2016 for OIS. Where a period has no short-end
+sheet (early OIS, for instance), those dates are simply absent from the
+result rather than causing an error.
+
 ## When to reach for the archive
 
 | Question | Argument set |
@@ -224,6 +294,7 @@ present](yield-curves_files/figure-html/ois-cycle-plot-1.png)
 | Today’s curve | none (default) |
 | Last few years, daily | `from = "2020-01-01"` |
 | Multi-decade panel for econometrics | `frequency = "monthly", from = "1990-01-01"` |
+| Near-term policy-rate path, monthly detail | `segment = "short"` |
 | Commercial bank liability curve | `curve = "blc"` (always uses archive) |
 
 Archive zips cache for 30 days by default; the latest-month zip caches

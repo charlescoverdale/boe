@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Download Data from the Bank of England Statistical Database • boe</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Download Data from the Bank of England Statistical Database">
 <meta name="description" content="Provides functions to download and tidy statistical data published by the Bank of England &lt;https://www.bankofengland.co.uk&gt;. Covers Bank Rate, SONIA, gilt yields, exchange rates, mortgage rates, mortgage approvals, consumer credit, and money supply. Series are fetched from the Bank of England Interactive Statistical Database using its CSV endpoint. Data is cached locally between sessions.">
@@ -66,7 +66,7 @@
 <p>Beyond the IADB wrappers, it also ships:</p>
 <ul>
 <li>
-<code><a href="reference/boe_curve.html">boe_curve()</a></code>: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability) and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). <code><a href="reference/boe_curve_panel.html">boe_curve_panel()</a></code> reshapes to a wide panel at chosen pillar maturities for time-series modelling.</li>
+<code><a href="reference/boe_curve.html">boe_curve()</a></code>: the full Anderson-Sleath fitted yield curves at all maturities, with five curve types (nominal, real, implied inflation, OIS, commercial bank liability), both standard and short-end segments (<code>segment = "short"</code> for monthly steps from one month to five years), and full historical archive coverage back to 1979 (nominal), 1985 (real), 2000 (BLC), or 2009 (OIS). <code><a href="reference/boe_curve_panel.html">boe_curve_panel()</a></code> reshapes to a wide panel at chosen pillar maturities for time-series modelling.</li>
 <li>
 <code><a href="reference/boe_search.html">boe_search()</a></code> / <code><a href="reference/boe_browse.html">boe_browse()</a></code>: a built-in catalogue of wrapped series so you can find codes from R rather than the website.</li>
 <li>A <code>boe_tbl</code> S3 class so every returned data frame carries provenance metadata (series codes, date range, frequency, fetch timestamp).</li>
@@ -339,7 +339,7 @@
 <div class="section level3">
 <h3 id="the-full-anderson-sleath-fitted-curve">The full Anderson-Sleath fitted curve<a class="anchor" aria-label="anchor" href="#the-full-anderson-sleath-fitted-curve"></a>
 </h3>
-<p>For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use <code><a href="reference/boe_curve.html">boe_curve()</a></code>. This parses the BoE’s published Excel archive and covers four curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), and overnight index swap (OIS).</p>
+<p>For the complete yield curve at every published maturity (typically 0.5 years to 25 or 40 years, in 0.5-year steps), use <code><a href="reference/boe_curve.html">boe_curve()</a></code>. This parses the BoE’s published Excel archive and covers five curves: nominal gilt, real (index-linked) gilt, implied inflation (breakeven), overnight index swap (OIS), and the commercial bank liability curve (BLC). Each curve is published in two segments: the standard curve and a separately fitted short end (monthly steps from one month to five years), reached with <code>segment = "short"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Latest nominal spot curve at all maturities</span></span>
 <span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"nominal"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
@@ -356,7 +356,11 @@
 <span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"inflation"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># OIS forward curve</span></span>
-<span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"ois"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"ois"</span>, measure <span class="op">=</span> <span class="st">"spot"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Short end of the OIS forward curve: the market-implied Bank Rate path</span></span>
+<span><span class="co"># at monthly resolution, one month to five years</span></span>
+<span><span class="fu"><a href="reference/boe_curve.html">boe_curve</a></span><span class="op">(</span>curve <span class="op">=</span> <span class="st">"ois"</span>, measure <span class="op">=</span> <span class="st">"forward"</span>, segment <span class="op">=</span> <span class="st">"short"</span><span class="op">)</span></span></code></pre></div>
 <p>Requires the <code>readxl</code> package (loaded lazily). Reference: Anderson and Sleath (2001), <em>New estimates of the UK real and nominal yield curves</em>, Bank of England Working Paper No. 126.</p>
 <hr>
 </div>
