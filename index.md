@@ -123,8 +123,8 @@ devtools::install_github("charlescoverdale/boe")
 | [`boe_bank_rate()`](https://charlescoverdale.github.io/boe/reference/boe_bank_rate.md) | Official Bank Rate (daily or monthly) | 1975 | Present |
 | [`boe_sonia()`](https://charlescoverdale.github.io/boe/reference/boe_sonia.md) | SONIA risk-free reference rate (daily, monthly, or annual) | 1997 | Present |
 | [`boe_yield_curve()`](https://charlescoverdale.github.io/boe/reference/boe_yield_curve.md) | Nominal and real gilt yields at 5yr, 10yr, 20yr maturities | 1985 | Present |
-| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS / BLC, spot or forward) at all maturities | 1979 | Present |
-| [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md) | Wide panel of [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) at chosen pillar maturities (default 0.5y, 1y, 2y, 5y, 10y, 20y) | 1979 | Present |
+| [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) | Full Anderson-Sleath fitted curves (nominal / real / inflation / OIS / BLC; spot or forward; standard or short-end) at all maturities | 1979 | Present |
+| [`boe_curve_panel()`](https://charlescoverdale.github.io/boe/reference/boe_curve_panel.md) | Wide panel of [`boe_curve()`](https://charlescoverdale.github.io/boe/reference/boe_curve.md) at chosen pillar maturities (segment-aware defaults: 0.5y to 20y standard, 0.5y to 5y short) | 1979 | Present |
 | [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) | Daily sterling spot rates for 27 currencies | 1975 | Present |
 | [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md) | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase | 1993 | Present |
@@ -251,7 +251,7 @@ head(nc, 6)
 # Implied inflation curve (breakeven inflation)
 boe_curve(curve = "inflation", measure = "spot")
 
-# OIS forward curve
+# OIS spot curve
 boe_curve(curve = "ois", measure = "spot")
 
 # Short end of the OIS forward curve: the market-implied Bank Rate path

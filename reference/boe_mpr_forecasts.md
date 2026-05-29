@@ -114,7 +114,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
 #> Error in value[[3L]](cond): Download failed.
 #> ℹ Check the "may" 2026 release exists, and your network connection.
 #> ✖ HTTP 404 Not Found.
-#> ✖ Downloading may 2026 MPR archive [284ms]
+#> ✖ Downloading may 2026 MPR archive [499ms]
 #> 
 # }
 ```

@@ -64,7 +64,7 @@ Other credit and housing:
 op <- options(boe.cache_dir = tempdir())
 boe_mortgage_approvals(from = "2015-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [338ms]
+#> ✔ Downloading from Bank of England [367ms]
 #> 
 #> # BoE [boe_mortgage_approvals]: 1 series [LPMVTVX] · 135 obs · 2015-01-01 to 2026-05-29 · freq=monthly
 #>           date approvals
