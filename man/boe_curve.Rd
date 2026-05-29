@@ -91,20 +91,22 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   curve <- boe_curve(curve = "nominal", measure = "spot")
   head(curve)
 
-  # Historical: 10-year nominal spot back to 2010
-  long <- boe_curve(curve = "nominal", from = "2010-01-01")
-  range(long$date)
-
-  # End-of-month real curve since 1990 (small download)
-  real_m <- boe_curve(curve = "real", frequency = "monthly",
-                      from = "1990-01-01")
-
   # Short end of the nominal forward curve (monthly steps to 5 years)
   se <- boe_curve(curve = "nominal", measure = "forward",
                   segment = "short")
   range(se$maturity_years)
   options(op)
 }
+}
+
+\dontrun{
+# Historical archive: multi-decade downloads, so not run automatically.
+# 10-year nominal spot back to 2010:
+long <- boe_curve(curve = "nominal", from = "2010-01-01")
+
+# End-of-month real curve since 1990:
+real_m <- boe_curve(curve = "real", frequency = "monthly",
+                    from = "1990-01-01")
 }
 
 }

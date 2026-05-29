@@ -63,8 +63,10 @@ None — no reverse dependencies.
 
 ## Notes for CRAN reviewers
 
-* All functions that make network requests are wrapped in `\donttest{}`
-  in examples and `skip_on_cran()` + `skip_if_offline()` in tests.
+* Network examples are wrapped in `\donttest{}` (lightweight latest-month
+  calls) or `\dontrun{}` (the multi-decade archive downloads, which are
+  slow to fetch and parse); tests use `skip_on_cran()` +
+  `skip_if_offline()`.
 * Data is fetched from the Bank of England Interactive Statistical
   Database CSV endpoint and the BoE website
   (`https://www.bankofengland.co.uk/`).
