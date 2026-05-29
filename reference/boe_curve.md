@@ -131,14 +131,6 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   curve <- boe_curve(curve = "nominal", measure = "spot")
   head(curve)
 
-  # Historical: 10-year nominal spot back to 2010
-  long <- boe_curve(curve = "nominal", from = "2010-01-01")
-  range(long$date)
-
-  # End-of-month real curve since 1990 (small download)
-  real_m <- boe_curve(curve = "real", frequency = "monthly",
-                      from = "1990-01-01")
-
   # Short end of the nominal forward curve (monthly steps to 5 years)
   se <- boe_curve(curve = "nominal", measure = "forward",
                   segment = "short")
@@ -146,16 +138,20 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [163ms]
-#> 
-#> ℹ Downloading nominal daily yield-curve archive from Bank of England
-#> ✔ Downloading nominal daily yield-curve archive from Bank of England [178ms]
-#> 
-#> ℹ Downloading real monthly yield-curve archive from Bank of England
-#> ✔ Downloading real monthly yield-curve archive from Bank of England [43ms]
+#> ✔ Downloading yield curve archive from Bank of England [226ms]
 #> 
 #> ℹ Using cached yield curve archive
 #> ✔ Using cached yield curve archive [6ms]
 #> 
 # }
+
+if (FALSE) { # \dontrun{
+# Historical archive: multi-decade downloads, so not run automatically.
+# 10-year nominal spot back to 2010:
+long <- boe_curve(curve = "nominal", from = "2010-01-01")
+
+# End-of-month real curve since 1990:
+real_m <- boe_curve(curve = "real", frequency = "monthly",
+                    from = "1990-01-01")
+} # }
 ```

@@ -99,17 +99,20 @@ Other interest rates:
 # \donttest{
 if (requireNamespace("readxl", quietly = TRUE)) {
   op <- options(boe.cache_dir = tempdir())
-  panel <- boe_curve_panel(
-    curve   = "nominal",
-    measure = "spot",
-    from    = "2020-01-01",
-    maturities = c(2, 5, 10, 20)
-  )
+  # Latest month: wide panel at chosen pillar maturities
+  panel <- boe_curve_panel(curve = "nominal", measure = "spot",
+                           maturities = c(2, 5, 10, 20))
   head(panel)
   options(op)
 }
-#> ℹ Using cached nominal daily yield-curve archive
-#> ✔ Using cached nominal daily yield-curve archive [9ms]
+#> ℹ Using cached yield curve archive
+#> ✔ Using cached yield curve archive [6ms]
 #> 
 # }
+
+if (FALSE) { # \dontrun{
+# Historical panel (multi-decade archive download; not run automatically)
+hist <- boe_curve_panel(curve = "nominal", measure = "spot",
+                        from = "2020-01-01", maturities = c(2, 5, 10, 20))
+} # }
 ```
