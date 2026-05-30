@@ -75,7 +75,7 @@ op <- options(boe.cache_dir = tempdir())
 # All MPC decisions since the global financial crisis
 boe_mpc_decisions(from = "2007-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [575ms]
+#> ✔ Downloading from Bank of England [1.1s]
 #> 
 #> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 37 obs · 2007-01-01 to 2026-05-30 · freq=decision
 #>          date new_rate_pct prev_rate_pct change_bps direction
@@ -120,7 +120,7 @@ boe_mpc_decisions(from = "2007-01-01")
 # Just decisions in 2024 to date
 boe_mpc_decisions(from = "2024-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [381ms]
+#> ✔ Downloading from Bank of England [488ms]
 #> 
 #> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 6 obs · 2024-01-01 to 2026-05-30 · freq=decision
 #>         date new_rate_pct prev_rate_pct change_bps direction
