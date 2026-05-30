@@ -1,6 +1,6 @@
 # CRAN submission comments — boe 0.3.0
 
-## Feature release on top of boe 0.2.0 (currently on CRAN)
+## Feature and bug-fix release on top of boe 0.2.0 (currently on CRAN)
 
 ### New functionality
 
@@ -23,6 +23,16 @@
   (monthly maturity steps from one month to five years); `"standard"`
   (default) is unchanged. Periods or curves with no published short end
   are skipped rather than erroring.
+
+### Bug fixes
+
+* `boe_mpr_forecasts()` no longer fails with HTTP 404 when the latest
+  Monetary Policy Report is published in a month outside the historical
+  February / May / August / November pattern (the 2026 second-quarter
+  report appeared in April, not May) or when the data-archive filename
+  varies between releases. Release selection now verifies that an
+  archive exists before downloading and falls back to the most recent
+  compatible release.
 
 ### Provenance and caching
 
