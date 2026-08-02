@@ -69,7 +69,7 @@ op <- options(boe.cache_dir = tempdir())
 # GBP/USD since 2020
 boe_exchange_rate("USD", from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [755ms]
+#> ✔ Downloading from Bank of England [2s]
 #> 
 #> # BoE [boe_exchange_rate]: 1 series [XUDLGBD] · 1661 obs · 2020-01-01 to 2026-08-02 · freq=daily
 #>            date currency   rate
@@ -1738,7 +1738,7 @@ boe_exchange_rate("USD", from = "2020-01-01")
 # Multiple currencies
 boe_exchange_rate(c("USD", "EUR", "JPY"), from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.3s]
+#> ✔ Downloading from Bank of England [1.9s]
 #> 
 #> # BoE [boe_exchange_rate]: 3 series [XUDLGBD,XUDLERS,XUDLJYS] · 4983 obs · 2020-01-01 to 2026-08-02 · freq=daily
 #>            date currency     rate
