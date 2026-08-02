@@ -127,11 +127,13 @@ mortgage_approvals <- data.frame(
 )
 
 consumer_credit <- data.frame(
-  code = c("LPMVZRI", "LPMVZRJ", "LPMVZRK"),
+  code = c("LPMBI2O", "LPMVZRJ", "LPMB4TS", "LPMVZRI", "LPMVZRK"),
   title = c(
-    "Consumer credit outstanding (total)",
+    "Consumer credit outstanding excl student loans (total)",
     "Consumer credit outstanding (credit cards)",
-    "Consumer credit outstanding (other)"
+    "Consumer credit outstanding excl student loans (other)",
+    "Consumer credit outstanding incl student loans (total, annual update)",
+    "Consumer credit outstanding incl student loans (other, annual update)"
   ),
   category = "consumer_credit",
   frequency = "monthly",

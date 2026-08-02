@@ -1,63 +1,42 @@
-# CRAN submission comments — boe 0.3.0
+# CRAN submission comments — boe 0.4.0
 
-## Feature and bug-fix release on top of boe 0.2.0 (currently on CRAN)
+## Feature and bug-fix release on top of boe 0.3.0 (currently on CRAN)
 
-### New functionality
+### Monetary Policy Report: scenario and hybrid formats
 
-* `boe_curve()` gains `from`, `to`, `frequency`, and `cache_ttl_h`
-  arguments. Setting any of `from` / `to`, or `frequency = "monthly"`,
-  routes the request to the BoE archive zips, which extend coverage
-  back to ~1979 (nominal gilts), ~1985 (real / inflation), ~2000
-  (commercial bank liability curve), and ~2009 (overnight index swap).
-  Default behaviour with no arguments is unchanged: still returns the
-  latest published month from `latest-yield-curve-data.zip`.
-* `boe_curve()` adds a fifth curve type, `"blc"` (commercial bank
-  liability curve). Because BLC is not published in the latest-month
-  zip, it always routes through the archive path.
-* New `boe_curve_panel(curve, measure, frequency, from, to, maturities)`:
-  wide-format wrapper that returns one row per date and one numeric
-  column per pillar maturity. Default pillars are
-  `c(0.5, 1, 2, 5, 10, 20)`.
-* `boe_curve()` and `boe_curve_panel()` gain a `segment` argument.
-  `segment = "short"` returns the Bank's separately fitted short end
-  (monthly maturity steps from one month to five years); `"standard"`
-  (default) is unchanged. Periods or curves with no published short end
-  are skipped rather than erroring.
+* `boe_mpr_forecasts()` now parses all three Projections Databank
+  layouts the Bank of England has published since its Bernanke review
+  of forecasting: the classic format (February 2026 and earlier), the
+  scenario-based "Scenario Projections Databank" (April 2026), and the
+  hybrid workbook introduced with the July 2026 report, which combines
+  the classic central-projection sheets with a "Quarterly scenarios"
+  section. The format is detected automatically from the release and
+  all three share one output schema.
+* New `scenario` column labels scenario paths (e.g. `"Adverse
+  Scenario"`); central projections carry `NA`.
+* The `series` argument gains four series published in the scenario
+  sheets from April 2026: `"output_gap"`, `"energy_prices"`,
+  `"average_earnings"`, and `"world_export_prices"`. The default
+  series set is unchanged.
+* Series a release does not publish are skipped with a warning rather
+  than erroring.
 
-### Bug fixes
+### Consumer credit: monthly headline measure
 
-* `boe_mpr_forecasts()` no longer fails with HTTP 404 when the latest
-  Monetary Policy Report is published in a month outside the historical
-  February / May / August / November pattern (the 2026 second-quarter
-  report appeared in April, not May) or when the data-archive filename
-  varies between releases. Release selection now verifies that an
-  archive exists before downloading and falls back to the most recent
-  compatible release.
+* `boe_consumer_credit()` now defaults to the Bank's headline consumer
+  credit measure excluding the Student Loans Company, which is updated
+  every month. The previous default series including student loans are
+  only updated annually and had fallen several months behind. A new
+  `include_student_loans` argument restores the previous selection.
+  The change is documented prominently in NEWS.md.
+* The `boe_series` catalogue now lists both measures (54 series).
 
-### Provenance and caching
+### Caching
 
-* `boe_tbl` queries from `boe_curve()` now record `source` (`"latest"`
-  or `"archive"`) and `source_url` so returned data carries an audit
-  trail.
-* Archive zips cache for 30 days by default versus 24 hours for the
-  latest-month zip; the per-period workbooks within each archive zip
-  are concatenated transparently.
-* Maturity-row detection is now content-based, so older Excel layouts
-  (pre-2007) parse cleanly via the same code path.
-
-### Documentation
-
-* New vignette `yield-curves.Rmd` walks through three worked examples:
-  the 10-year nominal spot rate since 2000, 5y5y forward implied
-  inflation since 2010, and OIS spot pillars joined to MPC decisions
-  across the 2020 to present rate cycle.
-* Vignette chunks gate on `Sys.getenv("NOT_CRAN") == "true"` so CRAN
-  rebuilds skip the network calls.
-
-### Dependencies
-
-* Adds `knitr` and `rmarkdown` to Suggests for the new vignette.
-* No changes to Imports or to `readxl` (already in Suggests).
+* Statistical database responses now expire after 30 days rather than
+  being cached indefinitely, so revisions eventually reach queries
+  pinned to a fixed date range. Configurable via
+  `options(boe.cache_ttl_h = )`.
 
 ## Test environments
 
@@ -73,10 +52,9 @@ None — no reverse dependencies.
 
 ## Notes for CRAN reviewers
 
-* Network examples are wrapped in `\donttest{}` (lightweight latest-month
-  calls) or `\dontrun{}` (the multi-decade archive downloads, which are
-  slow to fetch and parse); tests use `skip_on_cran()` +
-  `skip_if_offline()`.
+* Network examples are wrapped in `\donttest{}` (lightweight calls) or
+  `\dontrun{}` (slow multi-decade archive downloads); tests use
+  `skip_on_cran()` + `skip_if_offline()`.
 * Data is fetched from the Bank of England Interactive Statistical
   Database CSV endpoint and the BoE website
   (`https://www.bankofengland.co.uk/`).

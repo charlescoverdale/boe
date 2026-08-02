@@ -1,6 +1,6 @@
 Package: boe
 Title: Download Data from the 'Bank of England' Statistical Database
-Version: 0.3.0
+Version: 0.4.0
 Authors@R:
     person("Charles", "Coverdale", , "charlesfcoverdale@gmail.com",
            role = c("aut", "cre"))
