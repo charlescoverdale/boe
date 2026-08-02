@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -178,7 +178,7 @@
 </tr>
 <tr>
 <td><code><a href="reference/boe_consumer_credit.html">boe_consumer_credit()</a></code></td>
-<td>Consumer credit outstanding (total, cards, other)</td>
+<td>Consumer credit outstanding (total, cards, other; excluding student loans by default)</td>
 <td>1993</td>
 <td>Present</td>
 </tr>
@@ -219,7 +219,7 @@
 </tr>
 <tr>
 <td><code><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code></td>
-<td>Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate)</td>
+<td>Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate), plus scenario paths from April 2026</td>
 <td>2019</td>
 <td>Present</td>
 </tr>
@@ -288,12 +288,12 @@
 <span><span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_bank_rate.html">boe_bank_rate</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2000-01-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">br</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         date rate_pct</span></span>
-<span><span class="co">#&gt;   2026-02-26     3.75</span></span>
-<span><span class="co">#&gt;   2026-02-27     3.75</span></span>
-<span><span class="co">#&gt;   2026-03-02     3.75</span></span>
-<span><span class="co">#&gt;   2026-03-03     3.75</span></span>
-<span><span class="co">#&gt;   2026-03-04     3.75</span></span>
-<span><span class="co">#&gt;   2026-03-05     3.75</span></span></code></pre></div>
+<span><span class="co">#&gt;   2026-07-23     3.75</span></span>
+<span><span class="co">#&gt;   2026-07-24     3.75</span></span>
+<span><span class="co">#&gt;   2026-07-27     3.75</span></span>
+<span><span class="co">#&gt;   2026-07-28     3.75</span></span>
+<span><span class="co">#&gt;   2026-07-29     3.75</span></span>
+<span><span class="co">#&gt;   2026-07-30     3.75</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -398,19 +398,24 @@
 <h3 id="how-much-are-households-borrowing">How much are households borrowing?<a class="anchor" aria-label="anchor" href="#how-much-are-households-borrowing"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Total consumer credit outstanding</span></span>
-<span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"total"</span>, from <span class="op">=</span> <span class="st">"2024-01-01"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Total consumer credit outstanding (the monthly headline measure,</span></span>
+<span><span class="co"># excluding student loans)</span></span>
+<span><span class="va">cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"total"</span>, from <span class="op">=</span> <span class="st">"2026-01-01"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">cc</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         date  type amount_gbp_m</span></span>
-<span><span class="co">#&gt;   2024-01-31 total       476154</span></span>
-<span><span class="co">#&gt;   2024-02-29 total       479974</span></span>
-<span><span class="co">#&gt;   2024-03-31 total       484269</span></span>
-<span><span class="co">#&gt;   2024-04-30 total       490106</span></span>
-<span><span class="co">#&gt;   2024-05-31 total       494904</span></span>
-<span><span class="co">#&gt;   2024-06-30 total       498639</span></span>
+<span><span class="co">#&gt;   2026-01-31 total       249390</span></span>
+<span><span class="co">#&gt;   2026-02-28 total       250577</span></span>
+<span><span class="co">#&gt;   2026-03-31 total       252036</span></span>
+<span><span class="co">#&gt;   2026-04-30 total       253405</span></span>
+<span><span class="co">#&gt;   2026-05-31 total       254936</span></span>
+<span><span class="co">#&gt;   2026-06-30 total       256333</span></span>
 <span></span>
 <span><span class="co"># Credit card debt only</span></span>
-<span><span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"credit_card"</span>, from <span class="op">=</span> <span class="st">"2024-01-01"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"credit_card"</span>, from <span class="op">=</span> <span class="st">"2024-01-01"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The alternative measure including student loans (updated only once a</span></span>
+<span><span class="co"># year, when the Student Loans Company publishes its data)</span></span>
+<span><span class="fu"><a href="reference/boe_consumer_credit.html">boe_consumer_credit</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"total"</span>, include_student_loans <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level3">
@@ -476,11 +481,11 @@
 <span><span class="va">decisions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpc_decisions.html">boe_mpc_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">decisions</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         date new_rate_pct prev_rate_pct change_bps direction</span></span>
-<span><span class="co">#&gt;   2024-08-01         5.00          5.25        -25       cut</span></span>
 <span><span class="co">#&gt;   2024-11-07         4.75          5.00        -25       cut</span></span>
 <span><span class="co">#&gt;   2025-02-06         4.50          4.75        -25       cut</span></span>
-<span><span class="co">#&gt;   2025-08-07         4.25          4.50        -25       cut</span></span>
-<span><span class="co">#&gt;   2026-02-05         4.00          4.25        -25       cut</span></span>
+<span><span class="co">#&gt;   2025-05-08         4.25          4.50        -25       cut</span></span>
+<span><span class="co">#&gt;   2025-08-07         4.00          4.25        -25       cut</span></span>
+<span><span class="co">#&gt;   2025-12-18         3.75          4.00        -25       cut</span></span>
 <span></span>
 <span><span class="co"># Full voting record: who dissented, and how</span></span>
 <span><span class="va">votes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpc_votes.html">boe_mpc_votes</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -495,20 +500,26 @@
 <div class="section level3">
 <h3 id="forecasts-from-the-monetary-policy-report">Forecasts from the Monetary Policy Report<a class="anchor" aria-label="anchor" href="#forecasts-from-the-monetary-policy-report"></a>
 </h3>
+<p>Since the Bernanke review, the Bank publishes scenario paths alongside its central projections. <code><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code> parses all three databank formats (classic to February 2026, scenario-based April 2026, hybrid from July 2026) into one schema, with the <code>scenario</code> column labelling scenario paths (<code>NA</code> for central projections).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Latest CPI inflation projections (one row per publication x horizon)</span></span>
+<code class="sourceCode R"><span><span class="co"># Latest CPI inflation projections: central projections for every</span></span>
+<span><span class="co"># publication vintage, plus the current report's scenario paths</span></span>
 <span><span class="va">cpi</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts</a></span><span class="op">(</span>series <span class="op">=</span> <span class="st">"cpi_inflation"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cpi</span><span class="op">)</span></span>
-<span><span class="co">#&gt;         date horizon horizon_date        series value</span></span>
-<span><span class="co">#&gt;   2026-02-01 2026 Q1   2026-01-01 cpi_inflation   2.7</span></span>
-<span><span class="co">#&gt;   2026-02-01 2026 Q2   2026-04-01 cpi_inflation   2.6</span></span>
-<span><span class="co">#&gt;   2026-02-01 2026 Q3   2026-07-01 cpi_inflation   2.5</span></span>
 <span></span>
-<span><span class="co"># All five headline series for the most recent MPR</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">cpi</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">scenario</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">horizon</span> <span class="op">==</span> <span class="st">"2027 Q1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         date horizon horizon_date        series                 scenario value</span></span>
+<span><span class="co">#&gt;   2026-07-01 2027 Q1   2027-01-01 cpi_inflation         Adverse Scenario   4.3</span></span>
+<span><span class="co">#&gt;   2026-07-01 2027 Q1   2027-01-01 cpi_inflation Memo: central projection   3.2</span></span>
+<span><span class="co">#&gt;   2026-07-01 2027 Q1   2027-01-01 cpi_inflation          Milder Scenario   3.0</span></span>
+<span></span>
+<span><span class="co"># All five traditional series for the most recent MPR</span></span>
 <span><span class="va">all</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all</span><span class="op">$</span><span class="va">series</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"</span></span></code></pre></div>
-<p>Requires the <code>readxl</code> package. Note: this targets the post-2025 MPR file format; older releases use a different archive layout.</p>
+<span><span class="co">#&gt;   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"</span></span>
+<span></span>
+<span><span class="co"># Scenario-only series (published from April 2026)</span></span>
+<span><span class="fu"><a href="reference/boe_mpr_forecasts.html">boe_mpr_forecasts</a></span><span class="op">(</span>series <span class="op">=</span> <span class="st">"output_gap"</span><span class="op">)</span></span></code></pre></div>
+<p>Requires the <code>readxl</code> package. Coverage runs from November 2019; older releases use a different archive layout.</p>
 <hr>
 </div>
 <div class="section level3">
@@ -528,7 +539,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">$</span><span class="va">category</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     consumer_credit       exchange_rates       interest_rates</span></span>
-<span><span class="co">#&gt;                   3                   27                   14</span></span>
+<span><span class="co">#&gt;                   5                   27                   14</span></span>
 <span><span class="co">#&gt;     monetary_aggregates    mortgage_market</span></span>
 <span><span class="co">#&gt;                       2                  6</span></span></code></pre></div>
 <hr>
@@ -551,7 +562,7 @@
 <div class="section level2">
 <h2 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h2>
-<p>All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly - no network request is made.</p>
+<p>All downloads are cached locally in your user cache directory. Subsequent calls return the cached copy instantly - no network request is made. Cached files expire automatically: 24 hours for the latest-month yield curve zip and MPR archive, 30 days for statistical database queries and historical archive zips (BoE revisions eventually reach queries pinned to a fixed date range). Set <code>options(boe.cache_ttl_h = Inf)</code> to freeze the statistical database cache for a reproducible run.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inspect the cache (path, file count, size, range)</span></span>
 <span><span class="fu"><a href="reference/boe_cache_info.html">boe_cache_info</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -679,7 +690,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

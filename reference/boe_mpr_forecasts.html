@@ -13,7 +13,7 @@ date, forecast horizon, series) triple."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,9 +66,17 @@ date, forecast horizon, series) triple.</p>
 
 
 <dl><dt id="arg-series">series<a class="anchor" aria-label="anchor" href="#arg-series"></a></dt>
-<dd><p>Character vector. One or more of:
-<code>"cpi_inflation"</code>, <code>"gdp_growth"</code>, <code>"gdp_level"</code>,
-<code>"unemployment"</code>, <code>"bank_rate"</code>. Defaults to all five.</p></dd>
+<dd><p>Character vector of series to return. The five
+traditional series are the default: <code>"cpi_inflation"</code>,
+<code>"gdp_growth"</code>, <code>"gdp_level"</code>, <code>"unemployment"</code>, and <code>"bank_rate"</code>.
+From the April 2026 report the Bank also publishes scenario paths
+for <code>"output_gap"</code>, <code>"energy_prices"</code>, <code>"average_earnings"</code>, and
+<code>"world_export_prices"</code>, which can be requested explicitly. Series
+not published in a given release are skipped with a warning: the
+scenario-only series are absent from classic releases (February
+2026 and earlier), and the April 2026 scenario-format release drops
+<code>"gdp_level"</code> and <code>"bank_rate"</code>. Hybrid releases (July 2026 onward)
+publish all nine.</p></dd>
 
 
 <dt id="arg-month">month<a class="anchor" aria-label="anchor" href="#arg-month"></a></dt>
@@ -96,17 +104,21 @@ the latest release is refreshed if older than 24 hours.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>boe_tbl</code> data frame with columns:</p><dl><dt>date</dt>
-<dd><p>Date. Publication date of the MPR (start of quarter
-the report covers).</p></dd>
+<dd><p>Date. Publication date of the MPR release.</p></dd>
 
 <dt>horizon</dt>
-<dd><p>Character. Forecast horizon label (e.g. <code>"2026 Q1"</code>).</p></dd>
+<dd><p>Character. Quarter label (e.g. <code>"2026 Q1"</code>).</p></dd>
 
 <dt>horizon_date</dt>
-<dd><p>Date. Start of the forecast quarter.</p></dd>
+<dd><p>Date. Start of the quarter.</p></dd>
 
 <dt>series</dt>
 <dd><p>Character. Series identifier (e.g. <code>"cpi_inflation"</code>).</p></dd>
+
+<dt>scenario</dt>
+<dd><p>Character. Scenario or vintage label in the
+scenario-based format (e.g. <code>"April 2026 Scenario A"</code>); <code>NA</code> in
+the classic format, which carries a single central projection.</p></dd>
 
 <dt>value</dt>
 <dd><p>Numeric. Forecast value (percent for rates and
@@ -119,25 +131,36 @@ growth; index for <code>gdp_level</code>).</p></dd>
     <p>Coverage runs quarterly from November 2019 (when the report was
 renamed from Inflation Report) to the latest published release.</p>
 <p>Requires the <span class="pkg">readxl</span> package. The MPR is published as a zip
-archive containing a Projections Databank workbook plus chart data
-and slides; this function only reads the projection sheets.</p>
-<p>Each row of a projection sheet is one MPR publication; columns are
-forecast quarters. The same publication therefore contributes
-multiple rows here, one per forecast horizon.</p>
+archive containing a projections databank workbook plus chart data
+and slides; this function reads only the projection sheets.</p>
+<p>In the classic format (up to February 2026) each row of a projection
+sheet is one MPR publication and the columns are forecast quarters,
+so the function returns one row per publication and horizon with a
+single central projection (<code>scenario</code> is <code>NA</code>). In the scenario-based
+format (April 2026) each sheet holds one series with the quarters
+down the rows and one column per scenario, so the function returns
+the full quarterly path (history and projection) for every scenario,
+tagged in the <code>scenario</code> column. Hybrid releases (July 2026 onward)
+carry both: central projections for all publications (<code>scenario</code> is
+<code>NA</code>) plus the current report's scenario paths (labelled, e.g.
+<code>"Adverse Scenario"</code>), in one output.</p>
     </div>
     <div class="section level2">
-    <h2 id="release-format-and-automatic-fallback">Release format and automatic fallback<a class="anchor" aria-label="anchor" href="#release-format-and-automatic-fallback"></a></h2>
+    <h2 id="release-format">Release format<a class="anchor" aria-label="anchor" href="#release-format"></a></h2>
 
 
-<p>From the April 2026 report the Bank moved to a scenario-based
-"Scenario Projections Databank" with a transposed layout (following
-the Bernanke review of forecasting). That format is not parsed by
-this function yet. When automatic selection encounters such a
-release it skips it, falls back to the most recent compatible release
-(the classic "Projections Databank" workbook), and warns. Requesting
-a scenario-format release explicitly via <code>month</code>/<code>year</code> raises a
-clear error. Pre-2020 MPRs that predate the single "Projections
-Databank" workbook may also error.</p>
+<p>Following the Bernanke review of forecasting, the Bank replaced the
+single central projection of the classic "Projections Databank" with
+a scenario-based "Scenario Projections Databank" in the April 2026
+report, then merged the two from the July 2026 report into one
+hybrid workbook holding both the classic central-projection sheets
+(GDP level and Bank Rate restored) and a "Quarterly scenarios"
+section. All three layouts are parsed and share the same output
+columns; the format is detected automatically from the release. The
+April 2026 release alone lacks a GDP level and Bank Rate sheet (Bank
+Rate was published as a conditioning assumption), so those two
+series are skipped with a warning for that release. Pre-2020 MPRs
+that predate the single databank workbook may error.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -153,21 +176,16 @@ Databank" workbook may also error.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"readxl"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>boe.cache_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Latest CPI inflation projections</span></span></span>
+<span class="r-in"><span>  <span class="co"># Latest CPI inflation projections. In the scenario-based format</span></span></span>
+<span class="r-in"><span>  <span class="co"># this returns one path per scenario (see the `scenario` column).</span></span></span>
 <span class="r-in"><span>  <span class="va">cpi</span> <span class="op">&lt;-</span> <span class="fu">boe_mpr_forecasts</span><span class="op">(</span>series <span class="op">=</span> <span class="st">"cpi_inflation"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cpi</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading April 2026 MPR archive</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading April 2026 MPR archive <span style="color: #B2B2B2;">[277ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading July 2026 MPR archive</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading July 2026 MPR archive <span style="color: #B2B2B2;">[480ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading February 2026 MPR archive</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading February 2026 MPR archive <span style="color: #B2B2B2;">[239ms]</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span><span style="color: #BBBB00;">!</span> Skipping newer MPR release(s) in the Bank of England's new scenario-based</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   format, not parsed by `boe_mpr_forecasts()` yet: <span style="color: #0000BB;">"April 2026"</span>.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Returning the most recent compatible release: February 2026.</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -181,7 +199,7 @@ Databank" workbook may also error.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

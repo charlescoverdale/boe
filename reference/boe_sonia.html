@@ -9,7 +9,7 @@ reference rate for sterling markets. Available daily from January 1997."></head>
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,9 +102,9 @@ reference rate for sterling markets. Available daily from January 1997.</p>
 <span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>boe.cache_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">boe_sonia</span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[488ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[582ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_sonia]: 1 series [IUDSOIA] · 1615 obs · 2020-01-01 to 2026-05-30 · freq=daily</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_sonia]: 1 series [IUDSOIA] · 1660 obs · 2020-01-01 to 2026-08-02 · freq=daily</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date rate_pct</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02   0.7125</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2020-01-03   0.7110</span>
@@ -1721,6 +1721,51 @@ reference rate for sterling markets. Available daily from January 1997.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1613 2026-05-22   3.7301</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1614 2026-05-26   3.7290</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1615 2026-05-27   3.7290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1616 2026-05-28   3.7295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1617 2026-05-29   3.7302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1618 2026-06-01   3.7291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1619 2026-06-02   3.7308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1620 2026-06-03   3.7306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1621 2026-06-04   3.7308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1622 2026-06-05   3.7312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1623 2026-06-08   3.7300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1624 2026-06-09   3.7271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1625 2026-06-10   3.7296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1626 2026-06-11   3.7305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1627 2026-06-12   3.7301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1628 2026-06-15   3.7296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1629 2026-06-16   3.7304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1630 2026-06-17   3.7303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1631 2026-06-18   3.7300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1632 2026-06-19   3.7294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1633 2026-06-22   3.7292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1634 2026-06-23   3.7295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1635 2026-06-24   3.7290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1636 2026-06-25   3.7287</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1637 2026-06-26   3.7290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1638 2026-06-29   3.7292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1639 2026-06-30   3.7318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1640 2026-07-01   3.7309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1641 2026-07-02   3.7305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1642 2026-07-03   3.7302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1643 2026-07-06   3.7297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1644 2026-07-07   3.7297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1645 2026-07-08   3.7303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1646 2026-07-09   3.7311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1647 2026-07-10   3.7310</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1648 2026-07-13   3.7308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1649 2026-07-14   3.7311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1650 2026-07-15   3.7308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1651 2026-07-16   3.7308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1652 2026-07-17   3.7307</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1653 2026-07-20   3.7307</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1654 2026-07-21   3.7302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1655 2026-07-22   3.7303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1656 2026-07-23   3.7310</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1657 2026-07-24   3.7307</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1658 2026-07-27   3.7312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1659 2026-07-28   3.7316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1660 2026-07-29   3.7313</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -1735,7 +1780,7 @@ reference rate for sterling markets. Available daily from January 1997.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

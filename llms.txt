@@ -128,7 +128,7 @@ devtools::install_github("charlescoverdale/boe")
 | [`boe_exchange_rate()`](https://charlescoverdale.github.io/boe/reference/boe_exchange_rate.md) | Daily sterling spot rates for 27 currencies | 1975 | Present |
 | [`boe_mortgage_rates()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_rates.md) | Quoted mortgage rates (2yr/3yr/5yr fixed, SVR) | 1995 | Present |
 | [`boe_mortgage_approvals()`](https://charlescoverdale.github.io/boe/reference/boe_mortgage_approvals.md) | Monthly mortgage approvals for house purchase | 1993 | Present |
-| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md) | Consumer credit outstanding (total, cards, other) | 1993 | Present |
+| [`boe_consumer_credit()`](https://charlescoverdale.github.io/boe/reference/boe_consumer_credit.md) | Consumer credit outstanding (total, cards, other; excluding student loans by default) | 1993 | Present |
 | [`boe_money_supply()`](https://charlescoverdale.github.io/boe/reference/boe_money_supply.md) | M4 broad money amounts outstanding | 1982 | Present |
 
 **Monetary policy:**
@@ -137,7 +137,7 @@ devtools::install_github("charlescoverdale/boe")
 |----|----|----|----|
 | [`boe_mpc_decisions()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_decisions.md) | MPC rate-change events: date, new rate, change in bps, direction | 1997 | Present |
 | [`boe_mpc_votes()`](https://charlescoverdale.github.io/boe/reference/boe_mpc_votes.md) | Full MPC voting record, one row per (meeting, member), with dissent flag | 1997 | Present |
-| [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md) | Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate) | 2019 | Present |
+| [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md) | Monetary Policy Report forecast paths (CPI inflation, GDP growth, GDP level, unemployment, Bank Rate), plus scenario paths from April 2026 | 2019 | Present |
 
 **Discovery:**
 
@@ -169,12 +169,12 @@ library(boe)
 br <- boe_bank_rate(from = "2000-01-01")
 tail(br, 6)
 #>         date rate_pct
-#>   2026-02-26     3.75
-#>   2026-02-27     3.75
-#>   2026-03-02     3.75
-#>   2026-03-03     3.75
-#>   2026-03-04     3.75
-#>   2026-03-05     3.75
+#>   2026-07-23     3.75
+#>   2026-07-24     3.75
+#>   2026-07-27     3.75
+#>   2026-07-28     3.75
+#>   2026-07-29     3.75
+#>   2026-07-30     3.75
 ```
 
 ------------------------------------------------------------------------
@@ -303,19 +303,24 @@ tail(ma, 6)
 
 ``` r
 
-# Total consumer credit outstanding
-cc <- boe_consumer_credit(type = "total", from = "2024-01-01")
+# Total consumer credit outstanding (the monthly headline measure,
+# excluding student loans)
+cc <- boe_consumer_credit(type = "total", from = "2026-01-01")
 tail(cc, 6)
 #>         date  type amount_gbp_m
-#>   2024-01-31 total       476154
-#>   2024-02-29 total       479974
-#>   2024-03-31 total       484269
-#>   2024-04-30 total       490106
-#>   2024-05-31 total       494904
-#>   2024-06-30 total       498639
+#>   2026-01-31 total       249390
+#>   2026-02-28 total       250577
+#>   2026-03-31 total       252036
+#>   2026-04-30 total       253405
+#>   2026-05-31 total       254936
+#>   2026-06-30 total       256333
 
 # Credit card debt only
 boe_consumer_credit(type = "credit_card", from = "2024-01-01")
+
+# The alternative measure including student loans (updated only once a
+# year, when the Student Loans Company publishes its data)
+boe_consumer_credit(type = "total", include_student_loans = TRUE)
 ```
 
 ------------------------------------------------------------------------
@@ -389,11 +394,11 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 decisions <- boe_mpc_decisions()
 tail(decisions, 5)
 #>         date new_rate_pct prev_rate_pct change_bps direction
-#>   2024-08-01         5.00          5.25        -25       cut
 #>   2024-11-07         4.75          5.00        -25       cut
 #>   2025-02-06         4.50          4.75        -25       cut
-#>   2025-08-07         4.25          4.50        -25       cut
-#>   2026-02-05         4.00          4.25        -25       cut
+#>   2025-05-08         4.25          4.50        -25       cut
+#>   2025-08-07         4.00          4.25        -25       cut
+#>   2025-12-18         3.75          4.00        -25       cut
 
 # Full voting record: who dissented, and how
 votes <- boe_mpc_votes()
@@ -409,24 +414,37 @@ table(mann$dissent)
 
 ### Forecasts from the Monetary Policy Report
 
+Since the Bernanke review, the Bank publishes scenario paths alongside
+its central projections.
+[`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md)
+parses all three databank formats (classic to February 2026,
+scenario-based April 2026, hybrid from July 2026) into one schema, with
+the `scenario` column labelling scenario paths (`NA` for central
+projections).
+
 ``` r
 
-# Latest CPI inflation projections (one row per publication x horizon)
+# Latest CPI inflation projections: central projections for every
+# publication vintage, plus the current report's scenario paths
 cpi <- boe_mpr_forecasts(series = "cpi_inflation")
-head(cpi)
-#>         date horizon horizon_date        series value
-#>   2026-02-01 2026 Q1   2026-01-01 cpi_inflation   2.7
-#>   2026-02-01 2026 Q2   2026-04-01 cpi_inflation   2.6
-#>   2026-02-01 2026 Q3   2026-07-01 cpi_inflation   2.5
 
-# All five headline series for the most recent MPR
+subset(cpi, !is.na(scenario) & horizon == "2027 Q1")
+#>         date horizon horizon_date        series                 scenario value
+#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation         Adverse Scenario   4.3
+#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation Memo: central projection   3.2
+#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation          Milder Scenario   3.0
+
+# All five traditional series for the most recent MPR
 all <- boe_mpr_forecasts()
 unique(all$series)
 #>   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"
+
+# Scenario-only series (published from April 2026)
+boe_mpr_forecasts(series = "output_gap")
 ```
 
-Requires the `readxl` package. Note: this targets the post-2025 MPR file
-format; older releases use a different archive layout.
+Requires the `readxl` package. Coverage runs from November 2019; older
+releases use a different archive layout.
 
 ------------------------------------------------------------------------
 
@@ -447,7 +465,7 @@ boe_browse(category = "exchange_rates")
 head(boe_series)
 table(boe_series$category)
 #>     consumer_credit       exchange_rates       interest_rates
-#>                   3                   27                   14
+#>                   5                   27                   14
 #>     monetary_aggregates    mortgage_market
 #>                       2                  6
 ```
@@ -477,7 +495,12 @@ br
 
 All downloads are cached locally in your user cache directory.
 Subsequent calls return the cached copy instantly - no network request
-is made.
+is made. Cached files expire automatically: 24 hours for the
+latest-month yield curve zip and MPR archive, 30 days for statistical
+database queries and historical archive zips (BoE revisions eventually
+reach queries pinned to a fixed date range). Set
+`options(boe.cache_ttl_h = Inf)` to freeze the statistical database
+cache for a reproducible run.
 
 ``` r
 

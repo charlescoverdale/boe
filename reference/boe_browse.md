@@ -41,7 +41,7 @@ Other discovery:
 ``` r
 # The whole catalogue
 nrow(boe_browse())
-#> [1] 52
+#> [1] 54
 
 # All exchange rate series
 boe_browse(category = "exchange_rates")
@@ -132,32 +132,68 @@ boe_browse(category = "exchange_rates")
 
 # All monthly series
 boe_browse(frequency = "monthly")
-#>        code                                       title            category
-#> 1   LPMVZRI         Consumer credit outstanding (total)     consumer_credit
-#> 2   LPMVZRJ  Consumer credit outstanding (credit cards)     consumer_credit
-#> 3   LPMVZRK         Consumer credit outstanding (other)     consumer_credit
-#> 4  IUMABEDR                 Bank Rate (monthly average)      interest_rates
-#> 5  IUMASOIA                     SONIA (monthly average)      interest_rates
-#> 6   LPMAUYM                M4 amounts outstanding (NSA) monetary_aggregates
-#> 7   LPMAUYN                 M4 amounts outstanding (SA) monetary_aggregates
-#> 8   IUMBV34 Quoted 2-year fixed-rate mortgage (75% LTV)     mortgage_market
-#> 9   IUMBV37 Quoted 3-year fixed-rate mortgage (75% LTV)     mortgage_market
-#> 10  IUMBV42 Quoted 5-year fixed-rate mortgage (75% LTV)     mortgage_market
-#> 11  IUMTLMV      Quoted standard variable rate mortgage     mortgage_market
-#> 12  LPMVTVU Mortgage approvals for house purchase (NSA)     mortgage_market
-#> 13  LPMVTVX  Mortgage approvals for house purchase (SA)     mortgage_market
-#>    frequency         unit start_date seasonal_adjustment                 helper
-#> 1    monthly millions_gbp 1993-04-01                  SA    boe_consumer_credit
-#> 2    monthly millions_gbp 1993-04-01                  SA    boe_consumer_credit
-#> 3    monthly millions_gbp 1993-04-01                  SA    boe_consumer_credit
-#> 4    monthly      percent 1975-01-01                <NA>          boe_bank_rate
-#> 5    monthly      percent 1997-01-01                <NA>              boe_sonia
-#> 6    monthly millions_gbp 1982-06-01                 NSA       boe_money_supply
-#> 7    monthly millions_gbp 1982-06-01                  SA       boe_money_supply
-#> 8    monthly      percent 1995-01-01                <NA>     boe_mortgage_rates
-#> 9    monthly      percent 1995-01-01                <NA>     boe_mortgage_rates
-#> 10   monthly      percent 1995-01-01                <NA>     boe_mortgage_rates
-#> 11   monthly      percent 1995-01-01                <NA>     boe_mortgage_rates
-#> 12   monthly        count 1993-04-01                 NSA boe_mortgage_approvals
-#> 13   monthly        count 1993-04-01                  SA boe_mortgage_approvals
+#>        code
+#> 1   LPMB4TS
+#> 2   LPMBI2O
+#> 3   LPMVZRI
+#> 4   LPMVZRJ
+#> 5   LPMVZRK
+#> 6  IUMABEDR
+#> 7  IUMASOIA
+#> 8   LPMAUYM
+#> 9   LPMAUYN
+#> 10  IUMBV34
+#> 11  IUMBV37
+#> 12  IUMBV42
+#> 13  IUMTLMV
+#> 14  LPMVTVU
+#> 15  LPMVTVX
+#>                                                                    title
+#> 1                 Consumer credit outstanding excl student loans (other)
+#> 2                 Consumer credit outstanding excl student loans (total)
+#> 3  Consumer credit outstanding incl student loans (total, annual update)
+#> 4                             Consumer credit outstanding (credit cards)
+#> 5  Consumer credit outstanding incl student loans (other, annual update)
+#> 6                                            Bank Rate (monthly average)
+#> 7                                                SONIA (monthly average)
+#> 8                                           M4 amounts outstanding (NSA)
+#> 9                                            M4 amounts outstanding (SA)
+#> 10                           Quoted 2-year fixed-rate mortgage (75% LTV)
+#> 11                           Quoted 3-year fixed-rate mortgage (75% LTV)
+#> 12                           Quoted 5-year fixed-rate mortgage (75% LTV)
+#> 13                                Quoted standard variable rate mortgage
+#> 14                           Mortgage approvals for house purchase (NSA)
+#> 15                            Mortgage approvals for house purchase (SA)
+#>               category frequency         unit start_date seasonal_adjustment
+#> 1      consumer_credit   monthly millions_gbp 1993-04-01                  SA
+#> 2      consumer_credit   monthly millions_gbp 1993-04-01                  SA
+#> 3      consumer_credit   monthly millions_gbp 1993-04-01                  SA
+#> 4      consumer_credit   monthly millions_gbp 1993-04-01                  SA
+#> 5      consumer_credit   monthly millions_gbp 1993-04-01                  SA
+#> 6       interest_rates   monthly      percent 1975-01-01                <NA>
+#> 7       interest_rates   monthly      percent 1997-01-01                <NA>
+#> 8  monetary_aggregates   monthly millions_gbp 1982-06-01                 NSA
+#> 9  monetary_aggregates   monthly millions_gbp 1982-06-01                  SA
+#> 10     mortgage_market   monthly      percent 1995-01-01                <NA>
+#> 11     mortgage_market   monthly      percent 1995-01-01                <NA>
+#> 12     mortgage_market   monthly      percent 1995-01-01                <NA>
+#> 13     mortgage_market   monthly      percent 1995-01-01                <NA>
+#> 14     mortgage_market   monthly        count 1993-04-01                 NSA
+#> 15     mortgage_market   monthly        count 1993-04-01                  SA
+#>                    helper
+#> 1     boe_consumer_credit
+#> 2     boe_consumer_credit
+#> 3     boe_consumer_credit
+#> 4     boe_consumer_credit
+#> 5     boe_consumer_credit
+#> 6           boe_bank_rate
+#> 7               boe_sonia
+#> 8        boe_money_supply
+#> 9        boe_money_supply
+#> 10     boe_mortgage_rates
+#> 11     boe_mortgage_rates
+#> 12     boe_mortgage_rates
+#> 13     boe_mortgage_rates
+#> 14 boe_mortgage_approvals
+#> 15 boe_mortgage_approvals
 ```

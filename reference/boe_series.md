@@ -61,24 +61,31 @@ A data frame with 8 columns:
 
 ``` r
 head(boe_series)
-#>       code                                      title        category frequency
-#> 1  LPMVZRI        Consumer credit outstanding (total) consumer_credit   monthly
-#> 2  LPMVZRJ Consumer credit outstanding (credit cards) consumer_credit   monthly
-#> 3  LPMVZRK        Consumer credit outstanding (other) consumer_credit   monthly
-#> 4  XUDLADS      GBP/AUD spot rate (Australian Dollar)  exchange_rates     daily
-#> 5 XUDLB8KL         GBP/BRL spot rate (Brazilian Real)  exchange_rates     daily
-#> 6 XUDLBK27           GBP/CZK spot rate (Czech Koruna)  exchange_rates     daily
-#>               unit start_date seasonal_adjustment              helper
-#> 1     millions_gbp 1993-04-01                  SA boe_consumer_credit
-#> 2     millions_gbp 1993-04-01                  SA boe_consumer_credit
-#> 3     millions_gbp 1993-04-01                  SA boe_consumer_credit
-#> 4 currency_per_gbp 1975-01-02                <NA>   boe_exchange_rate
-#> 5 currency_per_gbp 1975-01-02                <NA>   boe_exchange_rate
-#> 6 currency_per_gbp 1975-01-02                <NA>   boe_exchange_rate
+#>      code                                                                 title
+#> 1 LPMB4TS                Consumer credit outstanding excl student loans (other)
+#> 2 LPMBI2O                Consumer credit outstanding excl student loans (total)
+#> 3 LPMVZRI Consumer credit outstanding incl student loans (total, annual update)
+#> 4 LPMVZRJ                            Consumer credit outstanding (credit cards)
+#> 5 LPMVZRK Consumer credit outstanding incl student loans (other, annual update)
+#> 6 XUDLADS                                 GBP/AUD spot rate (Australian Dollar)
+#>          category frequency             unit start_date seasonal_adjustment
+#> 1 consumer_credit   monthly     millions_gbp 1993-04-01                  SA
+#> 2 consumer_credit   monthly     millions_gbp 1993-04-01                  SA
+#> 3 consumer_credit   monthly     millions_gbp 1993-04-01                  SA
+#> 4 consumer_credit   monthly     millions_gbp 1993-04-01                  SA
+#> 5 consumer_credit   monthly     millions_gbp 1993-04-01                  SA
+#> 6  exchange_rates     daily currency_per_gbp 1975-01-02                <NA>
+#>                helper
+#> 1 boe_consumer_credit
+#> 2 boe_consumer_credit
+#> 3 boe_consumer_credit
+#> 4 boe_consumer_credit
+#> 5 boe_consumer_credit
+#> 6   boe_exchange_rate
 table(boe_series$category)
 #> 
 #>     consumer_credit      exchange_rates      interest_rates monetary_aggregates 
-#>                   3                  27                  14                   2 
+#>                   5                  27                  14                   2 
 #>     mortgage_market 
 #>                   6 
 ```

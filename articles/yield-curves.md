@@ -23,10 +23,10 @@ archive, which extends back as far as 1979 for nominal gilts.
 
 latest <- boe_curve(curve = "nominal", measure = "spot")
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [260ms]
+#> ✔ Downloading yield curve archive from Bank of England [134ms]
 #> 
 range(latest$date)
-#> [1] "2026-05-01" "2026-05-28"
+#> [1] "2026-07-01" "2026-07-30"
 range(latest$maturity_years)
 #> [1]  0.5 40.0
 ```
@@ -61,10 +61,10 @@ panel <- boe_curve_panel(
   maturities = c(2, 5, 10, 20)
 )
 #> ℹ Downloading nominal monthly yield-curve archive from Bank of England
-#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [37ms]
+#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [269ms]
 #> 
 head(panel)
-#> # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-04-30 · freq=monthly
+#> # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-06-30 · freq=monthly
 #>         date       m2       m5      m10      m20
 #> 1 2000-01-31 6.474909 6.286147 5.613887 4.478985
 #> 2 2000-02-29 6.302563 6.010255 5.334982 4.363222
@@ -108,7 +108,7 @@ inflation_fwd <- boe_curve_panel(
   maturities = c(5, 10)
 )
 #> ℹ Downloading inflation monthly yield-curve archive from Bank of England
-#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [87ms]
+#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [228ms]
 #> 
 
 inflation_fwd$five_y_five_y <- (inflation_fwd$m10 * 10 -
@@ -162,12 +162,12 @@ ois <- boe_curve_panel(
   maturities = c(0.5, 1, 2, 5)
 )
 #> ℹ Downloading ois monthly yield-curve archive from Bank of England
-#> ✔ Downloading ois monthly yield-curve archive from Bank of England [57ms]
+#> ✔ Downloading ois monthly yield-curve archive from Bank of England [282ms]
 #> 
 
 mpc <- boe_mpc_decisions(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [566ms]
+#> ✔ Downloading from Bank of England [419ms]
 #> 
 mpc <- data.frame(date = mpc$date, bank_rate = mpc$new_rate_pct)
 
@@ -182,12 +182,12 @@ for (i in seq_along(merged$bank_rate)) {
 }
 tail(merged)
 #>          date     m0.5       m1       m2       m5 bank_rate
-#> 70 2025-11-28 3.670990 3.533751 3.468765 3.589609        NA
-#> 71 2025-12-31 3.613941 3.485618 3.454123 3.621165        NA
 #> 72 2026-01-30 3.603969 3.491676 3.492607 3.727255        NA
 #> 73 2026-02-27 3.461611 3.348672 3.309542 3.485201        NA
 #> 74 2026-03-31 3.950747 4.102948 4.162256 4.106304        NA
 #> 75 2026-04-30 3.968888 4.190262 4.258125 4.245096        NA
+#> 76 2026-05-29 3.837568 3.955861 4.024661 4.078898        NA
+#> 77 2026-06-30 3.810490 3.909603 3.983603 4.027876        NA
 ```
 
 ``` r
@@ -213,7 +213,7 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
     ggplot2::theme_minimal() +
     ggplot2::theme(legend.position = "bottom")
 }
-#> Warning: Removed 75 rows containing missing values or values outside the scale range
+#> Warning: Removed 77 rows containing missing values or values outside the scale range
 #> (`geom_line()`).
 ```
 
@@ -235,10 +235,10 @@ to reach it.
 
 short <- boe_curve(curve = "nominal", measure = "spot", segment = "short")
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [6ms]
+#> ✔ Using cached yield curve archive [7ms]
 #> 
 range(short$maturity_years)   # monthly grid, ~1/12 to 5 years
-#> [1] 0.4166667 4.9999998
+#> [1] 0.25 5.00
 ```
 
 The short end of the OIS *forward* curve is the cleanest market-implied
@@ -249,18 +249,18 @@ monthly resolution. Here it is on the most recent published date.
 
 ois_short  <- boe_curve(curve = "ois", measure = "forward", segment = "short")
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [6ms]
+#> ✔ Using cached yield curve archive [11ms]
 #> 
 latest_day <- ois_short[ois_short$date == max(ois_short$date), ]
 head(latest_day)
-#> # BoE [boe_curve]: 1 series [AS_OIS_FORWARD_SHORT] · 6 obs · 2026-05-01 to 2026-05-28 · freq=daily
+#> # BoE [boe_curve]: 1 series [AS_OIS_FORWARD_SHORT] · 6 obs · 2026-07-01 to 2026-07-30 · freq=daily
 #>            date maturity_years rate_pct
-#> 1021 2026-05-28     0.08333333 3.733148
-#> 1022 2026-05-28     0.16666667 3.788507
-#> 1023 2026-05-28     0.25000000 3.849676
-#> 1024 2026-05-28     0.33333333 3.912664
-#> 1025 2026-05-28     0.41666667 3.973075
-#> 1026 2026-05-28     0.50000000 4.025891
+#> 1261 2026-07-30     0.08333333 3.729472
+#> 1262 2026-07-30     0.16666667 3.802332
+#> 1263 2026-07-30     0.25000000 3.875372
+#> 1264 2026-07-30     0.33333333 3.942997
+#> 1265 2026-07-30     0.41666667 4.004793
+#> 1266 2026-07-30     0.50000000 4.064993
 ```
 
 ``` r

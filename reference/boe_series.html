@@ -11,7 +11,7 @@ Used by boe_search() and boe_browse()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,24 +91,31 @@ wraps the series.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       code                                      title        category frequency</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  LPMVZRI        Consumer credit outstanding (total) consumer_credit   monthly</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  LPMVZRJ Consumer credit outstanding (credit cards) consumer_credit   monthly</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  LPMVZRK        Consumer credit outstanding (other) consumer_credit   monthly</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  XUDLADS      GBP/AUD spot rate (Australian Dollar)  exchange_rates     daily</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 XUDLB8KL         GBP/BRL spot rate (Brazilian Real)  exchange_rates     daily</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 XUDLBK27           GBP/CZK spot rate (Czech Koruna)  exchange_rates     daily</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               unit start_date seasonal_adjustment              helper</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     millions_gbp 1993-04-01                  SA boe_consumer_credit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     millions_gbp 1993-04-01                  SA boe_consumer_credit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     millions_gbp 1993-04-01                  SA boe_consumer_credit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 currency_per_gbp 1975-01-02                &lt;NA&gt;   boe_exchange_rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 currency_per_gbp 1975-01-02                &lt;NA&gt;   boe_exchange_rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 currency_per_gbp 1975-01-02                &lt;NA&gt;   boe_exchange_rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      code                                                                 title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 LPMB4TS                Consumer credit outstanding excl student loans (other)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 LPMBI2O                Consumer credit outstanding excl student loans (total)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 LPMVZRI Consumer credit outstanding incl student loans (total, annual update)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 LPMVZRJ                            Consumer credit outstanding (credit cards)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 LPMVZRK Consumer credit outstanding incl student loans (other, annual update)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 XUDLADS                                 GBP/AUD spot rate (Australian Dollar)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          category frequency             unit start_date seasonal_adjustment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 consumer_credit   monthly     millions_gbp 1993-04-01                  SA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 consumer_credit   monthly     millions_gbp 1993-04-01                  SA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 consumer_credit   monthly     millions_gbp 1993-04-01                  SA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 consumer_credit   monthly     millions_gbp 1993-04-01                  SA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 consumer_credit   monthly     millions_gbp 1993-04-01                  SA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  exchange_rates     daily currency_per_gbp 1975-01-02                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                helper</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 boe_consumer_credit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 boe_consumer_credit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 boe_consumer_credit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 boe_consumer_credit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 boe_consumer_credit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   boe_exchange_rate</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">boe_series</span><span class="op">$</span><span class="va">category</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     consumer_credit      exchange_rates      interest_rates monetary_aggregates </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   3                  27                  14                   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   5                  27                  14                   2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mortgage_market </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   6 </span>
 </code></pre></div>
@@ -122,7 +129,7 @@ wraps the series.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -24,8 +24,16 @@ boe_mpr_forecasts(
 
 - series:
 
-  Character vector. One or more of: `"cpi_inflation"`, `"gdp_growth"`,
-  `"gdp_level"`, `"unemployment"`, `"bank_rate"`. Defaults to all five.
+  Character vector of series to return. The five traditional series are
+  the default: `"cpi_inflation"`, `"gdp_growth"`, `"gdp_level"`,
+  `"unemployment"`, and `"bank_rate"`. From the April 2026 report the
+  Bank also publishes scenario paths for `"output_gap"`,
+  `"energy_prices"`, `"average_earnings"`, and `"world_export_prices"`,
+  which can be requested explicitly. Series not published in a given
+  release are skipped with a warning: the scenario-only series are
+  absent from classic releases (February 2026 and earlier), and the
+  April 2026 scenario-format release drops `"gdp_level"` and
+  `"bank_rate"`. Hybrid releases (July 2026 onward) publish all nine.
 
 - month:
 
@@ -54,20 +62,25 @@ A `boe_tbl` data frame with columns:
 
 - date:
 
-  Date. Publication date of the MPR (start of quarter the report
-  covers).
+  Date. Publication date of the MPR release.
 
 - horizon:
 
-  Character. Forecast horizon label (e.g. `"2026 Q1"`).
+  Character. Quarter label (e.g. `"2026 Q1"`).
 
 - horizon_date:
 
-  Date. Start of the forecast quarter.
+  Date. Start of the quarter.
 
 - series:
 
   Character. Series identifier (e.g. `"cpi_inflation"`).
+
+- scenario:
+
+  Character. Scenario or vintage label in the scenario-based format
+  (e.g. `"April 2026 Scenario A"`); `NA` in the classic format, which
+  carries a single central projection.
 
 - value:
 
@@ -80,23 +93,35 @@ Coverage runs quarterly from November 2019 (when the report was renamed
 from Inflation Report) to the latest published release.
 
 Requires the readxl package. The MPR is published as a zip archive
-containing a Projections Databank workbook plus chart data and slides;
-this function only reads the projection sheets.
+containing a projections databank workbook plus chart data and slides;
+this function reads only the projection sheets.
 
-Each row of a projection sheet is one MPR publication; columns are
-forecast quarters. The same publication therefore contributes multiple
-rows here, one per forecast horizon.
+In the classic format (up to February 2026) each row of a projection
+sheet is one MPR publication and the columns are forecast quarters, so
+the function returns one row per publication and horizon with a single
+central projection (`scenario` is `NA`). In the scenario-based format
+(April 2026) each sheet holds one series with the quarters down the rows
+and one column per scenario, so the function returns the full quarterly
+path (history and projection) for every scenario, tagged in the
+`scenario` column. Hybrid releases (July 2026 onward) carry both:
+central projections for all publications (`scenario` is `NA`) plus the
+current report's scenario paths (labelled, e.g. `"Adverse Scenario"`),
+in one output.
 
-## Release format and automatic fallback
+## Release format
 
-From the April 2026 report the Bank moved to a scenario-based "Scenario
-Projections Databank" with a transposed layout (following the Bernanke
-review of forecasting). That format is not parsed by this function yet.
-When automatic selection encounters such a release it skips it, falls
-back to the most recent compatible release (the classic "Projections
-Databank" workbook), and warns. Requesting a scenario-format release
-explicitly via `month`/`year` raises a clear error. Pre-2020 MPRs that
-predate the single "Projections Databank" workbook may also error.
+Following the Bernanke review of forecasting, the Bank replaced the
+single central projection of the classic "Projections Databank" with a
+scenario-based "Scenario Projections Databank" in the April 2026 report,
+then merged the two from the July 2026 report into one hybrid workbook
+holding both the classic central-projection sheets (GDP level and Bank
+Rate restored) and a "Quarterly scenarios" section. All three layouts
+are parsed and share the same output columns; the format is detected
+automatically from the release. The April 2026 release alone lacks a GDP
+level and Bank Rate sheet (Bank Rate was published as a conditioning
+assumption), so those two series are skipped with a warning for that
+release. Pre-2020 MPRs that predate the single databank workbook may
+error.
 
 ## See also
 
@@ -114,20 +139,15 @@ Other monetary policy:
 if (requireNamespace("readxl", quietly = TRUE)) {
   op <- options(boe.cache_dir = tempdir())
 
-  # Latest CPI inflation projections
+  # Latest CPI inflation projections. In the scenario-based format
+  # this returns one path per scenario (see the `scenario` column).
   cpi <- boe_mpr_forecasts(series = "cpi_inflation")
   head(cpi)
 
   options(op)
 }
-#> ℹ Downloading April 2026 MPR archive
-#> ✔ Downloading April 2026 MPR archive [277ms]
+#> ℹ Downloading July 2026 MPR archive
+#> ✔ Downloading July 2026 MPR archive [480ms]
 #> 
-#> ℹ Downloading February 2026 MPR archive
-#> ✔ Downloading February 2026 MPR archive [239ms]
-#> 
-#> Warning: ! Skipping newer MPR release(s) in the Bank of England's new scenario-based
-#>   format, not parsed by `boe_mpr_forecasts()` yet: "April 2026".
-#> ℹ Returning the most recent compatible release: February 2026.
 # }
 ```

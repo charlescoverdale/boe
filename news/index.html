@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,30 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.0" id="boe-030">boe 0.3.0<a class="anchor" aria-label="anchor" href="#boe-030"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.4.0" id="boe-040">boe 0.4.0<a class="anchor" aria-label="anchor" href="#boe-040"></a></h2>
+<div class="section level3">
+<h3 id="monetary-policy-report-scenario-and-hybrid-formats-0-4-0">Monetary Policy Report: scenario and hybrid formats<a class="anchor" aria-label="anchor" href="#monetary-policy-report-scenario-and-hybrid-formats-0-4-0"></a></h3>
+<ul><li>
+<code><a href="../reference/boe_mpr_forecasts.html">boe_mpr_forecasts()</a></code> now parses all three Projections Databank layouts the Bank has published since the Bernanke review of forecasting: the classic format (February 2026 and earlier), the scenario-based “Scenario Projections Databank” (April 2026), and the hybrid workbook introduced with the July 2026 report, which restores the classic central-projection sheets (including GDP level and Bank Rate) and adds a “Quarterly scenarios” section. The format is detected automatically and all three share one output schema.</li>
+<li>New <code>scenario</code> column. Scenario paths (e.g. <code>"Adverse Scenario"</code>, <code>"Milder Scenario"</code>) are labelled in <code>scenario</code>; central projections carry <code>NA</code>. For hybrid releases a single call returns both the central projections for every publication vintage and the current report’s scenario paths.</li>
+<li>The <code>series</code> argument gains four series published in the scenario sheets from April 2026: <code>"output_gap"</code>, <code>"energy_prices"</code>, <code>"average_earnings"</code>, and <code>"world_export_prices"</code>. The default series set is unchanged.</li>
+<li>Series that a release does not publish are skipped with a warning rather than erroring: the scenario-only series are absent from classic releases, and the April 2026 release alone drops <code>"gdp_level"</code> and <code>"bank_rate"</code> (Bank Rate was published as a conditioning assumption). Hybrid releases publish all nine series.</li>
+<li>Automatic release selection now returns the most recent published release of any format, rather than falling back to the most recent classic-format release.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="consumer-credit-monthly-headline-measure-0-4-0">Consumer credit: monthly headline measure<a class="anchor" aria-label="anchor" href="#consumer-credit-monthly-headline-measure-0-4-0"></a></h3>
+<ul><li>
+<code><a href="../reference/boe_consumer_credit.html">boe_consumer_credit()</a></code> now defaults to the headline measure excluding the Student Loans Company (<code>LPMBI2O</code>, <code>LPMVZRJ</code>, <code>LPMB4TS</code>), the series updated every month in the Bank’s Money and Credit release. The previous default series including student loans (<code>LPMVZRI</code>, <code>LPMVZRK</code>) are only updated once a year, when the Student Loans Company publishes its data, so their recent months trailed the headline measure by up to a year (at the time of this release they stopped at March 2026). Levels for <code>"total"</code> and <code>"other"</code> are therefore lower than in previous versions; <code>"credit_card"</code> is identical under both measures.</li>
+<li>New <code>include_student_loans</code> argument restores the previous series selection: <code>boe_consumer_credit(include_student_loans = TRUE)</code>.</li>
+<li>The <code>boe_series</code> catalogue now lists both measures (54 series).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="caching-0-4-0">Caching<a class="anchor" aria-label="anchor" href="#caching-0-4-0"></a></h3>
+<ul><li>Statistical database responses now expire after 30 days rather than being cached indefinitely, so BoE revisions eventually reach queries pinned to a fixed date range. Queries whose <code>to</code> date is today are unaffected (they already produced a fresh URL, and so a fresh download, each day). Configurable via <code>options(boe.cache_ttl_h = )</code>; set it to <code>Inf</code> to freeze the cache for a reproducible run.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="boe-030">boe 0.3.0<a class="anchor" aria-label="anchor" href="#boe-030"></a></h2><p class="text-muted">CRAN release: 2026-05-30</p>
 <div class="section level3">
 <h3 id="yield-curves-historical-archive-and-panel-helper-0-3-0">Yield curves: historical archive and panel helper<a class="anchor" aria-label="anchor" href="#yield-curves-historical-archive-and-panel-helper-0-3-0"></a></h3>
 <ul><li>
@@ -130,7 +153,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
