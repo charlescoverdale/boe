@@ -1,8 +1,8 @@
-# boe — full API reference
+# boe: full API reference
 
 > Provides functions to download and tidy statistical data published by the 'Bank of England'.
 
-- Version: 0.1.2
+- Version: 0.4.0
 - Install: `install.packages("boe")`
 - CRAN: https://CRAN.R-project.org/package=boe
 - GitHub: https://github.com/charlescoverdale/boe
@@ -32,10 +32,10 @@ boe_bank_rate(
 
 **Arguments**
 
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `frequency` — Character. One of `"daily"` (default) or `"monthly"` (monthly average).
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `frequency`: Character. One of `"daily"` (default) or `"monthly"` (monthly average).
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -55,6 +55,68 @@ options(op)
 
 ---
 
+## `boe_browse()`
+
+**Browse the BoE series catalogue**
+
+Returns the catalogue with optional category or frequency filters. Equivalent to `boe_search(query = NULL, category, frequency)` but framed as a browse / inspect action rather than a keyword search.
+
+**Usage**
+
+```r
+boe_browse(category = NULL, frequency = NULL)
+```
+
+**Arguments**
+
+- `category`: Character. Optional filter on the `category` column, one or more of `"interest_rates"`, `"exchange_rates"`, `"mortgage_market"`, `"consumer_credit"`, `"monetary_aggregates"`.
+- `frequency`: Character. Optional filter on the `frequency` column, one or more of `"daily"`, `"monthly"`, `"annual"`.
+
+**Returns**
+
+A data frame with the same columns as boe_series.
+
+**Example**
+
+```r
+# The whole catalogue
+nrow(boe_browse())
+
+# All exchange rate series
+boe_browse(category = "exchange_rates")
+
+# All monthly series
+boe_browse(frequency = "monthly")
+```
+
+---
+
+## `boe_cache_info()`
+
+**Inspect the local BoE cache**
+
+Reports the cache directory, number of cached files, total size, and oldest / newest modification timestamps. Prints a short summary and returns the underlying values invisibly.
+
+**Usage**
+
+```r
+boe_cache_info()
+```
+
+**Returns**
+
+Invisibly, a list with elements: pathCharacter. Cache directory. n_filesInteger. Number of cached files. total_size_bytesNumeric. Total size on disk (bytes). oldestPOSIXct. Modification time of oldest file (or `NA` if cache is empty). newestPOSIXct. Modification time of newest file (or `NA` if cache is empty).
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+boe_cache_info()
+options(op)
+```
+
+---
+
 ## `boe_consumer_credit()`
 
 **Download consumer credit outstanding**
@@ -68,16 +130,18 @@ boe_consumer_credit(
   type = c("total", "credit_card", "other"),
   from = "1993-04-01",
   to = Sys.Date(),
-  cache = TRUE
+  cache = TRUE,
+  include_student_loans = FALSE
 )
 ```
 
 **Arguments**
 
-- `type` — Character vector. One or more of `"total"`, `"credit_card"`, `"other"`. Defaults to all three.
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `type`: Character vector. One or more of `"total"`, `"credit_card"`, `"other"`. Defaults to all three.
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache`: Logical. Use cached data if available (default `TRUE`).
+- `include_student_loans`: Logical. If `FALSE` (default), the monthly headline series excluding the Student Loans Company are used (`LPMBI2O`, `LPMVZRJ`, `LPMB4TS`). If `TRUE`, the annually updated series including student loans are used (`LPMVZRI`, `LPMVZRJ`, `LPMVZRK`); note their most recent months trail the headline measure. Credit cards are identical under both measures.
 
 **Returns**
 
@@ -89,6 +153,128 @@ A data frame with columns: dateDate. End of month. typeCharacter. Credit type. a
 op <- options(boe.cache_dir = tempdir())
 boe_consumer_credit(from = "2015-01-01")
 options(op)
+```
+
+---
+
+## `boe_curve()`
+
+**Download BoE Anderson-Sleath fitted yield curves**
+
+Downloads the Bank of England's published fitted yield curves at all maturities (typically 0.5 to 25 or 40 years) using the Anderson and Sleath (2001) smoothing methodology. Five curves are supported: nominal gilt, real (index-linked) gilt, implied inflation, overnight index swap (OIS), and the commercial bank liability curve (BLC).
+
+**Usage**
+
+```r
+boe_curve(
+  curve = c("nominal", "real", "inflation", "ois", "blc"),
+  measure = c("spot", "forward"),
+  segment = c("standard", "short"),
+  frequency = c("daily", "monthly"),
+  from = NULL,
+  to = NULL,
+  cache = TRUE,
+  cache_ttl_h = NULL
+)
+```
+
+**Arguments**
+
+- `curve`: Character. Which curve to fetch. One of `"nominal"`, `"real"`, `"inflation"`, `"ois"`, or `"blc"`. Defaults to `"nominal"`. The commercial bank liability curve (`"blc"`) is only published in the historical archive zip, so requests for it always route through the archive path regardless of `from` / `to`.
+- `measure`: Character. `"spot"` (default) or `"forward"`.
+- `segment`: Character. `"standard"` (default) for the full maturity spectrum in half-year steps, or `"short"` for the separately fitted short end in monthly steps (one month to five years).
+- `frequency`: Character. `"daily"` (default) or `"monthly"`. Monthly archives are end-of-month observations and are much smaller files.
+- `from, to`: Date or character ("YYYY-MM-DD"). Optional inclusive bounds. When either is set, the function uses the BoE archive zip (multi-decade history) and filters by date.
+- `cache`: Logical. Use cached download if available and within the TTL window (default `TRUE`).
+- `cache_ttl_h`: Numeric. Cache time-to-live in hours. When `NULL` (default) the TTL is 24 hours for the latest-month zip and 720 hours (30 days) for archive zips.
+
+**Returns**
+
+A `boe_tbl` data frame with columns: dateDate. Observation date. maturity_yearsNumeric. Maturity in years. rate_pctNumeric. Yield or implied rate (percent).
+
+**Example**
+
+```r
+if (requireNamespace("readxl", quietly = TRUE)) {
+  op <- options(boe.cache_dir = tempdir())
+  # Latest nominal spot curve at all maturities (default behaviour)
+  curve <- boe_curve(curve = "nominal", measure = "spot")
+  head(curve)
+
+  # Short end of the nominal forward curve (monthly steps to 5 years)
+  se <- boe_curve(curve = "nominal", measure = "forward",
+                  segment = "short")
+  range(se$maturity_years)
+  options(op)
+}
+
+
+
+# Historical archive: multi-decade downloads, so not run automatically.
+# 10-year nominal spot back to 2010:
+long <- boe_curve(curve = "nominal", from = "2010-01-01")
+
+# End-of-month real curve since 1990:
+real_m <- boe_curve(curve = "real", frequency = "monthly",
+                    from = "1990-01-01")
+```
+
+---
+
+## `boe_curve_panel()`
+
+**Wide panel of BoE yield curve at chosen pillar maturities**
+
+Convenience wrapper around `boe_curve()` that returns a wide-format panel: one row per date, one column per requested pillar maturity. This is the form most users want for time-series modelling and quick plotting.
+
+**Usage**
+
+```r
+boe_curve_panel(
+  curve = c("nominal", "real", "inflation", "ois", "blc"),
+  measure = c("spot", "forward"),
+  segment = c("standard", "short"),
+  frequency = c("daily", "monthly"),
+  from = NULL,
+  to = NULL,
+  maturities = NULL,
+  cache = TRUE,
+  cache_ttl_h = NULL
+)
+```
+
+**Arguments**
+
+- `curve`: Character. Which curve to fetch. One of `"nominal"`, `"real"`, `"inflation"`, `"ois"`, or `"blc"`. Defaults to `"nominal"`. The commercial bank liability curve (`"blc"`) is only published in the historical archive zip, so requests for it always route through the archive path regardless of `from` / `to`.
+- `measure`: Character. `"spot"` (default) or `"forward"`.
+- `segment`: Character. `"standard"` (default) for the full maturity spectrum in half-year steps, or `"short"` for the separately fitted short end in monthly steps (one month to five years).
+- `frequency`: Character. `"daily"` (default) or `"monthly"`. Monthly archives are end-of-month observations and are much smaller files.
+- `from, to`: Date or character ("YYYY-MM-DD"). Optional inclusive bounds. When either is set, the function uses the BoE archive zip (multi-decade history) and filters by date.
+- `maturities`: Numeric vector of pillar maturities in years. When `NULL` (default) a sensible set is chosen for the segment: `c(0.5, 1, 2, 5, 10, 20)` for `"standard"` and `c(0.5, 1, 2, 3, 5)` for `"short"`. Pillars not on the published grid for the chosen curve and segment are dropped with a warning.
+- `cache`: Logical. Use cached download if available and within the TTL window (default `TRUE`).
+- `cache_ttl_h`: Numeric. Cache time-to-live in hours. When `NULL` (default) the TTL is 24 hours for the latest-month zip and 720 hours (30 days) for archive zips.
+
+**Returns**
+
+A `boe_tbl` data frame with columns `date` and one numeric column per pillar named like `m0.5`, `m1`, `m2`, `m5`, `m10`, `m20`.
+
+**Example**
+
+```r
+if (requireNamespace("readxl", quietly = TRUE)) {
+  op <- options(boe.cache_dir = tempdir())
+  # Latest month: wide panel at chosen pillar maturities
+  panel <- boe_curve_panel(curve = "nominal", measure = "spot",
+                           maturities = c(2, 5, 10, 20))
+  head(panel)
+  options(op)
+}
+
+
+
+# Historical panel (multi-decade archive download; not run automatically)
+hist <- boe_curve_panel(curve = "nominal", measure = "spot",
+                        from = "2020-01-01", maturities = c(2, 5, 10, 20))
 ```
 
 ---
@@ -112,10 +298,10 @@ boe_exchange_rate(
 
 **Arguments**
 
-- `currency` — Character vector. One or more currency codes. Use `list_exchange_rates()` to see all available currencies. Defaults to `"USD"`.
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `currency`: Character vector. One or more currency codes. Use `list_exchange_rates()` to see all available currencies. Defaults to `"USD"`.
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1975-01-02"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -149,10 +335,10 @@ boe_get(series_codes, from = "1960-01-01", to = Sys.Date(), cache = TRUE)
 
 **Arguments**
 
-- `series_codes` — Character vector of one or more BoE series codes.
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1960-01-01"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `series_codes`: Character vector of one or more BoE series codes.
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1960-01-01"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -191,10 +377,10 @@ boe_money_supply(
 
 **Arguments**
 
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1982-06-01"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `seasonally_adjusted` — Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1982-06-01"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `seasonally_adjusted`: Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -229,10 +415,10 @@ boe_mortgage_approvals(
 
 **Arguments**
 
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `seasonally_adjusted` — Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1993-04-01"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `seasonally_adjusted`: Logical. Return seasonally adjusted series (default `TRUE`) or non-seasonally adjusted (`FALSE`).
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -267,10 +453,10 @@ boe_mortgage_rates(
 
 **Arguments**
 
-- `type` — Character vector. One or more of `"2yr_fixed"`, `"3yr_fixed"`, `"5yr_fixed"`, `"svr"`. Defaults to all four.
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1995-01-01"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `type`: Character vector. One or more of `"2yr_fixed"`, `"3yr_fixed"`, `"5yr_fixed"`, `"svr"`. Defaults to all four.
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1995-01-01"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -286,6 +472,161 @@ boe_mortgage_rates(from = "2015-01-01")
 # 2-year fixed only
 boe_mortgage_rates(type = "2yr_fixed", from = "2020-01-01")
 options(op)
+```
+
+---
+
+## `boe_mpc_decisions()`
+
+**Bank Rate decision history**
+
+Returns the history of Monetary Policy Committee decisions to change Bank Rate, derived from the daily Bank Rate series. Each row is one rate-change event, showing the effective date, the new rate, the previous rate, and the change in basis points. Holds (meetings where the rate was unchanged) are not included; for the full meeting-level record including holds, see `boe_mpc_votes()`.
+
+**Usage**
+
+```r
+boe_mpc_decisions(from = "1997-06-06", to = Sys.Date(), cache = TRUE)
+```
+
+**Arguments**
+
+- `from`: Date or character. Start date. Defaults to `"1997-06-06"` (the first MPC meeting).
+- `to`: Date or character. End date. Defaults to today.
+- `cache`: Logical. Use cached Bank Rate data if available (default `TRUE`).
+
+**Returns**
+
+A `boe_tbl` data frame with columns: dateDate. Effective date of the rate change. new_rate_pctNumeric. Bank Rate after the decision (percent). prev_rate_pctNumeric. Bank Rate before the decision (percent). change_bpsInteger. Change in basis points (positive = hike, negative = cut). directionCharacter. `"hike"` or `"cut"`.
+
+**Example**
+
+```r
+op <- options(boe.cache_dir = tempdir())
+# All MPC decisions since the global financial crisis
+boe_mpc_decisions(from = "2007-01-01")
+
+# Just decisions in 2024 to date
+boe_mpc_decisions(from = "2024-01-01")
+options(op)
+```
+
+---
+
+## `boe_mpc_votes()`
+
+**Monetary Policy Committee voting history**
+
+Downloads the Bank of England's published MPC voting record and returns it in long format. Each row is one (meeting, member) pair showing the rate the member voted for and whether that constituted a dissent from the committee's decision.
+
+**Usage**
+
+```r
+boe_mpc_votes(cache = TRUE)
+```
+
+**Arguments**
+
+- `cache`: Logical. Use cached download if less than 24 hours old (default `TRUE`). The voting workbook is small (~110 KB).
+
+**Returns**
+
+A `boe_tbl` data frame with columns: dateDate. Meeting date. memberCharacter. MPC member name. member_vote_pctNumeric. The Bank Rate the member voted for (percent). decision_pctNumeric. The committee's decision (percent). dissentLogical. `TRUE` if the member's vote differed from the committee decision.
+
+**Example**
+
+```r
+if (requireNamespace("readxl", quietly = TRUE)) {
+  op <- options(boe.cache_dir = tempdir())
+  votes <- boe_mpc_votes()
+
+  # Recent dissents
+  recent <- subset(votes, dissent & date >= as.Date("2024-01-01"))
+  head(recent)
+
+  options(op)
+}
+```
+
+---
+
+## `boe_mpr_forecasts()`
+
+**Monetary Policy Report forecast data**
+
+Downloads the Bank of England's Monetary Policy Report (MPR) and parses headline projections from the Projections Databank workbook. Returns a long-format data frame where each row is one (publication date, forecast horizon, series) triple.
+
+**Usage**
+
+```r
+boe_mpr_forecasts(
+  series = c("cpi_inflation", "gdp_growth", "gdp_level", "unemployment", "bank_rate"),
+  month = NULL,
+  year = NULL,
+  cache = TRUE
+)
+```
+
+**Arguments**
+
+- `series`: Character vector of series to return. The five traditional series are the default: `"cpi_inflation"`, `"gdp_growth"`, `"gdp_level"`, `"unemployment"`, and `"bank_rate"`. From the April 2026 report the Bank also publishes scenario paths for `"output_gap"`, `"energy_prices"`, `"average_earnings"`, and `"world_export_prices"`, which can be requested explicitly. Series not published in a given release are skipped with a warning: the scenario-only series are absent from classic releases (February 2026 and earlier), and the April 2026 scenario-format release drops `"gdp_level"` and `"bank_rate"`. Hybrid releases (July 2026 onward) publish all nine.
+- `month`: Character. Publication month of the report, e.g. `"february"` or `"may"`. The report is published roughly quarterly, but the exact month drifts between years (for example, the second 2026 report appeared in April, not May), so any month name is accepted and its existence is verified against the Bank's website. Supply with `year`. If both are `NULL`, the most recent compatible release is selected automatically.
+- `year`: Integer. MPR year, 2019 or later. Supply with `month`. If both are `NULL`, the most recent compatible release is selected automatically.
+- `cache`: Logical. Use cached download if available (default `TRUE`). Older releases never change so the cache never expires; the latest release is refreshed if older than 24 hours.
+
+**Returns**
+
+A `boe_tbl` data frame with columns: dateDate. Publication date of the MPR release. horizonCharacter. Quarter label (e.g. `"2026 Q1"`). horizon_dateDate. Start of the quarter. seriesCharacter. Series identifier (e.g. `"cpi_inflation"`). scenarioCharacter. Scenario or vintage label in the scenario-based format (e.g. `"April 2026 Scenario A"`); `NA` in the classic format, which carries a single central projection. valueNumeric. Forecast value (percent for rates and growth; index for `gdp_level`).
+
+**Example**
+
+```r
+if (requireNamespace("readxl", quietly = TRUE)) {
+  op <- options(boe.cache_dir = tempdir())
+
+  # Latest CPI inflation projections. In the scenario-based format
+  # this returns one path per scenario (see the `scenario` column).
+  cpi <- boe_mpr_forecasts(series = "cpi_inflation")
+  head(cpi)
+
+  options(op)
+}
+```
+
+---
+
+## `boe_search()`
+
+**Search the BoE series catalogue**
+
+Filters the boe_series catalogue by keyword and optional category and frequency. Useful for finding a series code without leaving R. Equivalent to a `grepl` against the title and code columns.
+
+**Usage**
+
+```r
+boe_search(query = NULL, category = NULL, frequency = NULL)
+```
+
+**Arguments**
+
+- `query`: Character. Keyword(s) to match against the `title` and `code` columns. Case-insensitive substring match. If `NULL`, returns all rows (subject to other filters).
+- `category`: Character. Optional filter on the `category` column, one or more of `"interest_rates"`, `"exchange_rates"`, `"mortgage_market"`, `"consumer_credit"`, `"monetary_aggregates"`.
+- `frequency`: Character. Optional filter on the `frequency` column, one or more of `"daily"`, `"monthly"`, `"annual"`.
+
+**Returns**
+
+A data frame with the same columns as boe_series, restricted to matching rows.
+
+**Example**
+
+```r
+# Find mortgage-related series
+boe_search("mortgage")
+
+# All daily interest-rate series
+boe_search(category = "interest_rates", frequency = "daily")
+
+# Locate the Bank Rate code
+boe_search("bank rate")
 ```
 
 ---
@@ -309,10 +650,10 @@ boe_sonia(
 
 **Arguments**
 
-- `from` — Date or character (YYYY-MM-DD). Start date. Defaults to `"1997-01-02"`.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `frequency` — Character. One of `"daily"` (default), `"monthly"` (monthly average), or `"annual"` (annual average).
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `from`: Date or character (YYYY-MM-DD). Start date. Defaults to `"1997-01-02"`.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `frequency`: Character. One of `"daily"` (default), `"monthly"` (monthly average), or `"annual"` (annual average).
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -349,12 +690,12 @@ boe_yield_curve(
 
 **Arguments**
 
-- `from` — Date or character (YYYY-MM-DD). Start date.
-- `to` — Date or character (YYYY-MM-DD). End date. Defaults to today.
-- `maturity` — Character vector. One or more of `"5yr"`, `"10yr"`, `"20yr"`. Defaults to all three.
-- `type` — Character. `"nominal"` (default) or `"real"`.
-- `measure` — Character. `"par_yield"` (default, nominal only) or `"zero_coupon"`.
-- `cache` — Logical. Use cached data if available (default `TRUE`).
+- `from`: Date or character (YYYY-MM-DD). Start date.
+- `to`: Date or character (YYYY-MM-DD). End date. Defaults to today.
+- `maturity`: Character vector. One or more of `"5yr"`, `"10yr"`, `"20yr"`. Defaults to all three.
+- `type`: Character. `"nominal"` (default) or `"real"`.
+- `measure`: Character. `"par_yield"` (default, nominal only) or `"zero_coupon"`.
+- `cache`: Logical. Use cached data if available (default `TRUE`).
 
 **Returns**
 
@@ -391,7 +732,7 @@ clear_cache(max_age_days = NULL)
 
 **Arguments**
 
-- `max_age_days` — Numeric or `NULL`. If specified, only removes files older than this many days. If `NULL` (the default), removes all cached files.
+- `max_age_days`: Numeric or `NULL`. If specified, only removes files older than this many days. If `NULL` (the default), removes all cached files.
 
 **Returns**
 
