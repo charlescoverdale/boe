@@ -2,6 +2,8 @@
 
 ## boe 0.4.0
 
+CRAN release: 2026-08-02
+
 ### Monetary Policy Report: scenario and hybrid formats
 
 - [`boe_mpr_forecasts()`](https://charlescoverdale.github.io/boe/reference/boe_mpr_forecasts.md)

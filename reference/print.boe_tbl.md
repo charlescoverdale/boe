@@ -32,10 +32,10 @@ print(x, ...)
 op <- options(boe.cache_dir = tempdir())
 x <- boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [88ms]
+#> ✔ Downloading from Bank of England [35ms]
 #> 
 print(x)
-#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 78 obs · 2020-01-01 to 2026-08-02 · freq=monthly
+#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 80 obs · 2020-01-01 to 2026-09-19 · freq=monthly
 #>          date rate_pct
 #> 1  2020-01-31   0.7500
 #> 2  2020-02-29   0.7500
@@ -115,6 +115,8 @@ print(x)
 #> 76 2026-04-30   3.7500
 #> 77 2026-05-31   3.7500
 #> 78 2026-06-30   3.7500
+#> 79 2026-07-31   3.7500
+#> 80 2026-08-31   3.7500
 options(op)
 # }
 ```
