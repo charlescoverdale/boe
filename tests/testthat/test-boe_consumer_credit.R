@@ -26,12 +26,14 @@ test_that("boe_consumer_credit() defaults to the excl-student-loans measure", {
   codes <- attr(out, "boe_query")$series_codes
   expect_setequal(codes, c("LPMBI2O", "LPMVZRJ", "LPMB4TS"))
 
-  # Components sum to the total (all three are seasonally adjusted on
-  # the same basis, so the identity holds exactly).
+  # Components sum to the total. All three are seasonally adjusted on the
+  # same basis, but the Bank publishes each rounded to the nearest GBP 1m,
+  # so the sum of the two components can differ from the total by one unit.
   wide <- reshape(as.data.frame(out), idvar = "date", timevar = "type",
                   direction = "wide")
-  expect_equal(wide$amount_gbp_m.credit_card + wide$amount_gbp_m.other,
-               wide$amount_gbp_m.total)
+  gap <- wide$amount_gbp_m.credit_card + wide$amount_gbp_m.other -
+    wide$amount_gbp_m.total
+  expect_true(all(abs(gap) <= 1))
 })
 
 test_that("boe_consumer_credit(include_student_loans = TRUE) uses the annual-update codes", {
