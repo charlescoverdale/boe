@@ -168,13 +168,14 @@ library(boe)
 # Bank Rate since 2000
 br <- boe_bank_rate(from = "2000-01-01")
 tail(br, 6)
-#>         date rate_pct
-#>   2026-07-23     3.75
-#>   2026-07-24     3.75
-#>   2026-07-27     3.75
-#>   2026-07-28     3.75
-#>   2026-07-29     3.75
-#>   2026-07-30     3.75
+#> # BoE [boe_bank_rate]: 1 series [IUDBEDR] · 6 obs · 2000-01-01 to 2026-11-01 · freq=daily
+#>        date rate_pct
+#>  2026-10-22     3.75
+#>  2026-10-23     3.75
+#>  2026-10-26     3.75
+#>  2026-10-27     3.75
+#>  2026-10-28     3.75
+#>  2026-10-29     3.75
 ```
 
 ------------------------------------------------------------------------
@@ -186,13 +187,14 @@ tail(br, 6)
 # GBP/USD and GBP/EUR
 fx <- boe_exchange_rate(c("USD", "EUR"), from = "2024-01-01", to = "2024-01-31")
 head(fx, 6)
-#>         date currency   rate
-#>   2024-01-02      EUR 1.1536
-#>   2024-01-03      EUR 1.1580
-#>   2024-01-04      EUR 1.1591
-#>   2024-01-05      EUR 1.1615
-#>   2024-01-08      EUR 1.1623
-#>   2024-01-09      EUR 1.1636
+#> # BoE [boe_exchange_rate]: 2 series [XUDLGBD,XUDLERS] · 6 obs · 2024-01-01 to 2024-01-31 · freq=daily
+#>        date currency   rate
+#>  2024-01-02      EUR 1.1536
+#>  2024-01-03      EUR 1.1580
+#>  2024-01-04      EUR 1.1591
+#>  2024-01-05      EUR 1.1615
+#>  2024-01-08      EUR 1.1623
+#>  2024-01-09      EUR 1.1636
 
 # See all 27 available currencies
 list_exchange_rates()
@@ -207,12 +209,13 @@ list_exchange_rates()
 # 10-year nominal gilt yield
 yc <- boe_yield_curve(from = "2024-01-01", to = "2024-01-31", maturity = "10yr")
 head(yc, 5)
-#>         date maturity yield_pct
-#>   2024-01-02     10yr    3.7190
-#>   2024-01-03     10yr    3.7638
-#>   2024-01-04     10yr    3.8006
-#>   2024-01-05     10yr    3.8398
-#>   2024-01-08     10yr    3.8619
+#> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 5 obs · 2024-01-01 to 2024-01-31 · freq=daily
+#>        date maturity yield_pct
+#>  2024-01-02     10yr    3.7190
+#>  2024-01-03     10yr    3.7638
+#>  2024-01-04     10yr    3.8006
+#>  2024-01-05     10yr    3.8398
+#>  2024-01-08     10yr    3.8619
 
 # Full curve: 5yr, 10yr, and 20yr
 boe_yield_curve(from = "2024-01-01")
@@ -240,13 +243,14 @@ years), reached with `segment = "short"`.
 # Latest nominal spot curve at all maturities
 nc <- boe_curve(curve = "nominal", measure = "spot")
 head(nc, 6)
-#>         date maturity_years rate_pct
-#>   2026-04-01            0.5    3.95
-#>   2026-04-01            1.0    4.10
-#>   2026-04-01            1.5    4.13
-#>   2026-04-01            2.0    4.15
-#>   2026-04-01            2.5    4.16
-#>   2026-04-01            3.0    4.17
+#> # BoE [boe_curve]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2026-10-01 to 2026-10-29 · freq=daily
+#>        date maturity_years rate_pct
+#>  2026-10-01            0.5 4.121345
+#>  2026-10-01            1.0 4.350018
+#>  2026-10-01            1.5 4.500072
+#>  2026-10-01            2.0 4.600779
+#>  2026-10-01            2.5 4.673095
+#>  2026-10-01            3.0 4.730416
 
 # Implied inflation curve (breakeven inflation)
 boe_curve(curve = "inflation", measure = "spot")
@@ -272,11 +276,14 @@ Bank of England Working Paper No. 126.
 # All mortgage rate types
 mr <- boe_mortgage_rates(from = "2023-01-01")
 
-# Latest rates (as of December 2024)
-#>   2yr_fixed: 4.60%
-#>   3yr_fixed: 4.48%
-#>   5yr_fixed: 4.37%
-#>   svr:       7.47%
+# Latest month's rates
+mr[mr$date == max(mr$date), ]
+#> # BoE [boe_mortgage_rates]: 4 series [IUMBV34,IUMBV37,IUMBV42,IUMTLMV] · 4 obs · 2023-01-01 to 2026-11-01 · freq=monthly
+#>        date      type rate_pct
+#>  2026-09-30 2yr_fixed     5.13
+#>  2026-09-30 3yr_fixed     4.93
+#>  2026-09-30 5yr_fixed     4.98
+#>  2026-09-30       svr     6.58
 ```
 
 ------------------------------------------------------------------------
@@ -288,13 +295,14 @@ mr <- boe_mortgage_rates(from = "2023-01-01")
 # Monthly mortgage approvals - a leading indicator of housing activity
 ma <- boe_mortgage_approvals(from = "2019-01-01")
 tail(ma, 6)
-#>         date approvals
-#>   2025-08-31     64588
-#>   2025-09-30     65436
-#>   2025-10-31     64634
-#>   2025-11-30     64018
-#>   2025-12-31     61007
-#>   2026-01-31     59999
+#> # BoE [boe_mortgage_approvals]: 1 series [LPMVTVX] · 6 obs · 2019-01-01 to 2026-11-01 · freq=monthly
+#>        date approvals
+#>  2026-04-30     65053
+#>  2026-05-31     56288
+#>  2026-06-30     57985
+#>  2026-07-31     55872
+#>  2026-08-31     54814
+#>  2026-09-30     53443
 ```
 
 ------------------------------------------------------------------------
@@ -307,13 +315,14 @@ tail(ma, 6)
 # excluding student loans)
 cc <- boe_consumer_credit(type = "total", from = "2026-01-01")
 tail(cc, 6)
-#>         date  type amount_gbp_m
-#>   2026-01-31 total       249390
-#>   2026-02-28 total       250577
-#>   2026-03-31 total       252036
-#>   2026-04-30 total       253405
-#>   2026-05-31 total       254936
-#>   2026-06-30 total       256333
+#> # BoE [boe_consumer_credit]: 1 series [LPMBI2O] · 6 obs · 2026-01-01 to 2026-11-01 · freq=monthly
+#>        date  type amount_gbp_m
+#>  2026-04-30 total       253473
+#>  2026-05-31 total       255073
+#>  2026-06-30 total       256533
+#>  2026-07-31 total       257898
+#>  2026-08-31 total       259852
+#>  2026-09-30 total       261200
 
 # Credit card debt only
 boe_consumer_credit(type = "credit_card", from = "2024-01-01")
@@ -332,13 +341,14 @@ boe_consumer_credit(type = "total", include_student_loans = TRUE)
 # M4 amounts outstanding
 m4 <- boe_money_supply(from = "2024-01-01")
 head(m4, 6)
-#>         date amount_gbp_m
-#>   2024-01-31      2986264
-#>   2024-02-29      2999033
-#>   2024-03-31      3025146
-#>   2024-04-30      3030412
-#>   2024-05-31      3028825
-#>   2024-06-30      3044464   # ← £3 trillion
+#> # BoE [boe_money_supply]: 1 series [LPMAUYN] · 6 obs · 2024-01-01 to 2026-11-01 · freq=monthly
+#>        date amount_gbp_m
+#>  2024-01-31      3001413
+#>  2024-02-29      3012392
+#>  2024-03-31      3033952
+#>  2024-04-30      3042366
+#>  2024-05-31      3039331
+#>  2024-06-30      3054662
 ```
 
 ------------------------------------------------------------------------
@@ -350,13 +360,14 @@ head(m4, 6)
 # SONIA replaced LIBOR as the UK's benchmark interest rate
 sonia <- boe_sonia(from = "2024-01-01", to = "2024-01-31")
 head(sonia, 6)
-#>         date rate_pct
-#>   2024-01-02   5.1863
-#>   2024-01-03   5.1863
-#>   2024-01-04   5.1870
-#>   2024-01-05   5.1869
-#>   2024-01-08   5.1869
-#>   2024-01-09   5.1867
+#> # BoE [boe_sonia]: 1 series [IUDSOIA] · 6 obs · 2024-01-01 to 2024-01-31 · freq=daily
+#>        date rate_pct
+#>  2024-01-02   5.1863
+#>  2024-01-03   5.1863
+#>  2024-01-04   5.1870
+#>  2024-01-05   5.1869
+#>  2024-01-08   5.1869
+#>  2024-01-09   5.1867
 
 # Monthly or annual average
 boe_sonia(from = "2020-01-01", frequency = "monthly")
@@ -373,15 +384,11 @@ boe_sonia(from = "2020-01-01", frequency = "monthly")
 
 # Multiple series in one call - Bank Rate vs SONIA
 boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
-#>          date    code  value
-#>    2024-01-02 IUDBEDR 5.2500
-#>    2024-01-03 IUDBEDR 5.2500
-#>    2024-01-04 IUDBEDR 5.2500
-#>    ...
-#>    2024-01-02 IUDSOIA 5.1863
-#>    2024-01-03 IUDSOIA 5.1863
-#>    2024-01-04 IUDSOIA 5.1870
-#>    ...
+#> # BoE [boe_get]: 2 series [IUDBEDR,IUDSOIA] · 14 obs · 2024-01-01 to 2024-01-10
+#>        date    code  value
+#>  2024-01-02 IUDBEDR 5.2500
+#>  2024-01-03 IUDBEDR 5.2500
+#> ...
 ```
 
 ------------------------------------------------------------------------
@@ -393,12 +400,13 @@ boe_get(c("IUDBEDR", "IUDSOIA"), from = "2024-01-01", to = "2024-01-10")
 # Every Bank Rate change since 1997
 decisions <- boe_mpc_decisions()
 tail(decisions, 5)
-#>         date new_rate_pct prev_rate_pct change_bps direction
-#>   2024-11-07         4.75          5.00        -25       cut
-#>   2025-02-06         4.50          4.75        -25       cut
-#>   2025-05-08         4.25          4.50        -25       cut
-#>   2025-08-07         4.00          4.25        -25       cut
-#>   2025-12-18         3.75          4.00        -25       cut
+#> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 5 obs · 1997-06-06 to 2026-11-01 · freq=decision
+#>        date new_rate_pct prev_rate_pct change_bps direction
+#>  2024-11-07         4.75          5.00        -25       cut
+#>  2025-02-06         4.50          4.75        -25       cut
+#>  2025-05-08         4.25          4.50        -25       cut
+#>  2025-08-07         4.00          4.25        -25       cut
+#>  2025-12-18         3.75          4.00        -25       cut
 
 # Full voting record: who dissented, and how
 votes <- boe_mpc_votes()
@@ -429,15 +437,17 @@ projections).
 cpi <- boe_mpr_forecasts(series = "cpi_inflation")
 
 subset(cpi, !is.na(scenario) & horizon == "2027 Q1")
-#>         date horizon horizon_date        series                 scenario value
-#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation         Adverse Scenario   4.3
-#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation Memo: central projection   3.2
-#>   2026-07-01 2027 Q1   2027-01-01 cpi_inflation          Milder Scenario   3.0
+#> # BoE: 3 obs
+#>        date horizon horizon_date        series                 scenario value
+#>  2026-07-01 2027 Q1   2027-01-01 cpi_inflation         Adverse Scenario   4.3
+#>  2026-07-01 2027 Q1   2027-01-01 cpi_inflation Memo: central projection   3.2
+#>  2026-07-01 2027 Q1   2027-01-01 cpi_inflation          Milder Scenario   2.9
 
 # All five traditional series for the most recent MPR
 all <- boe_mpr_forecasts()
 unique(all$series)
-#>   [1] "bank_rate" "cpi_inflation" "gdp_growth" "gdp_level" "unemployment"
+#> [1] "cpi_inflation" "bank_rate"     "gdp_growth"    "gdp_level"    
+#> [5] "unemployment" 
 
 # Scenario-only series (published from April 2026)
 boe_mpr_forecasts(series = "output_gap")
@@ -464,10 +474,10 @@ boe_browse(category = "exchange_rates")
 # The full catalogue is exported as a data frame
 head(boe_series)
 table(boe_series$category)
-#>     consumer_credit       exchange_rates       interest_rates
-#>                   5                   27                   14
-#>     monetary_aggregates    mortgage_market
-#>                       2                  6
+#>     consumer_credit      exchange_rates      interest_rates monetary_aggregates 
+#>                   5                  27                  14                   2 
+#>     mortgage_market 
+#>                   6 
 ```
 
 ------------------------------------------------------------------------
@@ -482,11 +492,11 @@ behaves like a normal data frame for everything else.
 
 br <- boe_bank_rate(from = "2024-01-01", frequency = "monthly")
 br
-#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 16 obs · 2024-01-01 to 2025-04-30 · freq=monthly
-#>         date rate_pct
-#>   2024-01-31     5.25
-#>   2024-02-29     5.25
-#>   ...
+#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 33 obs · 2024-01-01 to 2026-11-01 · freq=monthly
+#>        date rate_pct
+#>  2024-01-31   5.2500
+#>  2024-02-29   5.2500
+#> ...
 ```
 
 ------------------------------------------------------------------------

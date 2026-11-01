@@ -67,9 +67,9 @@ op <- options(boe.cache_dir = tempdir())
 # Bank Rate since 2000
 boe_bank_rate(from = "2000-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.3s]
+#> ✔ Downloading from Bank of England [1.4s]
 #> 
-#> # BoE [boe_bank_rate]: 1 series [IUDBEDR] · 6749 obs · 2000-01-01 to 2026-09-19 · freq=daily
+#> # BoE [boe_bank_rate]: 1 series [IUDBEDR] · 6779 obs · 2000-01-01 to 2026-11-01 · freq=daily
 #>            date rate_pct
 #> 1    2000-01-04     5.50
 #> 2    2000-01-05     5.50
@@ -6820,13 +6820,43 @@ boe_bank_rate(from = "2000-01-01")
 #> 6747 2026-09-15     3.75
 #> 6748 2026-09-16     3.75
 #> 6749 2026-09-17     3.75
+#> 6750 2026-09-18     3.75
+#> 6751 2026-09-21     3.75
+#> 6752 2026-09-22     3.75
+#> 6753 2026-09-23     3.75
+#> 6754 2026-09-24     3.75
+#> 6755 2026-09-25     3.75
+#> 6756 2026-09-28     3.75
+#> 6757 2026-09-29     3.75
+#> 6758 2026-09-30     3.75
+#> 6759 2026-10-01     3.75
+#> 6760 2026-10-02     3.75
+#> 6761 2026-10-05     3.75
+#> 6762 2026-10-06     3.75
+#> 6763 2026-10-07     3.75
+#> 6764 2026-10-08     3.75
+#> 6765 2026-10-09     3.75
+#> 6766 2026-10-12     3.75
+#> 6767 2026-10-13     3.75
+#> 6768 2026-10-14     3.75
+#> 6769 2026-10-15     3.75
+#> 6770 2026-10-16     3.75
+#> 6771 2026-10-19     3.75
+#> 6772 2026-10-20     3.75
+#> 6773 2026-10-21     3.75
+#> 6774 2026-10-22     3.75
+#> 6775 2026-10-23     3.75
+#> 6776 2026-10-26     3.75
+#> 6777 2026-10-27     3.75
+#> 6778 2026-10-28     3.75
+#> 6779 2026-10-29     3.75
 
 # Monthly average
 boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [424ms]
+#> ✔ Downloading from Bank of England [549ms]
 #> 
-#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 80 obs · 2020-01-01 to 2026-09-19 · freq=monthly
+#> # BoE [boe_bank_rate]: 1 series [IUMABEDR] · 81 obs · 2020-01-01 to 2026-11-01 · freq=monthly
 #>          date rate_pct
 #> 1  2020-01-31   0.7500
 #> 2  2020-02-29   0.7500
@@ -6908,6 +6938,7 @@ boe_bank_rate(from = "2020-01-01", frequency = "monthly")
 #> 78 2026-06-30   3.7500
 #> 79 2026-07-31   3.7500
 #> 80 2026-08-31   3.7500
+#> 81 2026-09-30   3.7500
 options(op)
 # }
 ```
