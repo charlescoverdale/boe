@@ -14,7 +14,6 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports:
     cli (>= 3.6.0),
     httr2 (>= 1.0.0),
@@ -33,3 +32,4 @@ BugReports: https://github.com/charlescoverdale/boe/issues
 Depends:
     R (>= 4.1.0)
 LazyData: true
+Config/roxygen2/version: 8.1.0

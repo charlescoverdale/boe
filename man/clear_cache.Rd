@@ -30,7 +30,7 @@ options(op)
 
 }
 \seealso{
-Other data access: 
-\code{\link{boe_get}()}
+Other data access:
+\code{\link[=boe_get]{boe_get()}}
 }
 \concept{data access}

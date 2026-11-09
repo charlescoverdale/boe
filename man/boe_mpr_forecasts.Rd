@@ -117,8 +117,8 @@ if (requireNamespace("readxl", quietly = TRUE)) {
 \seealso{
 \code{\link[=boe_mpc_decisions]{boe_mpc_decisions()}}, \code{\link[=boe_mpc_votes]{boe_mpc_votes()}}
 
-Other monetary policy: 
-\code{\link{boe_mpc_decisions}()},
-\code{\link{boe_mpc_votes}()}
+Other monetary policy:
+\code{\link[=boe_mpc_decisions]{boe_mpc_decisions()}},
+\code{\link[=boe_mpc_votes]{boe_mpc_votes()}}
 }
 \concept{monetary policy}

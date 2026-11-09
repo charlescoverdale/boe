@@ -36,7 +36,7 @@ boe_browse(frequency = "monthly")
 \seealso{
 \code{\link[=boe_search]{boe_search()}}, \link{boe_series}
 
-Other discovery: 
-\code{\link{boe_search}()}
+Other discovery:
+\code{\link[=boe_search]{boe_search()}}
 }
 \concept{discovery}

@@ -41,7 +41,7 @@ boe_search("bank rate")
 \seealso{
 \code{\link[=boe_browse]{boe_browse()}}, \link{boe_series}
 
-Other discovery: 
-\code{\link{boe_browse}()}
+Other discovery:
+\code{\link[=boe_browse]{boe_browse()}}
 }
 \concept{discovery}

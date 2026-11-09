@@ -53,8 +53,8 @@ options(op)
 \seealso{
 \code{\link[=boe_bank_rate]{boe_bank_rate()}}, \code{\link[=boe_mpc_votes]{boe_mpc_votes()}}
 
-Other monetary policy: 
-\code{\link{boe_mpc_votes}()},
-\code{\link{boe_mpr_forecasts}()}
+Other monetary policy:
+\code{\link[=boe_mpc_votes]{boe_mpc_votes()}},
+\code{\link[=boe_mpr_forecasts]{boe_mpr_forecasts()}}
 }
 \concept{monetary policy}

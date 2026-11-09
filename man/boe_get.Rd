@@ -51,7 +51,7 @@ options(op)
 
 }
 \seealso{
-Other data access: 
-\code{\link{clear_cache}()}
+Other data access:
+\code{\link[=clear_cache]{clear_cache()}}
 }
 \concept{data access}

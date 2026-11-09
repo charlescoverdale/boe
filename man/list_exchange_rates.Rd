@@ -23,7 +23,7 @@ list_exchange_rates()
 
 }
 \seealso{
-Other exchange rates: 
-\code{\link{boe_exchange_rate}()}
+Other exchange rates:
+\code{\link[=boe_exchange_rate]{boe_exchange_rate()}}
 }
 \concept{exchange rates}

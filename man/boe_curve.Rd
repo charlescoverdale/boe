@@ -116,10 +116,10 @@ and nominal yield curves. \emph{Bank of England Working Paper No.
 126.} \url{https://www.bankofengland.co.uk/working-paper/2001/new-estimates-of-the-uk-real-and-nominal-yield-curves}
 }
 \seealso{
-Other interest rates: 
-\code{\link{boe_bank_rate}()},
-\code{\link{boe_curve_panel}()},
-\code{\link{boe_sonia}()},
-\code{\link{boe_yield_curve}()}
+Other interest rates:
+\code{\link[=boe_bank_rate]{boe_bank_rate()}},
+\code{\link[=boe_curve_panel]{boe_curve_panel()}},
+\code{\link[=boe_sonia]{boe_sonia()}},
+\code{\link[=boe_yield_curve]{boe_yield_curve()}}
 }
 \concept{interest rates}

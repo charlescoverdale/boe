@@ -51,8 +51,8 @@ options(op)
 
 }
 \seealso{
-Other credit and housing: 
-\code{\link{boe_consumer_credit}()},
-\code{\link{boe_mortgage_approvals}()}
+Other credit and housing:
+\code{\link[=boe_consumer_credit]{boe_consumer_credit()}},
+\code{\link[=boe_mortgage_approvals]{boe_mortgage_approvals()}}
 }
 \concept{credit and housing}

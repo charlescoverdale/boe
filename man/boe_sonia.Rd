@@ -45,10 +45,10 @@ options(op)
 
 }
 \seealso{
-Other interest rates: 
-\code{\link{boe_bank_rate}()},
-\code{\link{boe_curve}()},
-\code{\link{boe_curve_panel}()},
-\code{\link{boe_yield_curve}()}
+Other interest rates:
+\code{\link[=boe_bank_rate]{boe_bank_rate()}},
+\code{\link[=boe_curve]{boe_curve()}},
+\code{\link[=boe_curve_panel]{boe_curve_panel()}},
+\code{\link[=boe_yield_curve]{boe_yield_curve()}}
 }
 \concept{interest rates}
