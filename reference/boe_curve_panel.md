@@ -106,7 +106,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [6ms]
+#> ✔ Using cached yield curve archive [5ms]
 #> 
 # }
 

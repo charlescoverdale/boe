@@ -119,9 +119,9 @@ daily from late 1993; real zero-coupon yields from 1985.</p>
 <span class="r-in"><span><span class="co"># 10-year nominal gilt yield since 2020</span></span></span>
 <span class="r-in"><span><span class="fu">boe_yield_curve</span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span>, maturity <span class="op">=</span> <span class="st">"10yr"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[403ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[701ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1724 obs · 2020-01-01 to 2026-11-01 · freq=daily</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1730 obs · 2020-01-01 to 2026-11-09 · freq=daily</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date maturity yield_pct</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02     10yr    0.8523</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2020-01-03     10yr    0.8094</span>
@@ -1847,13 +1847,19 @@ daily from late 1993; real zero-coupon yields from 1985.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1722 2026-10-26     10yr    5.3048</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1723 2026-10-27     10yr    5.3046</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1724 2026-10-28     10yr    5.3087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1725 2026-10-29     10yr    5.2589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1726 2026-10-30     10yr    5.2497</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1727 2026-11-02     10yr    5.1677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1728 2026-11-03     10yr    5.2098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1729 2026-11-04     10yr    5.1364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1730 2026-11-05     10yr    5.1392</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Full nominal curve</span></span></span>
 <span class="r-in"><span><span class="fu">boe_yield_curve</span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[776ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[756ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 5172 obs · 2020-01-01 to 2026-11-01 · freq=daily</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 5190 obs · 2020-01-01 to 2026-11-09 · freq=daily</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date maturity yield_pct</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02     10yr    0.8523</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2020-01-02     20yr    1.1599</span>
@@ -7027,13 +7033,31 @@ daily from late 1993; real zero-coupon yields from 1985.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5170 2026-10-28     10yr    5.3087</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5171 2026-10-28     20yr    5.5854</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5172 2026-10-28      5yr    4.9614</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5173 2026-10-29     10yr    5.2589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5174 2026-10-29     20yr    5.5453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5175 2026-10-29      5yr    4.9062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5176 2026-10-30     10yr    5.2497</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5177 2026-10-30     20yr    5.5535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5178 2026-10-30      5yr    4.8939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5179 2026-11-02     10yr    5.1677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5180 2026-11-02     20yr    5.4715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5181 2026-11-02      5yr    4.8165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5182 2026-11-03     10yr    5.2098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5183 2026-11-03     20yr    5.5176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5184 2026-11-03      5yr    4.8554</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5185 2026-11-04     10yr    5.1364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5186 2026-11-04     20yr    5.4488</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5187 2026-11-04      5yr    4.7795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5188 2026-11-05     10yr    5.1392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5189 2026-11-05     20yr    5.4481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5190 2026-11-05      5yr    4.7714</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Real yields</span></span></span>
 <span class="r-in"><span><span class="fu">boe_yield_curve</span><span class="op">(</span>from <span class="op">=</span> <span class="st">"2020-01-01"</span>, type <span class="op">=</span> <span class="st">"real"</span>, measure <span class="op">=</span> <span class="st">"zero_coupon"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading from Bank of England</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[722ms]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading from Bank of England <span style="color: #B2B2B2;">[966ms]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 5172 obs · 2020-01-01 to 2026-11-01 · freq=daily</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 5190 obs · 2020-01-01 to 2026-11-09 · freq=daily</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            date maturity yield_pct</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    2020-01-02     10yr   -2.4368</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2020-01-02     20yr   -2.0833</span>
@@ -12207,6 +12231,24 @@ daily from late 1993; real zero-coupon yields from 1985.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5170 2026-10-28     10yr    1.9584</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5171 2026-10-28     20yr    2.4242</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5172 2026-10-28      5yr    1.2944</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5173 2026-10-29     10yr    1.9373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5174 2026-10-29     20yr    2.4013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5175 2026-10-29      5yr    1.2822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5176 2026-10-30     10yr    1.9537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5177 2026-10-30     20yr    2.4297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5178 2026-10-30      5yr    1.2896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5179 2026-11-02     10yr    1.9306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5180 2026-11-02     20yr    2.3914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5181 2026-11-02      5yr    1.3186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5182 2026-11-03     10yr    1.9820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5183 2026-11-03     20yr    2.4402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5184 2026-11-03      5yr    1.3794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5185 2026-11-04     10yr    1.9114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5186 2026-11-04     20yr    2.3693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5187 2026-11-04      5yr    1.3333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5188 2026-11-05     10yr    1.9037</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5189 2026-11-05     20yr    2.3709</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5190 2026-11-05      5yr    1.3292</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

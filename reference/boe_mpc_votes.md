@@ -78,7 +78,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading MPC voting record from Bank of England
-#> ✔ Downloading MPC voting record from Bank of England [570ms]
+#> ✔ Downloading MPC voting record from Bank of England [564ms]
 #> 
 # }
 ```
