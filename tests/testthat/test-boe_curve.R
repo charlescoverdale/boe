@@ -141,7 +141,9 @@ test_that("boe_curve_panel short segment returns short-end pillars", {
                            segment = "short", maturities = c(1, 2, 5))
   expect_s3_class(panel, "boe_tbl")
   expect_named(panel, c("date", "m1", "m2", "m5"))
-  expect_gt(nrow(panel), 10L)
+  # The latest-month zip only holds the current calendar month, so early in
+  # a month it can carry as few as one business day.
+  expect_gt(nrow(panel), 0L)
 })
 
 # ---- archive URL registry (offline) -----------------------------------------
