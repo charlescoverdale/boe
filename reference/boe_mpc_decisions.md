@@ -75,9 +75,9 @@ op <- options(boe.cache_dir = tempdir())
 # All MPC decisions since the global financial crisis
 boe_mpc_decisions(from = "2007-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [967ms]
+#> ✔ Downloading from Bank of England [837ms]
 #> 
-#> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 38 obs · 2007-01-01 to 2026-11-09 · freq=decision
+#> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 38 obs · 2007-01-01 to 2026-11-10 · freq=decision
 #>          date new_rate_pct prev_rate_pct change_bps direction
 #> 1  2007-01-11         5.25          5.00         25      hike
 #> 2  2007-05-10         5.50          5.25         25      hike
@@ -121,9 +121,9 @@ boe_mpc_decisions(from = "2007-01-01")
 # Just decisions in 2024 to date
 boe_mpc_decisions(from = "2024-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [478ms]
+#> ✔ Downloading from Bank of England [535ms]
 #> 
-#> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 7 obs · 2024-01-01 to 2026-11-09 · freq=decision
+#> # BoE [boe_mpc_decisions]: 1 series [IUDBEDR] · 7 obs · 2024-01-01 to 2026-11-10 · freq=decision
 #>         date new_rate_pct prev_rate_pct change_bps direction
 #> 1 2024-08-01         5.00          5.25        -25       cut
 #> 2 2024-11-07         4.75          5.00        -25       cut

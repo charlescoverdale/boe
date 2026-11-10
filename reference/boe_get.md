@@ -71,9 +71,9 @@ op <- options(boe.cache_dir = tempdir())
 # Bank Rate since 2000
 boe_get("IUDBEDR", from = "2000-01-01")
 #> ℹ Using cached data
-#> ✔ Using cached data [4ms]
+#> ✔ Using cached data [6ms]
 #> 
-#> # BoE [boe_get]: 1 series [IUDBEDR] · 6785 obs · 2000-01-01 to 2026-11-09
+#> # BoE [boe_get]: 1 series [IUDBEDR] · 6785 obs · 2000-01-01 to 2026-11-10
 #>            date    code value
 #> 1    2000-01-04 IUDBEDR  5.50
 #> 2    2000-01-05 IUDBEDR  5.50
@@ -6864,9 +6864,9 @@ boe_get("IUDBEDR", from = "2000-01-01")
 # Multiple series
 boe_get(c("IUDBEDR", "IUDSOIA"), from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [636ms]
+#> ✔ Downloading from Bank of England [806ms]
 #> 
-#> # BoE [boe_get]: 2 series [IUDBEDR,IUDSOIA] · 3461 obs · 2020-01-01 to 2026-11-09
+#> # BoE [boe_get]: 2 series [IUDBEDR,IUDSOIA] · 3461 obs · 2020-01-01 to 2026-11-10
 #>            date    code  value
 #> 1    2020-01-02 IUDBEDR 0.7500
 #> 2    2020-01-03 IUDBEDR 0.7500

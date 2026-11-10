@@ -23,7 +23,7 @@ archive, which extends back as far as 1979 for nominal gilts.
 
 latest <- boe_curve(curve = "nominal", measure = "spot")
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [394ms]
+#> ✔ Downloading yield curve archive from Bank of England [550ms]
 #> 
 range(latest$date)
 #> [1] "2026-11-02" "2026-11-06"
@@ -61,7 +61,7 @@ panel <- boe_curve_panel(
   maturities = c(2, 5, 10, 20)
 )
 #> ℹ Downloading nominal monthly yield-curve archive from Bank of England
-#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [248ms]
+#> ✔ Downloading nominal monthly yield-curve archive from Bank of England [517ms]
 #> 
 head(panel)
 #> # BoE [boe_curve_panel]: 1 series [AS_NOMINAL_SPOT] · 6 obs · 2000-01-31 to 2026-10-30 · freq=monthly
@@ -108,7 +108,7 @@ inflation_fwd <- boe_curve_panel(
   maturities = c(5, 10)
 )
 #> ℹ Downloading inflation monthly yield-curve archive from Bank of England
-#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [338ms]
+#> ✔ Downloading inflation monthly yield-curve archive from Bank of England [374ms]
 #> 
 
 inflation_fwd$five_y_five_y <- (inflation_fwd$m10 * 10 -
@@ -162,12 +162,12 @@ ois <- boe_curve_panel(
   maturities = c(0.5, 1, 2, 5)
 )
 #> ℹ Downloading ois monthly yield-curve archive from Bank of England
-#> ✔ Downloading ois monthly yield-curve archive from Bank of England [370ms]
+#> ✔ Downloading ois monthly yield-curve archive from Bank of England [292ms]
 #> 
 
 mpc <- boe_mpc_decisions(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [505ms]
+#> ✔ Downloading from Bank of England [693ms]
 #> 
 mpc <- data.frame(date = mpc$date, bank_rate = mpc$new_rate_pct)
 
@@ -235,7 +235,7 @@ to reach it.
 
 short <- boe_curve(curve = "nominal", measure = "spot", segment = "short")
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [5ms]
+#> ✔ Using cached yield curve archive [6ms]
 #> 
 range(short$maturity_years)   # monthly grid, ~1/12 to 5 years
 #> [1] 0.3333333 4.9999998
@@ -249,7 +249,7 @@ monthly resolution. Here it is on the most recent published date.
 
 ois_short  <- boe_curve(curve = "ois", measure = "forward", segment = "short")
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [5ms]
+#> ✔ Using cached yield curve archive [9ms]
 #> 
 latest_day <- ois_short[ois_short$date == max(ois_short$date), ]
 head(latest_day)

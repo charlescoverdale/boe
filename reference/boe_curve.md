@@ -138,10 +138,10 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading yield curve archive from Bank of England
-#> ✔ Downloading yield curve archive from Bank of England [222ms]
+#> ✔ Downloading yield curve archive from Bank of England [290ms]
 #> 
 #> ℹ Using cached yield curve archive
-#> ✔ Using cached yield curve archive [5ms]
+#> ✔ Using cached yield curve archive [6ms]
 #> 
 # }
 
