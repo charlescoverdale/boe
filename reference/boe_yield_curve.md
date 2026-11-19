@@ -80,9 +80,9 @@ op <- options(boe.cache_dir = tempdir())
 # 10-year nominal gilt yield since 2020
 boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [816ms]
+#> ✔ Downloading from Bank of England [476ms]
 #> 
-#> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1730 obs · 2020-01-01 to 2026-11-10 · freq=daily
+#> # BoE [boe_yield_curve]: 1 series [IUDMNPY] · 1737 obs · 2020-01-01 to 2026-11-19 · freq=daily
 #>            date maturity yield_pct
 #> 1    2020-01-02     10yr    0.8523
 #> 2    2020-01-03     10yr    0.8094
@@ -1814,13 +1814,20 @@ boe_yield_curve(from = "2020-01-01", maturity = "10yr")
 #> 1728 2026-11-03     10yr    5.2098
 #> 1729 2026-11-04     10yr    5.1364
 #> 1730 2026-11-05     10yr    5.1392
+#> 1731 2026-11-06     10yr    5.1184
+#> 1732 2026-11-09     10yr    5.1364
+#> 1733 2026-11-10     10yr    5.1906
+#> 1734 2026-11-11     10yr    5.2044
+#> 1735 2026-11-12     10yr    5.2514
+#> 1736 2026-11-13     10yr    5.3011
+#> 1737 2026-11-16     10yr    5.3151
 
 # Full nominal curve
 boe_yield_curve(from = "2020-01-01")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.3s]
+#> ✔ Downloading from Bank of England [810ms]
 #> 
-#> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 5190 obs · 2020-01-01 to 2026-11-10 · freq=daily
+#> # BoE [boe_yield_curve]: 3 series [IUDSNPY,IUDMNPY,IUDLNPY] · 5211 obs · 2020-01-01 to 2026-11-19 · freq=daily
 #>            date maturity yield_pct
 #> 1    2020-01-02     10yr    0.8523
 #> 2    2020-01-02     20yr    1.1599
@@ -7012,13 +7019,34 @@ boe_yield_curve(from = "2020-01-01")
 #> 5188 2026-11-05     10yr    5.1392
 #> 5189 2026-11-05     20yr    5.4481
 #> 5190 2026-11-05      5yr    4.7714
+#> 5191 2026-11-06     10yr    5.1184
+#> 5192 2026-11-06     20yr    5.4287
+#> 5193 2026-11-06      5yr    4.7722
+#> 5194 2026-11-09     10yr    5.1364
+#> 5195 2026-11-09     20yr    5.4488
+#> 5196 2026-11-09      5yr    4.7795
+#> 5197 2026-11-10     10yr    5.1906
+#> 5198 2026-11-10     20yr    5.4859
+#> 5199 2026-11-10      5yr    4.8471
+#> 5200 2026-11-11     10yr    5.2044
+#> 5201 2026-11-11     20yr    5.4858
+#> 5202 2026-11-11      5yr    4.8852
+#> 5203 2026-11-12     10yr    5.2514
+#> 5204 2026-11-12     20yr    5.5359
+#> 5205 2026-11-12      5yr    4.9256
+#> 5206 2026-11-13     10yr    5.3011
+#> 5207 2026-11-13     20yr    5.6069
+#> 5208 2026-11-13      5yr    4.9526
+#> 5209 2026-11-16     10yr    5.3151
+#> 5210 2026-11-16     20yr    5.6042
+#> 5211 2026-11-16      5yr    4.9734
 
 # Real yields
 boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 #> ℹ Downloading from Bank of England
-#> ✔ Downloading from Bank of England [1.1s]
+#> ✔ Downloading from Bank of England [706ms]
 #> 
-#> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 5190 obs · 2020-01-01 to 2026-11-10 · freq=daily
+#> # BoE [boe_yield_curve]: 3 series [IUDSRZC,IUDMRZC,IUDLRZC] · 5211 obs · 2020-01-01 to 2026-11-19 · freq=daily
 #>            date maturity yield_pct
 #> 1    2020-01-02     10yr   -2.4368
 #> 2    2020-01-02     20yr   -2.0833
@@ -12210,6 +12238,27 @@ boe_yield_curve(from = "2020-01-01", type = "real", measure = "zero_coupon")
 #> 5188 2026-11-05     10yr    1.9037
 #> 5189 2026-11-05     20yr    2.3709
 #> 5190 2026-11-05      5yr    1.3292
+#> 5191 2026-11-06     10yr    1.9485
+#> 5192 2026-11-06     20yr    2.3867
+#> 5193 2026-11-06      5yr    1.4005
+#> 5194 2026-11-09     10yr    1.9666
+#> 5195 2026-11-09     20yr    2.4028
+#> 5196 2026-11-09      5yr    1.4375
+#> 5197 2026-11-10     10yr    2.0521
+#> 5198 2026-11-10     20yr    2.4739
+#> 5199 2026-11-10      5yr    1.5330
+#> 5200 2026-11-11     10yr    2.0219
+#> 5201 2026-11-11     20yr    2.4486
+#> 5202 2026-11-11      5yr    1.4802
+#> 5203 2026-11-12     10yr    2.0365
+#> 5204 2026-11-12     20yr    2.4707
+#> 5205 2026-11-12      5yr    1.4694
+#> 5206 2026-11-13     10yr    2.1133
+#> 5207 2026-11-13     20yr    2.5672
+#> 5208 2026-11-13      5yr    1.5180
+#> 5209 2026-11-16     10yr    2.1597
+#> 5210 2026-11-16     20yr    2.5885
+#> 5211 2026-11-16      5yr    1.5906
 options(op)
 # }
 ```

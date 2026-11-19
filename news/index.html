@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">boe</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,10 @@
       <small>Source: <a href="https://github.com/charlescoverdale/boe/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="boe-development-version">boe (development version)<a class="anchor" aria-label="anchor" href="#boe-development-version"></a></h2>
+<ul><li>Download failures caused by an HTTP error status (for example a 404 after the Bank of England moves a file) are now reported with the status code and URL. Previously every download wrapped <code>req_perform()</code> in a catch-all handler that told the user to check their internet connection, which sent anyone hitting a moved or withdrawn file (yield curves, MPC votes, MPR archives, IADB series) looking for a network fault that did not exist. Genuine transport failures keep the connection hint. All five download paths now go through one helper.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="boe-040">boe 0.4.0<a class="anchor" aria-label="anchor" href="#boe-040"></a></h2><p class="text-muted">CRAN release: 2026-08-02</p>
 <div class="section level3">

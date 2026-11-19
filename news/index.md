@@ -1,5 +1,16 @@
 # Changelog
 
+## boe (development version)
+
+- Download failures caused by an HTTP error status (for example a 404
+  after the Bank of England moves a file) are now reported with the
+  status code and URL. Previously every download wrapped `req_perform()`
+  in a catch-all handler that told the user to check their internet
+  connection, which sent anyone hitting a moved or withdrawn file (yield
+  curves, MPC votes, MPR archives, IADB series) looking for a network
+  fault that did not exist. Genuine transport failures keep the
+  connection hint. All five download paths now go through one helper.
+
 ## boe 0.4.0
 
 CRAN release: 2026-08-02

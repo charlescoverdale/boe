@@ -147,7 +147,7 @@ if (requireNamespace("readxl", quietly = TRUE)) {
   options(op)
 }
 #> ℹ Downloading November 2026 MPR archive
-#> ✔ Downloading November 2026 MPR archive [1.4s]
+#> ✔ Downloading November 2026 MPR archive [308ms]
 #> 
 # }
 ```
