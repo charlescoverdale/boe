@@ -66,24 +66,7 @@ boe_mpc_votes <- function(cache = TRUE) {
   } else {
     cli::cli_progress_step("Downloading MPC voting record from Bank of England")
     url <- mpcvoting_url()
-    tryCatch(
-      httr2::request(url) |>
-        httr2::req_user_agent("boe R package (https://github.com/charlescoverdale/boe)") |>
-        httr2::req_timeout(60) |>
-        httr2::req_retry(
-          max_tries    = 3,
-          is_transient = function(resp) httr2::resp_status(resp) %in% c(429L, 503L)
-        ) |>
-        httr2::req_perform(path = cache_file),
-      error = function(e) {
-        if (file.exists(cache_file)) unlink(cache_file)
-        cli::cli_abort(c(
-          "Download failed.",
-          "i" = "Check your internet connection.",
-          "x" = conditionMessage(e)
-        ))
-      }
-    )
+    boe_perform_download(url, cache_file, timeout = 60)
   }
 
   parse_mpcvoting(cache_file)

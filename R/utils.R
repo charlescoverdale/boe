@@ -129,27 +129,55 @@ download_cached_boe <- function(url, cache = TRUE) {
   dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
   cli::cli_progress_step("Downloading from Bank of England")
 
-  tryCatch(
-    httr2::request(url) |>
-      httr2::req_user_agent("boe R package (https://github.com/charlescoverdale/boe)") |>
-      httr2::req_throttle(rate = 5 / 10) |>
-      httr2::req_retry(
-        max_tries    = 3,
-        is_transient = function(resp) httr2::resp_status(resp) %in% c(429L, 503L)
-      ) |>
-      httr2::req_timeout(60) |>
-      httr2::req_perform(path = cache_file),
+  boe_perform_download(url, cache_file, timeout = 60, throttle = TRUE)
+
+  cache_file
+}
+
+#' Perform a download to `path`, reporting failures informatively
+#'
+#' The single request path for every file download in the package. An HTTP
+#' error status (e.g. 404 after an upstream move) is reported with its status
+#' code and URL; only genuine transport failures (DNS, refused connection,
+#' timeout) get the "check your internet connection" hint. A partial file is
+#' removed on any failure so it is never mistaken for a cache hit.
+#' @noRd
+boe_perform_download <- function(url, path, timeout = 60, throttle = FALSE,
+                                 offline_hint = "Check your internet connection.") {
+  req <- httr2::request(url) |>
+    httr2::req_user_agent("boe R package (https://github.com/charlescoverdale/boe)")
+  if (throttle) req <- httr2::req_throttle(req, rate = 5 / 10)
+  req <- req |>
+    httr2::req_retry(
+      max_tries    = 3,
+      is_transient = function(resp) httr2::resp_status(resp) %in% c(429L, 503L)
+    ) |>
+    httr2::req_timeout(timeout) |>
+    httr2::req_error(is_error = function(resp) FALSE)
+
+  resp <- tryCatch(
+    httr2::req_perform(req, path = path),
     error = function(e) {
-      if (file.exists(cache_file)) unlink(cache_file)
+      if (file.exists(path)) unlink(path)
       cli::cli_abort(c(
-        "Download failed.",
-        "i" = "Check your internet connection.",
+        "Download failed for {.url {url}}.",
+        "i" = offline_hint,
         "x" = conditionMessage(e)
-      ))
+      ), call = NULL)
     }
   )
 
-  cache_file
+  status <- httr2::resp_status(resp)
+  if (status >= 400L) {
+    if (file.exists(path)) unlink(path)
+    cli::cli_abort(c(
+      "Bank of England server returned HTTP {status} {httr2::resp_status_desc(resp)}.",
+      "i" = "URL: {.url {url}}",
+      "i" = if (status == 404L) "The file may have moved or been withdrawn upstream."
+    ), class = "boe_http_error", call = NULL)
+  }
+
+  invisible(path)
 }
 
 #' Simple URL hash for cache filenames

@@ -196,24 +196,7 @@ download_yield_zip <- function(cache = TRUE, cache_ttl_h = 24) {
 
   cli::cli_progress_step("Downloading yield curve archive from Bank of England")
 
-  tryCatch(
-    httr2::request(yield_zip_url()) |>
-      httr2::req_user_agent("boe R package (https://github.com/charlescoverdale/boe)") |>
-      httr2::req_timeout(180) |>
-      httr2::req_retry(
-        max_tries    = 3,
-        is_transient = function(resp) httr2::resp_status(resp) %in% c(429L, 503L)
-      ) |>
-      httr2::req_perform(path = cache_file),
-    error = function(e) {
-      if (file.exists(cache_file)) unlink(cache_file)
-      cli::cli_abort(c(
-        "Download failed.",
-        "i" = "Check your internet connection.",
-        "x" = conditionMessage(e)
-      ))
-    }
-  )
+  boe_perform_download(yield_zip_url(), cache_file, timeout = 180)
 
   cache_file
 }
